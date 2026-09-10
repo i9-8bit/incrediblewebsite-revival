@@ -1,1 +1,32 @@
+[
+    {
+        "title": "Acceleration City",
+        "description": "3D city driving game",
+        "category": "Racing",
+        "platform": "Web",
+        "type": "web",
+        "url": "https://games.cs2n.org/games/acceleration-city",
+        "featured": true,
+        "tags": [
+            "Racing",
+            "3D",
+            "Driving",
+            "City"
+        ]
+    },
 
+    {
+        "title": "Game Boy Emulator",
+        "description": "Browser-based Game Boy emulator.",
+        "category": "Gameboys",
+        "platform": "Game Boy",
+        "type": "emulator",
+        "url": "emulator.html",
+        "featured": true,
+        "tags": [
+            "Retro",
+            "Game Boy",
+            "Emulator"
+        ]
+    }
+]
