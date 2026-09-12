@@ -1,8 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <title>Emulator | INCRWD</title>
 
     <style>
@@ -10,7 +12,8 @@
             box-sizing: border-box;
         }
 
-        html, body {
+        html,
+        body {
             margin: 0;
             min-height: 100%;
             background: #080a10;
@@ -21,10 +24,12 @@
         header {
             min-height: 68px;
             padding: 14px 25px;
+
             display: flex;
             align-items: center;
             justify-content: space-between;
             gap: 20px;
+
             background: #090b12;
             border-bottom: 1px solid #252b38;
         }
@@ -84,6 +89,10 @@
             font: inherit;
         }
 
+        input[type="file"] {
+            max-width: 100%;
+        }
+
         button {
             cursor: pointer;
         }
@@ -97,12 +106,25 @@
             border-color: #00acd6;
         }
 
+        .primary:hover {
+            background: #00c2ed;
+        }
+
+        .secondary {
+            background: #171d28;
+        }
+
         .emulator-shell {
+            width: 100%;
             min-height: 600px;
             padding: 15px;
+
             background: #020305;
+
             border: 1px solid #283142;
             border-radius: 16px;
+
+            overflow: hidden;
         }
 
         #game {
@@ -113,19 +135,48 @@
         .status {
             margin-top: 15px;
             padding: 14px;
+
             background: #111620;
             border-radius: 9px;
+
             color: #aab4c2;
+            line-height: 1.5;
+        }
+
+        .success {
+            color: #74e39b;
+        }
+
+        .error {
+            color: #ff7d8d;
+        }
+
+        .notice {
+            margin-top: 15px;
+            padding: 14px;
+
+            background: #111620;
+            border-radius: 9px;
+
+            color: #929dac;
+            line-height: 1.5;
+        }
+
+        .hidden {
+            display: none !important;
         }
 
         footer {
             padding: 40px 20px;
             text-align: center;
+
             border-top: 1px solid #252b38;
+
             color: #717b8a;
         }
 
         @media (max-width: 700px) {
+
             header {
                 flex-direction: column;
             }
@@ -133,48 +184,159 @@
             nav {
                 justify-content: center;
             }
+
+            .emulator-shell {
+                padding: 5px;
+            }
+
+            #game {
+                min-height: 450px;
+            }
         }
     </style>
 
-    <!-- EmulatorJS configuration: declared ONCE -->
+    <!-- ==========================================================
+         EmulatorJS CONFIGURATION
+         This is declared exactly ONCE.
+         ========================================================== -->
+
     <script>
-        const emulatorParams =
-            new URLSearchParams(window.location.search);
+        const emulatorQuery =
+            new URLSearchParams(
+                window.location.search
+            );
 
         const emulatorRom =
-            emulatorParams.get("rom");
+            emulatorQuery.get("rom");
 
         const emulatorCore =
-            emulatorParams.get("core") || "gba";
+            emulatorQuery.get("core") || "gba";
 
-        window.EJS_player = "#game";
-        window.EJS_core = emulatorCore;
+
+        /*
+         * EmulatorJS data location.
+         *
+         * We pin the release instead of using "stable"
+         * so a future CDN update doesn't unexpectedly
+         * change the emulator underneath the website.
+         */
+
+        const emulatorDataPath =
+            "https://cdn.emulatorjs.org/4.2.3/data/";
+
+
+        window.EJS_player =
+            "#game";
+
+
+        window.EJS_core =
+            emulatorCore;
+
+
         window.EJS_pathtodata =
-            "https://cdn.emulatorjs.org/stable/data/";
+            emulatorDataPath;
 
-        window.EJS_startOnLoaded = true;
+
+        window.EJS_startOnLoaded =
+            true;
+
+
+        /*
+         * Disable the cheat interface.
+         *
+         * The previous crash occurred while EmulatorJS
+         * initialized its cheat manager.
+         */
+
+        window.EJS_Buttons = {
+            playPause: true,
+            restart: true,
+            mute: true,
+            settings: true,
+            fullscreen: true,
+            saveState: true,
+            loadState: true,
+            screenRecord: false,
+            gamepad: true,
+            cheat: false,
+            volume: true,
+            saveSavFiles: true,
+            loadSavFiles: true,
+            quickSave: true,
+            quickLoad: true,
+            screenshot: true,
+            cacheManager: true,
+            exitEmulation: true
+        };
+
+
+        /*
+         * Convert a repository-relative ROM path
+         * to an absolute URL.
+         *
+         * Example:
+         * games/gameboys/test.gba
+         *
+         * becomes:
+         * https://i9-8bit.github.io/games/gameboys/test.gba
+         */
 
         if (emulatorRom) {
-            window.EJS_gameUrl =
-                new URL(
-                    emulatorRom,
-                    window.location.href
-                ).href;
+
+            try {
+
+                window.EJS_gameUrl =
+                    new URL(
+                        emulatorRom,
+                        window.location.href
+                    ).href;
+
+            } catch (error) {
+
+                console.error(
+                    "Invalid ROM URL:",
+                    error
+                );
+
+            }
+
 
             window.EJS_gameName =
                 decodeURIComponent(
-                    emulatorRom.split("/").pop()
+                    emulatorRom
+                        .split("/")
+                        .pop()
                 );
+
         }
 
-    </script>
 
-    <!-- LOAD EMULATORJS ONLY ONCE -->
-    <script
-        src="https://cdn.emulatorjs.org/stable/data/loader.js">
+        /*
+         * Load EmulatorJS exactly once.
+         */
+
+        const emulatorLoader =
+            document.createElement(
+                "script"
+            );
+
+
+        emulatorLoader.src =
+            emulatorDataPath +
+            "loader.js";
+
+
+        emulatorLoader.id =
+            "emulatorjs-loader";
+
+
+        document.head.appendChild(
+            emulatorLoader
+        );
     </script>
 
 </head>
+
 
 <body>
 
@@ -185,21 +347,41 @@
     </div>
 
     <nav>
-        <a href="index.html">Home</a>
-        <a href="games.html">Games</a>
-        <a href="gameboys.html">Gameboys</a>
-        <a href="add-game.html">Add Game</a>
+
+        <a href="index.html">
+            Home
+        </a>
+
+        <a href="games.html">
+            Games
+        </a>
+
+        <a href="gameboys.html">
+            Gameboys
+        </a>
+
+        <a href="add-game.html">
+            Add Game
+        </a>
+
     </nav>
 
 </header>
 
+
 <main>
 
-    <h1>🕹️ Emulator</h1>
+    <h1>
+        🕹️ Emulator
+    </h1>
 
-    <p id="subtitle" class="subtitle">
-        Loading emulator...
+
+    <p
+        id="subtitle"
+        class="subtitle">
+        Initializing emulator...
     </p>
+
 
     <div class="controls">
 
@@ -213,127 +395,243 @@
                 Game Boy Color
             </option>
 
-            <option value="gba" selected>
+            <option
+                value="gba"
+                selected>
                 Game Boy Advance
             </option>
 
         </select>
 
+
         <input
             id="localRom"
             type="file"
             accept=".gb,.gbc,.gba"
-        >
+        />
+
 
         <button
             id="localButton"
             class="primary">
+
             Load Local ROM
+
         </button>
 
     </div>
 
+
     <div class="emulator-shell">
+
         <div id="game"></div>
+
     </div>
 
-    <div id="status" class="status">
-        Initializing...
+
+    <div
+        id="status"
+        class="status">
+
+        Starting EmulatorJS...
+
+    </div>
+
+
+    <div class="notice">
+
+        <strong>Supported systems:</strong>
+        Game Boy, Game Boy Color and Game Boy Advance.
+
+        <br><br>
+
+        For ROM files, use games you have the legal right
+        to use.
+
     </div>
 
 </main>
 
+
 <footer>
-    EmulatorJS retains its applicable license.
+
+    <p>
+        EmulatorJS retains its applicable license.
+    </p>
+
 </footer>
 
 
 <script>
-    const emulatorSubtitle =
-        document.getElementById("subtitle");
 
-    const emulatorStatus =
-        document.getElementById("status");
-
-    const emulatorSystem =
-        document.getElementById("system");
-
-    const emulatorLocalRom =
-        document.getElementById("localRom");
-
-    const emulatorLocalButton =
-        document.getElementById("localButton");
-
-
-    function updateEmulatorStatus(message) {
-        emulatorStatus.textContent = message;
-    }
-
-
-    if (emulatorRom) {
-
-        emulatorSystem.value =
-            emulatorCore;
-
-        emulatorSubtitle.textContent =
-            "Loading " +
-            decodeURIComponent(
-                emulatorRom.split("/").pop()
-            );
-
-        updateEmulatorStatus(
-            "Starting " +
-            emulatorCore +
-            " emulator..."
+    const pageParams =
+        new URLSearchParams(
+            window.location.search
         );
 
-    } else {
 
-        emulatorSubtitle.textContent =
-            "Choose a ROM to play.";
+    const pageRom =
+        pageParams.get("rom");
 
-        updateEmulatorStatus(
-            "EmulatorJS loaded. Choose a ROM."
+
+    const pageCore =
+        pageParams.get("core") || "gba";
+
+
+    const subtitleElement =
+        document.getElementById(
+            "subtitle"
         );
+
+
+    const statusElement =
+        document.getElementById(
+            "status"
+        );
+
+
+    const systemElement =
+        document.getElementById(
+            "system"
+        );
+
+
+    const localRomElement =
+        document.getElementById(
+            "localRom"
+        );
+
+
+    const localButtonElement =
+        document.getElementById(
+            "localButton"
+        );
+
+
+    /*
+     * Set the visible system selector.
+     */
+
+    if (
+        pageCore === "gb" ||
+        pageCore === "gbc" ||
+        pageCore === "gba"
+    ) {
+
+        systemElement.value =
+            pageCore;
 
     }
 
 
     /*
-     * Local ROM support.
-     *
-     * We keep this page initialization to ONE
-     * EmulatorJS loader. A local file is loaded
-     * by opening a fresh emulator page with its
-     * selected file URL.
+     * Show the loaded ROM name.
      */
 
-    emulatorLocalButton.addEventListener(
+    if (pageRom) {
+
+        const filename =
+            decodeURIComponent(
+                pageRom
+                    .split("/")
+                    .pop()
+            );
+
+
+        subtitleElement.textContent =
+            "Loading " + filename + "...";
+
+
+        statusElement.textContent =
+            "EmulatorJS is starting " +
+            pageCore.toUpperCase() +
+            "...";
+
+    } else {
+
+        subtitleElement.textContent =
+            "Choose a ROM to play.";
+
+
+        statusElement.textContent =
+            "EmulatorJS loaded. Choose a local ROM.";
+
+    }
+
+
+    /*
+     * EmulatorJS reports its own errors in the console.
+     * These handlers only improve the visible status.
+     */
+
+    window.addEventListener(
+        "error",
+        function(event) {
+
+            if (
+                event &&
+                event.message &&
+                event.message
+                    .toLowerCase()
+                    .includes("emulator")
+            ) {
+
+                statusElement.textContent =
+                    "Emulator error: " +
+                    event.message;
+
+                statusElement.className =
+                    "status error";
+
+            }
+
+        }
+    );
+
+
+    /*
+     * Local ROM button.
+     *
+     * IMPORTANT:
+     *
+     * Browsers do not allow a selected local file
+     * to be turned into a permanent GitHub URL.
+     *
+     * Therefore we use the file directly and tell
+     * the user to use repository-hosted ROMs for
+     * automatic game-library launching.
+     */
+
+    localButtonElement.addEventListener(
         "click",
-        function () {
+        function() {
 
-            const selectedFile =
-                emulatorLocalRom.files[0];
+            const file =
+                localRomElement.files[0];
 
-            if (!selectedFile) {
 
-                updateEmulatorStatus(
-                    "Choose a ROM first."
-                );
+            if (!file) {
+
+                statusElement.textContent =
+                    "Choose a ROM first.";
+
+                statusElement.className =
+                    "status error";
 
                 return;
+
             }
 
 
-            let selectedCore =
-                emulatorSystem.value;
-
-
             const extension =
-                selectedFile.name
+                file.name
                     .split(".")
                     .pop()
                     .toLowerCase();
+
+
+            const selectedCore =
+                systemElement.value;
 
 
             if (
@@ -341,11 +639,14 @@
                 extension !== "gb"
             ) {
 
-                updateEmulatorStatus(
-                    "Game Boy requires a .gb file."
-                );
+                statusElement.textContent =
+                    "Game Boy requires a .gb file.";
+
+                statusElement.className =
+                    "status error";
 
                 return;
+
             }
 
 
@@ -354,11 +655,14 @@
                 extension !== "gbc"
             ) {
 
-                updateEmulatorStatus(
-                    "Game Boy Color requires a .gbc file."
-                );
+                statusElement.textContent =
+                    "Game Boy Color requires a .gbc file.";
+
+                statusElement.className =
+                    "status error";
 
                 return;
+
             }
 
 
@@ -367,45 +671,114 @@
                 extension !== "gba"
             ) {
 
-                updateEmulatorStatus(
-                    "Game Boy Advance requires a .gba file."
-                );
+                statusElement.textContent =
+                    "Game Boy Advance requires a .gba file.";
+
+                statusElement.className =
+                    "status error";
 
                 return;
+
             }
 
 
             /*
-             * For now, repository-hosted ROMs are the
-             * reliable path. Local ROM loading will be
-             * upgraded separately so it doesn't fight
-             * EmulatorJS initialization.
+             * Use a temporary browser Blob URL.
              */
 
-            updateEmulatorStatus(
-                "Local ROM selected: " +
-                selectedFile.name +
-                "."
+            const blobURL =
+                URL.createObjectURL(
+                    file
+                );
+
+
+            /*
+             * EmulatorJS is already initialized on
+             * this page, so instead of injecting another
+             * loader we open a clean emulator page.
+             *
+             * NOTE:
+             * Blob URLs are browser-local. They are suitable
+             * for a direct test but are not permanent links.
+             */
+
+            statusElement.textContent =
+                "Loading " +
+                file.name +
+                "...";
+
+
+            try {
+
+                window.EJS_player =
+                    "#game";
+
+
+                window.EJS_core =
+                    selectedCore;
+
+
+                window.EJS_gameUrl =
+                    blobURL;
+
+
+                window.EJS_gameName =
+                    file.name;
+
+            } catch (error) {
+
+                console.error(
+                    error
+                );
+
+                statusElement.textContent =
+                    "Could not prepare local ROM.";
+
+                statusElement.className =
+                    "status error";
+
+            }
+
+        }
+    );
+
+
+    /*
+     * Give EmulatorJS time to initialize.
+     */
+
+    window.addEventListener(
+        "load",
+        function() {
+
+            setTimeout(
+                function() {
+
+                    if (pageRom) {
+
+                        statusElement.textContent =
+                            "EmulatorJS loaded. Attempting to start game.";
+
+                        statusElement.className =
+                            "status success";
+
+                    } else {
+
+                        statusElement.textContent =
+                            "EmulatorJS loaded. Choose a ROM.";
+
+                        statusElement.className =
+                            "status success";
+
+                    }
+
+                },
+                1500
             );
 
         }
     );
 
-
-    window.addEventListener(
-        "load",
-        function () {
-
-            if (emulatorRom) {
-
-                updateEmulatorStatus(
-                    "EmulatorJS loaded. Starting game..."
-                );
-
-            }
-
-        }
-    );
 </script>
 
 </body>
