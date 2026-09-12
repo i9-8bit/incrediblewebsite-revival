@@ -2,6 +2,7 @@
 <html lang="en">
 
 <head>
+
     <meta charset="UTF-8">
 
     <meta
@@ -11,6 +12,7 @@
     <title>INCRWD Universal Emulator</title>
 
     <style>
+
         * {
             box-sizing: border-box;
         }
@@ -64,7 +66,7 @@
         }
 
         nav a:hover {
-            color: #ffffff;
+            color: white;
         }
 
         main {
@@ -90,15 +92,12 @@
 
         .subtitle {
             color: #aeb7c5;
-
             line-height: 1.6;
         }
 
         .toolbar {
             display: flex;
-
             flex-wrap: wrap;
-
             gap: 10px;
 
             margin:
@@ -110,11 +109,9 @@
         select,
         button {
             padding:
-                12px
-                15px;
+                12px 15px;
 
-            border-radius:
-                9px;
+            border-radius: 9px;
 
             border:
                 1px solid
@@ -124,9 +121,10 @@
                 #111620;
 
             color:
-                #ffffff;
+                white;
 
-            font: inherit;
+            font:
+                inherit;
         }
 
         input[type="file"] {
@@ -135,209 +133,157 @@
 
         button {
             cursor: pointer;
-
-            font-weight:
-                bold;
+            font-weight: bold;
         }
 
         button:hover {
-            background:
-                #1d2635;
+            background: #1d2635;
         }
 
         .primary {
-            background:
-                #00acd6;
-
-            border-color:
-                #00acd6;
+            background: #00acd6;
+            border-color: #00acd6;
         }
 
         .primary:hover {
-            background:
-                #00c2ed;
+            background: #00c2ed;
         }
 
         .danger {
-            background:
-                #5a2028;
-
-            border-color:
-                #75313b;
+            background: #5a2028;
+            border-color: #78333d;
         }
 
         .emulator-shell {
             width: 100%;
 
-            min-height:
-                620px;
+            min-height: 620px;
 
-            padding:
-                10px;
+            padding: 10px;
 
-            background:
-                #020305;
+            background: #020305;
 
             border:
                 1px solid
                 #283142;
 
-            border-radius:
-                16px;
+            border-radius: 16px;
 
-            overflow:
-                hidden;
+            overflow: hidden;
         }
 
         #game {
             width: 100%;
-
-            min-height:
-                590px;
+            min-height: 590px;
         }
 
         .welcome {
-            min-height:
-                570px;
+            min-height: 570px;
 
-            display:
-                grid;
+            display: grid;
+            place-items: center;
 
-            place-items:
-                center;
+            text-align: center;
 
-            text-align:
-                center;
-
-            color:
-                #8994a4;
+            color: #8994a4;
         }
 
         .welcome-box {
-            max-width:
-                700px;
-
-            padding:
-                40px;
+            max-width: 700px;
+            padding: 40px;
         }
 
         .welcome-icon {
-            font-size:
-                75px;
+            font-size: 75px;
+            margin-bottom: 15px;
         }
 
         .system-badge {
-            display:
-                inline-block;
+            display: inline-block;
 
-            margin-top:
-                10px;
+            margin-top: 12px;
 
             padding:
-                7px 10px;
+                7px 11px;
 
-            border-radius:
-                999px;
+            border-radius: 999px;
 
-            background:
-                #192333;
+            background: #192333;
 
-            color:
-                #8ee5fa;
+            color: #8ee5fa;
 
-            font-size:
-                13px;
-
-            font-weight:
-                bold;
+            font-size: 13px;
+            font-weight: bold;
         }
 
         .status {
-            margin-top:
-                15px;
+            margin-top: 15px;
 
-            padding:
-                14px;
+            padding: 14px;
 
-            border-radius:
-                9px;
+            background: #111620;
 
-            background:
-                #111620;
+            border-radius: 9px;
 
-            color:
-                #aab4c2;
+            color: #aab4c2;
 
-            line-height:
-                1.5;
+            line-height: 1.5;
         }
 
         .success {
-            color:
-                #79e09b;
+            color: #79e09b;
         }
 
         .error {
-            color:
-                #ff7b8c;
+            color: #ff7b8c;
         }
 
         .notice {
-            margin-top:
-                15px;
+            margin-top: 15px;
 
-            padding:
-                14px;
+            padding: 14px;
 
-            background:
-                #111620;
+            background: #111620;
 
-            border-radius:
-                9px;
+            border-radius: 9px;
 
-            color:
-                #929dac;
+            color: #929dac;
 
-            line-height:
-                1.5;
+            line-height: 1.5;
         }
 
         footer {
             padding:
-                40px
-                20px;
+                40px 20px;
 
-            text-align:
-                center;
+            text-align: center;
 
             border-top:
-                1px solid
-                #252b38;
+                1px solid #252b38;
 
-            color:
-                #717b8a;
+            color: #717b8a;
         }
 
         @media (max-width: 700px) {
 
             header {
-                flex-direction:
-                    column;
+                flex-direction: column;
             }
 
             nav {
-                justify-content:
-                    center;
+                justify-content: center;
             }
 
             .emulator-shell {
-                padding:
-                    4px;
+                padding: 4px;
             }
 
         }
+
     </style>
+
 </head>
+
 
 <body>
 
@@ -363,6 +309,10 @@
 
         <a href="add-game.html">
             Add Game
+        </a>
+
+        <a href="web.html">
+            Web Viewer
         </a>
 
     </nav>
@@ -403,11 +353,17 @@
                 .smc,
                 .fig,
                 .swc,
+                .gd3,
+                .gd7,
+                .dx2,
+                .bsx,
                 .n64,
                 .z64,
                 .v64,
                 .nds,
                 .md,
+                .sg,
+                .smd,
                 .gen,
                 .sms,
                 .gg,
@@ -417,15 +373,22 @@
                 .ngc,
                 .ws,
                 .wsc,
-                .a26,
-                .a52,
-                .a78,
-                .lnx,
                 .col,
                 .d64,
                 .iso,
                 .cue,
-                .chd
+                .img,
+                .mdf,
+                .pbp,
+                .toc,
+                .cbn,
+                .m3u,
+                .ccd,
+                .chd,
+                .a26,
+                .a52,
+                .a78,
+                .lnx
             ">
 
 
@@ -449,9 +412,7 @@
     </div>
 
 
-    <div
-        id="systemBadge">
-    </div>
+    <div id="systemBadge"></div>
 
 
     <div class="emulator-shell">
@@ -471,13 +432,13 @@
                 </h2>
 
                 <p>
-                    Choose a supported ROM file and press
+                    Choose a ROM file and click
                     <strong>Load ROM</strong>.
                 </p>
 
                 <p>
-                    ROM detection is automatic for supported
-                    file extensions.
+                    The emulator will detect the
+                    system from the filename.
                 </p>
 
             </div>
@@ -504,9 +465,9 @@
 
     <div class="notice">
 
-        Use ROMs that you are legally entitled to use.
-        Some systems may require BIOS files and some
-        formats may have additional requirements.
+        This emulator supports many classic systems.
+        Some systems require BIOS files, specific
+        disc-image layouts, or particular ROM formats.
 
     </div>
 
@@ -516,7 +477,8 @@
 <footer>
 
     <p>
-        EmulatorJS retains its applicable license.
+        EmulatorJS is distributed under its applicable
+        open-source license.
     </p>
 
 </footer>
@@ -525,27 +487,15 @@
 <script>
 
 /* ============================================================
-   CONFIGURATION
+   CONFIG
    ============================================================ */
 
 const DATA_PATH =
     "https://cdn.emulatorjs.org/stable/data/";
 
 
-const DATABASE_NAME =
-    "incrwd-emulator";
-
-
-const DATABASE_VERSION =
-    1;
-
-
-const STORE_NAME =
-    "roms";
-
-
 /* ============================================================
-   DOM
+   PAGE ELEMENTS
    ============================================================ */
 
 const romInput =
@@ -597,138 +547,135 @@ const systemBadge =
 
 
 /* ============================================================
-   ROM EXTENSION → EMULATOR CORE
+   EXTENSION → EMULATOR CORE
    ============================================================ */
 
-const extensionMap = {
+/*
+ * These mappings follow the current EmulatorJS
+ * frontend/core conventions. :contentReference[oaicite:1]{index=1}
+ */
+
+const CORE_MAP = {
 
     /* Nintendo */
 
-    gb:
-        "gb",
+    gb: "gb",
 
-    gbc:
-        "gb",
+    gbc: "gb",
 
-    gba:
-        "gba",
+    gba: "gba",
 
-    nes:
-        "nes",
+    nes: "nes",
 
-    fds:
-        "nes",
+    fds: "nes",
 
-    unif:
-        "nes",
+    unif: "nes",
 
-    unf:
-        "nes",
+    unf: "nes",
 
-    sfc:
-        "snes",
+    sfc: "snes",
 
-    smc:
-        "snes",
+    smc: "snes",
 
-    fig:
-        "snes",
+    fig: "snes",
 
-    swc:
-        "snes",
+    swc: "snes",
 
-    n64:
-        "n64",
+    gd3: "snes",
 
-    z64:
-        "n64",
+    gd7: "snes",
 
-    v64:
-        "n64",
+    dx2: "snes",
 
-    nds:
-        "nds",
+    bsx: "snes",
+
+    n64: "n64",
+
+    z64: "n64",
+
+    v64: "n64",
+
+    nds: "nds",
 
 
     /* Sega */
 
-    md:
-        "segaMD",
+    md: "segaMD",
 
-    gen:
-        "segaMD",
+    sg: "segaMS",
 
-    sms:
-        "segaMS",
+    smd: "segaMD",
 
-    gg:
-        "segaGG",
+    gen: "segaMD",
 
-    "32x":
-        "sega32x",
+    sms: "segaMS",
+
+    gg: "segaGG",
+
+    "32x": "sega32x",
 
 
     /* NEC */
 
-    pce:
-        "pce",
+    pce: "pce",
 
 
     /* Neo Geo Pocket */
 
-    ngp:
-        "ngp",
+    ngp: "ngp",
 
-    ngc:
-        "ngp",
+    ngc: "ngp",
 
 
     /* WonderSwan */
 
-    ws:
-        "ws",
+    ws: "ws",
 
-    wsc:
-        "ws",
+    wsc: "ws",
 
 
     /* Atari */
 
-    a26:
-        "atari2600",
+    a26: "atari2600",
 
-    a52:
-        "a5200",
+    a52: "a5200",
 
-    a78:
-        "atari7800",
+    a78: "atari7800",
 
-    lnx:
-        "lynx",
+    lnx: "lynx",
 
 
     /* Coleco */
 
-    col:
-        "coleco",
+    col: "coleco",
 
 
     /* Commodore */
 
-    d64:
-        "vice_x64",
+    d64: "vice_x64sc",
 
 
     /* PlayStation */
 
-    iso:
-        "psx",
+    iso: "psx",
 
-    cue:
-        "psx",
+    cue: "psx",
 
-    chd:
-        "psx"
+    img: "psx",
+
+    mdf: "psx",
+
+    pbp: "psx",
+
+    toc: "psx",
+
+    cbn: "psx",
+
+    m3u: "psx",
+
+    ccd: "psx",
+
+    chd: "psx"
 
 };
 
@@ -737,7 +684,7 @@ const extensionMap = {
    DISPLAY NAMES
    ============================================================ */
 
-const displayNames = {
+const CORE_NAMES = {
 
     gb:
         "Nintendo Game Boy",
@@ -756,9 +703,6 @@ const displayNames = {
 
     nds:
         "Nintendo DS",
-
-    psx:
-        "Sony PlayStation",
 
     segaMD:
         "Sega Genesis / Mega Drive",
@@ -781,6 +725,15 @@ const displayNames = {
     ws:
         "WonderSwan",
 
+    coleco:
+        "ColecoVision",
+
+    vice_x64sc:
+        "Commodore 64",
+
+    psx:
+        "Sony PlayStation",
+
     atari2600:
         "Atari 2600",
 
@@ -791,22 +744,13 @@ const displayNames = {
         "Atari 7800",
 
     lynx:
-        "Atari Lynx",
-
-    coleco:
-        "ColecoVision",
-
-    vice_x64:
-        "Commodore 64",
-
-    arcade:
-        "Arcade"
+        "Atari Lynx"
 
 };
 
 
 /* ============================================================
-   UTILITIES
+   HELPERS
    ============================================================ */
 
 function setStatus(
@@ -858,7 +802,7 @@ function detectCore(
 
 
     return (
-        extensionMap[
+        CORE_MAP[
             extension
         ] || null
     );
@@ -866,12 +810,12 @@ function detectCore(
 }
 
 
-function getSystemName(
+function getCoreName(
     core
 ) {
 
     return (
-        displayNames[
+        CORE_NAMES[
             core
         ] || core
     );
@@ -909,273 +853,22 @@ function escapeHTML(
 
 
 /* ============================================================
-   INDEXEDDB
+   EMULATOR START
    ============================================================ */
 
-function openDatabase() {
-
-    return new Promise(
-        (
-            resolve,
-            reject
-        ) => {
-
-            const request =
-                indexedDB.open(
-                    DATABASE_NAME,
-                    DATABASE_VERSION
-                );
-
-
-            request.onupgradeneeded =
-                function(event) {
-
-                    const db =
-                        event.target.result;
-
-
-                    if (
-                        !db.objectStoreNames
-                            .contains(
-                                STORE_NAME
-                            )
-                    ) {
-
-                        db.createObjectStore(
-                            STORE_NAME
-                        );
-
-                    }
-
-                };
-
-
-            request.onsuccess =
-                function() {
-
-                    resolve(
-                        request.result
-                    );
-
-                };
-
-
-            request.onerror =
-                function() {
-
-                    reject(
-                        request.error
-                    );
-
-                };
-
-        }
-    );
-
-}
-
-
-async function saveLocalROM(
-    file,
-    core
+function startEmulator(
+    gameSource,
+    core,
+    gameName
 ) {
 
-    const db =
-        await openDatabase();
-
-
-    const buffer =
-        await file.arrayBuffer();
-
-
-    return new Promise(
-        (
-            resolve,
-            reject
-        ) => {
-
-            const transaction =
-                db.transaction(
-                    STORE_NAME,
-                    "readwrite"
-                );
-
-
-            const store =
-                transaction.objectStore(
-                    STORE_NAME
-                );
-
-
-            store.put(
-                {
-                    name:
-                        file.name,
-
-                    core:
-                        core,
-
-                    buffer:
-                        buffer
-                },
-                "current"
-            );
-
-
-            transaction.oncomplete =
-                function() {
-
-                    db.close();
-
-                    resolve();
-
-                };
-
-
-            transaction.onerror =
-                function() {
-
-                    db.close();
-
-                    reject(
-                        transaction.error
-                    );
-
-                };
-
-        }
-    );
-
-}
-
-
-async function getLocalROM() {
-
-    const db =
-        await openDatabase();
-
-
-    return new Promise(
-        (
-            resolve,
-            reject
-        ) => {
-
-            const transaction =
-                db.transaction(
-                    STORE_NAME,
-                    "readonly"
-                );
-
-
-            const store =
-                transaction.objectStore(
-                    STORE_NAME
-                );
-
-
-            const request =
-                store.get(
-                    "current"
-                );
-
-
-            request.onsuccess =
-                function() {
-
-                    db.close();
-
-                    resolve(
-                        request.result ||
-                        null
-                    );
-
-                };
-
-
-            request.onerror =
-                function() {
-
-                    db.close();
-
-                    reject(
-                        request.error
-                    );
-
-                };
-
-        }
-    );
-
-}
-
-
-async function clearLocalROM() {
-
-    const db =
-        await openDatabase();
-
-
-    return new Promise(
-        (
-            resolve,
-            reject
-        ) => {
-
-            const transaction =
-                db.transaction(
-                    STORE_NAME,
-                    "readwrite"
-                );
-
-
-            const store =
-                transaction.objectStore(
-                    STORE_NAME
-                );
-
-
-            store.delete(
-                "current"
-            );
-
-
-            transaction.oncomplete =
-                function() {
-
-                    db.close();
-
-                    resolve();
-
-                };
-
-
-            transaction.onerror =
-                function() {
-
-                    db.close();
-
-                    reject(
-                        transaction.error
-                    );
-
-                };
-
-        }
-    );
-
-}
-
-
-/* ============================================================
-   EMULATOR STARTUP
-   ============================================================ */
-
-let emulatorActive =
-    false;
-
-
-function showEmulator() {
+    /*
+     * Build a completely fresh emulator
+     * container.
+     */
+
+    game.innerHTML =
+        "";
 
     welcome.style.display =
         "none";
@@ -1183,134 +876,14 @@ function showEmulator() {
     game.style.display =
         "block";
 
-}
 
-
-function configureEmulator(
-    romURL,
-    core,
-    gameName
-) {
-
-    window.EJS_player =
-        "#game";
-
-
-    window.EJS_core =
-        core;
-
-
-    window.EJS_gameUrl =
-        romURL;
-
-
-    window.EJS_gameName =
-        gameName;
-
-
-    window.EJS_pathtodata =
-        DATA_PATH;
-
-
-    /*
-     * Disable the cheat button because the
-     * previous EmulatorJS build crashed while
-     * initializing its cheat manager.
-     */
-
-    window.EJS_Buttons = {
-
-        playPause:
-            true,
-
-        restart:
-            true,
-
-        mute:
-            true,
-
-        settings:
-            true,
-
-        fullscreen:
-            true,
-
-        saveState:
-            true,
-
-        loadState:
-            true,
-
-        screenRecord:
-            false,
-
-        gamepad:
-            true,
-
-        cheat:
-            false,
-
-        volume:
-            true,
-
-        saveSavFiles:
-            true,
-
-        loadSavFiles:
-            true,
-
-        quickSave:
-            true,
-
-        quickLoad:
-            true,
-
-        screenshot:
-            true,
-
-        cacheManager:
-            true,
-
-        exitEmulation:
-            true
-
-    };
-
-}
-
-
-function startEmulator(
-    romURL,
-    core,
-    gameName
-) {
-
-    if (
-        emulatorActive
-    ) {
-
-        setStatus(
-            "Emulator is already running.",
-            "error"
-        );
-
-        return;
-
-    }
-
-
-    emulatorActive =
-        true;
-
-
-    showEmulator();
-
-
-    configureEmulator(
-        romURL,
-        core,
-        gameName
-    );
+    systemBadge.innerHTML = `
+        <span class="system-badge">
+            ${escapeHTML(
+                getCoreName(core)
+            )}
+        </span>
+    `;
 
 
     subtitle.textContent =
@@ -1319,20 +892,133 @@ function startEmulator(
         "...";
 
 
-    systemBadge.innerHTML = `
-        <span class="system-badge">
-            ${escapeHTML(
-                getSystemName(core)
-            )}
-        </span>
-    `;
-
-
     setStatus(
         "Starting " +
-        getSystemName(core) +
+        getCoreName(core) +
         "..."
     );
+
+
+    /*
+     * EmulatorJS configuration.
+     *
+     * IMPORTANT:
+     *
+     * gameSource may be:
+     *
+     * 1. A normal HTTPS URL
+     * 2. A File object from <input type=file>
+     *
+     * The official EmulatorJS demo uses the File
+     * object directly for uploaded games. :contentReference[oaicite:2]{index=2}
+     */
+
+    window.EJS_player =
+        "#game";
+
+
+    window.EJS_gameName =
+        gameName;
+
+
+    window.EJS_biosUrl =
+        "";
+
+
+    window.EJS_gameUrl =
+        gameSource;
+
+
+    window.EJS_core =
+        core;
+
+
+    window.EJS_pathtodata =
+        DATA_PATH;
+
+
+    window.EJS_startOnLoaded =
+        true;
+
+
+    /*
+     * Do not use the old sessionStorage/blob
+     * technique.
+     */
+
+
+    /*
+     * The cheat button is hidden from the UI.
+     */
+
+    window.EJS_Buttons = {
+
+        playPause: true,
+
+        restart: true,
+
+        mute: true,
+
+        settings: true,
+
+        fullscreen: true,
+
+        saveState: true,
+
+        loadState: true,
+
+        screenRecord: false,
+
+        gamepad: true,
+
+        cheat: false,
+
+        volume: true,
+
+        saveSavFiles: true,
+
+        loadSavFiles: true,
+
+        quickSave: true,
+
+        quickLoad: true,
+
+        screenshot: true,
+
+        cacheManager: true,
+
+        exitEmulation: true
+
+    };
+
+
+    /*
+     * Disable the database lookup.
+     *
+     * This keeps ROM launching from depending on
+     * an external game database.
+     */
+
+    window.EJS_disableDatabases =
+        true;
+
+
+    /*
+     * Load the EmulatorJS loader exactly once
+     * for this fresh page instance.
+     */
+
+    const existingLoader =
+        document.getElementById(
+            "incrwd-emulator-loader"
+        );
+
+
+    if (existingLoader) {
+
+        existingLoader.remove();
+
+    }
 
 
     const loader =
@@ -1342,7 +1028,7 @@ function startEmulator(
 
 
     loader.id =
-        "emulatorjs-loader";
+        "incrwd-emulator-loader";
 
 
     loader.src =
@@ -1354,7 +1040,7 @@ function startEmulator(
         function() {
 
             setStatus(
-                getSystemName(core) +
+                getCoreName(core) +
                 " emulator started.",
                 "success"
             );
@@ -1365,19 +1051,15 @@ function startEmulator(
     loader.onerror =
         function() {
 
-            emulatorActive =
-                false;
-
-
             setStatus(
-                "EmulatorJS could not be downloaded.",
+                "EmulatorJS could not be loaded.",
                 "error"
             );
 
         };
 
 
-    document.head.appendChild(
+    document.body.appendChild(
         loader
     );
 
@@ -1388,7 +1070,7 @@ function startEmulator(
    LOCAL ROM
    ============================================================ */
 
-async function loadSelectedLocalROM() {
+function loadLocalROM() {
 
     const file =
         romInput.files[0];
@@ -1415,7 +1097,8 @@ async function loadSelectedLocalROM() {
     if (!core) {
 
         setStatus(
-            "Unsupported or unknown ROM extension.",
+            "Unsupported ROM extension: " +
+            getExtension(file.name),
             "error"
         );
 
@@ -1424,136 +1107,46 @@ async function loadSelectedLocalROM() {
     }
 
 
-    try {
+    /*
+     * THIS IS THE IMPORTANT FIX:
+     *
+     * Pass the File object directly to
+     * EmulatorJS.
+     *
+     * No blob URL.
+     * No sessionStorage.
+     * No second page.
+     */
 
-        setStatus(
-            "Preparing " +
-            file.name +
-            "..."
-        );
-
-
-        await saveLocalROM(
-            file,
-            core
-        );
-
-
-        /*
-         * IMPORTANT:
-         *
-         * Reload to a completely fresh page.
-         *
-         * The ROM itself stays safely in IndexedDB.
-         * This avoids the broken blob: URL problem.
-         */
-
-        window.location.href =
-            "emulator.html?local=1";
-
-
-    } catch (error) {
-
-        console.error(
-            error
-        );
-
-
-        setStatus(
-            "Could not prepare the ROM: " +
-            error.message,
-            "error"
-        );
-
-    }
+    startEmulator(
+        file,
+        core,
+        file.name
+    );
 
 }
 
 
-/* ============================================================
-   START LOCAL ROM FROM INDEXEDDB
-   ============================================================ */
-
-async function startStoredLocalROM() {
-
-    try {
-
-        const stored =
-            await getLocalROM();
-
-
-        if (!stored) {
-
-            setStatus(
-                "The saved ROM could not be found.",
-                "error"
-            );
-
-            return;
-
-        }
-
-
-        await clearLocalROM();
-
-
-        const blob =
-            new Blob(
-                [
-                    stored.buffer
-                ],
-                {
-                    type:
-                        "application/octet-stream"
-                }
-            );
-
-
-        const objectURL =
-            URL.createObjectURL(
-                blob
-            );
-
-
-        startEmulator(
-            objectURL,
-            stored.core,
-            stored.name
-        );
-
-
-    } catch (error) {
-
-        console.error(
-            error
-        );
-
-
-        setStatus(
-            "Could not restore the ROM: " +
-            error.message,
-            "error"
-        );
-
-    }
-
-}
+loadButton.addEventListener(
+    "click",
+    loadLocalROM
+);
 
 
 /* ============================================================
    REPOSITORY ROM
    ============================================================ */
 
-function startRepositoryROM() {
+function loadRepositoryROM() {
 
-    const urlParams =
+    const params =
         new URLSearchParams(
             window.location.search
         );
 
 
     const rom =
-        urlParams.get(
+        params.get(
             "rom"
         );
 
@@ -1561,6 +1154,39 @@ function startRepositoryROM() {
     if (!rom) {
 
         return false;
+
+    }
+
+
+    const explicitCore =
+        params.get(
+            "core"
+        );
+
+
+    const gameName =
+        decodeURIComponent(
+            rom
+                .split("/")
+                .pop()
+        );
+
+
+    const core =
+        explicitCore ||
+        detectCore(
+            gameName
+        );
+
+
+    if (!core) {
+
+        setStatus(
+            "Could not determine the emulator core.",
+            "error"
+        );
+
+        return true;
 
     }
 
@@ -1576,49 +1202,10 @@ function startRepositoryROM() {
                 window.location.href
             ).href;
 
-    } catch (error) {
-
-        console.error(
-            error
-        );
-
+    } catch {
 
         setStatus(
-            "Invalid repository ROM URL.",
-            "error"
-        );
-
-
-        return true;
-
-    }
-
-
-    const explicitCore =
-        urlParams.get(
-            "core"
-        );
-
-
-    const filename =
-        decodeURIComponent(
-            rom
-                .split("/")
-                .pop()
-        );
-
-
-    const detectedCore =
-        explicitCore ||
-        detectCore(
-            filename
-        );
-
-
-    if (!detectedCore) {
-
-        setStatus(
-            "Could not determine the emulator core.",
+            "Invalid ROM URL.",
             "error"
         );
 
@@ -1626,11 +1213,15 @@ function startRepositoryROM() {
 
     }
 
+
+    /*
+     * Repository games use normal HTTPS URLs.
+     */
 
     startEmulator(
         absoluteURL,
-        detectedCore,
-        filename
+        core,
+        gameName
     );
 
 
@@ -1645,18 +1236,13 @@ function startRepositoryROM() {
 
 stopButton.addEventListener(
     "click",
-    async function() {
+    function() {
 
-        try {
-
-            await clearLocalROM();
-
-        } catch {
-
-            /* Ignore cleanup errors. */
-
-        }
-
+        /*
+         * The easiest safe way to completely stop
+         * EmulatorJS is to return to the clean
+         * emulator page.
+         */
 
         window.location.href =
             "emulator.html";
@@ -1666,85 +1252,20 @@ stopButton.addEventListener(
 
 
 /* ============================================================
-   LOAD BUTTON
-   ============================================================ */
-
-loadButton.addEventListener(
-    "click",
-    loadSelectedLocalROM
-);
-
-
-/* ============================================================
    INITIALIZATION
    ============================================================ */
 
-async function initializePage() {
-
-    const params =
-        new URLSearchParams(
-            window.location.search
-        );
+const repositoryGameLoaded =
+    loadRepositoryROM();
 
 
-    const isLocal =
-        params.get(
-            "local"
-        ) === "1";
-
-
-    if (isLocal) {
-
-        subtitle.textContent =
-            "Restoring your selected ROM...";
-
-
-        setStatus(
-            "Preparing emulator..."
-        );
-
-
-        await startStoredLocalROM();
-
-
-        return;
-
-    }
-
-
-    const repositoryLoaded =
-        startRepositoryROM();
-
-
-    if (
-        repositoryLoaded
-    ) {
-
-        return;
-
-    }
-
-
-    /*
-     * NO ROM:
-     *
-     * Do not load EmulatorJS.
-     * Do not create a loader.
-     * Do not try to start a game.
-     */
-
-    subtitle.textContent =
-        "Choose a ROM to begin.";
-
+if (!repositoryGameLoaded) {
 
     setStatus(
         "No game selected. Emulator is idle."
     );
 
 }
-
-
-initializePage();
 
 </script>
 
