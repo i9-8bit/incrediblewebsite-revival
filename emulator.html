@@ -3,11 +3,12 @@
 
 <head>
     <meta charset="UTF-8">
+
     <meta
         name="viewport"
         content="width=device-width, initial-scale=1.0">
 
-    <title>INCRWD Emulator</title>
+    <title>INCRWD Universal Emulator</title>
 
     <style>
         * {
@@ -18,13 +19,19 @@
         body {
             margin: 0;
             min-height: 100%;
+
             background: #080a10;
             color: #ffffff;
-            font-family: Arial, Helvetica, sans-serif;
+
+            font-family:
+                Arial,
+                Helvetica,
+                sans-serif;
         }
 
         header {
             min-height: 68px;
+
             padding: 14px 25px;
 
             display: flex;
@@ -34,7 +41,9 @@
             gap: 20px;
 
             background: #090b12;
-            border-bottom: 1px solid #252b38;
+
+            border-bottom:
+                1px solid #252b38;
         }
 
         .logo {
@@ -61,34 +70,62 @@
         main {
             width: min(1400px, 94%);
             margin: auto;
-            padding: 35px 0 60px;
+
+            padding:
+                35px
+                0
+                60px;
         }
 
         h1 {
             margin: 0;
-            font-size: clamp(35px, 6vw, 65px);
+
+            font-size:
+                clamp(
+                    35px,
+                    6vw,
+                    65px
+                );
         }
 
         .subtitle {
             color: #aeb7c5;
+
             line-height: 1.6;
         }
 
         .toolbar {
             display: flex;
+
             flex-wrap: wrap;
+
             gap: 10px;
-            margin: 25px 0;
+
+            margin:
+                25px
+                0;
         }
 
         input,
         select,
         button {
-            padding: 12px 15px;
-            border-radius: 9px;
-            border: 1px solid #303847;
-            background: #111620;
-            color: white;
+            padding:
+                12px
+                15px;
+
+            border-radius:
+                9px;
+
+            border:
+                1px solid
+                #303847;
+
+            background:
+                #111620;
+
+            color:
+                #ffffff;
+
             font: inherit;
         }
 
@@ -98,132 +135,208 @@
 
         button {
             cursor: pointer;
-            font-weight: bold;
+
+            font-weight:
+                bold;
         }
 
         button:hover {
-            background: #1d2635;
+            background:
+                #1d2635;
         }
 
         .primary {
-            background: #00acd6;
-            border-color: #00acd6;
+            background:
+                #00acd6;
+
+            border-color:
+                #00acd6;
         }
 
         .primary:hover {
-            background: #00c2ed;
+            background:
+                #00c2ed;
         }
 
         .danger {
-            background: #5a2028;
-            border-color: #77313b;
+            background:
+                #5a2028;
+
+            border-color:
+                #75313b;
         }
 
-        .screen {
-            min-height: 600px;
-            padding: 10px;
+        .emulator-shell {
+            width: 100%;
 
-            background: #020305;
+            min-height:
+                620px;
 
-            border: 1px solid #283142;
-            border-radius: 16px;
+            padding:
+                10px;
 
-            overflow: hidden;
+            background:
+                #020305;
+
+            border:
+                1px solid
+                #283142;
+
+            border-radius:
+                16px;
+
+            overflow:
+                hidden;
         }
 
         #game {
             width: 100%;
-            min-height: 580px;
+
+            min-height:
+                590px;
         }
 
         .welcome {
-            min-height: 560px;
+            min-height:
+                570px;
 
-            display: grid;
-            place-items: center;
+            display:
+                grid;
 
-            text-align: center;
-            color: #8994a4;
+            place-items:
+                center;
+
+            text-align:
+                center;
+
+            color:
+                #8994a4;
         }
 
         .welcome-box {
-            max-width: 700px;
-            padding: 40px;
+            max-width:
+                700px;
+
+            padding:
+                40px;
         }
 
         .welcome-icon {
-            font-size: 75px;
+            font-size:
+                75px;
+        }
+
+        .system-badge {
+            display:
+                inline-block;
+
+            margin-top:
+                10px;
+
+            padding:
+                7px 10px;
+
+            border-radius:
+                999px;
+
+            background:
+                #192333;
+
+            color:
+                #8ee5fa;
+
+            font-size:
+                13px;
+
+            font-weight:
+                bold;
         }
 
         .status {
-            margin-top: 15px;
-            padding: 14px;
+            margin-top:
+                15px;
 
-            border-radius: 9px;
+            padding:
+                14px;
 
-            background: #111620;
+            border-radius:
+                9px;
 
-            color: #aab4c2;
-            line-height: 1.5;
+            background:
+                #111620;
+
+            color:
+                #aab4c2;
+
+            line-height:
+                1.5;
         }
 
         .success {
-            color: #78e09b;
+            color:
+                #79e09b;
         }
 
         .error {
-            color: #ff7c8e;
+            color:
+                #ff7b8c;
         }
 
         .notice {
-            margin-top: 15px;
-            padding: 14px;
+            margin-top:
+                15px;
 
-            background: #111620;
+            padding:
+                14px;
 
-            border-radius: 9px;
+            background:
+                #111620;
 
-            color: #929dac;
-            line-height: 1.5;
-        }
+            border-radius:
+                9px;
 
-        .system {
-            display: inline-block;
+            color:
+                #929dac;
 
-            margin-top: 10px;
-            padding: 7px 10px;
-
-            border-radius: 999px;
-
-            background: #192333;
-            color: #8ee5fa;
-
-            font-size: 13px;
-            font-weight: bold;
+            line-height:
+                1.5;
         }
 
         footer {
-            padding: 40px 20px;
+            padding:
+                40px
+                20px;
 
-            text-align: center;
+            text-align:
+                center;
 
-            border-top: 1px solid #252b38;
+            border-top:
+                1px solid
+                #252b38;
 
-            color: #717b8a;
+            color:
+                #717b8a;
         }
 
         @media (max-width: 700px) {
 
             header {
-                flex-direction: column;
+                flex-direction:
+                    column;
             }
 
             nav {
-                justify-content: center;
+                justify-content:
+                    center;
             }
+
+            .emulator-shell {
+                padding:
+                    4px;
+            }
+
         }
     </style>
-
 </head>
 
 <body>
@@ -235,11 +348,23 @@
     </div>
 
     <nav>
-        <a href="index.html">Home</a>
-        <a href="games.html">Games</a>
-        <a href="gameboys.html">Gameboys</a>
-        <a href="add-game.html">Add Game</a>
-        <a href="web.html">Web Viewer</a>
+
+        <a href="index.html">
+            Home
+        </a>
+
+        <a href="games.html">
+            Games
+        </a>
+
+        <a href="gameboys.html">
+            Gameboys
+        </a>
+
+        <a href="add-game.html">
+            Add Game
+        </a>
+
     </nav>
 
 </header>
@@ -251,9 +376,13 @@
         🕹️ Universal Emulator
     </h1>
 
-    <p class="subtitle">
-        Load a supported ROM and the site will automatically
-        choose the appropriate emulator core.
+
+    <p
+        id="subtitle"
+        class="subtitle">
+
+        Choose a ROM to begin.
+
     </p>
 
 
@@ -262,8 +391,42 @@
         <input
             id="romInput"
             type="file"
-            accept=".gb,.gbc,.gba,.nes,.fds,.unif,.unf,.sfc,.smc,.fig,.swc,.n64,.z64,.v64,.nds,.iso,.bin,.cue,.chd,.md,.gen,.sms,.gg,.32x,.pce,.ngp,.ngc,.ws,.wsc,.a26,.a52,.a78,.lnx,.col,.d64"
-        >
+            accept="
+                .gb,
+                .gbc,
+                .gba,
+                .nes,
+                .fds,
+                .unif,
+                .unf,
+                .sfc,
+                .smc,
+                .fig,
+                .swc,
+                .n64,
+                .z64,
+                .v64,
+                .nds,
+                .md,
+                .gen,
+                .sms,
+                .gg,
+                .32x,
+                .pce,
+                .ngp,
+                .ngc,
+                .ws,
+                .wsc,
+                .a26,
+                .a52,
+                .a78,
+                .lnx,
+                .col,
+                .d64,
+                .iso,
+                .cue,
+                .chd
+            ">
 
 
         <button
@@ -286,10 +449,12 @@
     </div>
 
 
-    <div id="systemLabel"></div>
+    <div
+        id="systemBadge">
+    </div>
 
 
-    <div class="screen">
+    <div class="emulator-shell">
 
         <div
             id="welcome"
@@ -306,14 +471,13 @@
                 </h2>
 
                 <p>
-                    Choose a ROM file and press
+                    Choose a supported ROM file and press
                     <strong>Load ROM</strong>.
                 </p>
 
                 <p>
-                    The emulator will detect the
-                    system from the file extension
-                    where possible.
+                    ROM detection is automatic for supported
+                    file extensions.
                 </p>
 
             </div>
@@ -333,25 +497,16 @@
         id="status"
         class="status">
 
-        No ROM selected.
+        No game selected.
 
     </div>
 
 
     <div class="notice">
 
-        <strong>Supported families include:</strong>
-
-        Game Boy, GBA, NES, SNES, Nintendo 64,
-        Nintendo DS, PlayStation, Sega systems,
-        Atari systems, arcade, PC Engine,
-        WonderSwan, Neo Geo Pocket, Commodore
-        and others.
-
-        <br><br>
-
-        Exact file support depends on the emulator core.
-        Some systems also require BIOS files.
+        Use ROMs that you are legally entitled to use.
+        Some systems may require BIOS files and some
+        formats may have additional requirements.
 
     </div>
 
@@ -361,8 +516,7 @@
 <footer>
 
     <p>
-        EmulatorJS is free software distributed
-        under its applicable license.
+        EmulatorJS retains its applicable license.
     </p>
 
 </footer>
@@ -370,577 +524,968 @@
 
 <script>
 
-    const emulatorDataPath =
-        "https://cdn.emulatorjs.org/stable/data/";
+/* ============================================================
+   CONFIGURATION
+   ============================================================ */
 
+const DATA_PATH =
+    "https://cdn.emulatorjs.org/stable/data/";
 
-    const romInput =
-        document.getElementById(
-            "romInput"
-        );
 
+const DATABASE_NAME =
+    "incrwd-emulator";
 
-    const loadButton =
-        document.getElementById(
-            "loadButton"
-        );
 
+const DATABASE_VERSION =
+    1;
 
-    const stopButton =
-        document.getElementById(
-            "stopButton"
-        );
 
+const STORE_NAME =
+    "roms";
 
-    const game =
-        document.getElementById(
-            "game"
-        );
 
+/* ============================================================
+   DOM
+   ============================================================ */
 
-    const welcome =
-        document.getElementById(
-            "welcome"
-        );
+const romInput =
+    document.getElementById(
+        "romInput"
+    );
 
 
-    const status =
-        document.getElementById(
-            "status"
-        );
+const loadButton =
+    document.getElementById(
+        "loadButton"
+    );
 
 
-    const systemLabel =
-        document.getElementById(
-            "systemLabel"
-        );
+const stopButton =
+    document.getElementById(
+        "stopButton"
+    );
 
 
-    let loader =
-        null;
+const welcome =
+    document.getElementById(
+        "welcome"
+    );
 
 
-    let emulatorRunning =
-        false;
+const game =
+    document.getElementById(
+        "game"
+    );
 
 
-    /*
-     * File-extension → EmulatorJS system.
-     *
-     * These mappings follow the current
-     * EmulatorJS demo/core conventions.
-     */
+const subtitle =
+    document.getElementById(
+        "subtitle"
+    );
 
-    const extensionMap = {
 
-        /*
-         * Nintendo
-         */
+const status =
+    document.getElementById(
+        "status"
+    );
 
-        gb: "gb",
 
-        gbc: "gb",
+const systemBadge =
+    document.getElementById(
+        "systemBadge"
+    );
 
-        gba: "gba",
 
-        nes: "nes",
+/* ============================================================
+   ROM EXTENSION → EMULATOR CORE
+   ============================================================ */
 
-        fds: "nes",
+const extensionMap = {
 
-        unif: "nes",
+    /* Nintendo */
 
-        unf: "nes",
+    gb:
+        "gb",
 
-        sfc: "snes",
+    gbc:
+        "gb",
 
-        smc: "snes",
+    gba:
+        "gba",
 
-        fig: "snes",
+    nes:
+        "nes",
 
-        swc: "snes",
+    fds:
+        "nes",
 
-        n64: "n64",
+    unif:
+        "nes",
 
-        z64: "n64",
+    unf:
+        "nes",
 
-        v64: "n64",
+    sfc:
+        "snes",
 
-        nds: "nds",
+    smc:
+        "snes",
 
+    fig:
+        "snes",
 
-        /*
-         * Sony
-         */
+    swc:
+        "snes",
 
-        iso: "psx",
+    n64:
+        "n64",
 
-        cue: "psx",
+    z64:
+        "n64",
 
-        bin: "psx",
+    v64:
+        "n64",
 
-        chd: "psx",
+    nds:
+        "nds",
 
 
-        /*
-         * Sega
-         */
+    /* Sega */
 
-        md: "segaMD",
+    md:
+        "segaMD",
 
-        gen: "segaMD",
+    gen:
+        "segaMD",
 
-        sms: "segaMS",
+    sms:
+        "segaMS",
 
-        gg: "segaGG",
+    gg:
+        "segaGG",
 
-        "32x": "sega32x",
+    "32x":
+        "sega32x",
 
 
-        /*
-         * NEC
-         */
+    /* NEC */
 
-        pce: "pce",
+    pce:
+        "pce",
 
 
-        /*
-         * Neo Geo Pocket
-         */
+    /* Neo Geo Pocket */
 
-        ngp: "ngp",
+    ngp:
+        "ngp",
 
-        ngc: "ngp",
+    ngc:
+        "ngp",
 
 
-        /*
-         * WonderSwan
-         */
+    /* WonderSwan */
 
-        ws: "ws",
+    ws:
+        "ws",
 
-        wsc: "ws",
+    wsc:
+        "ws",
 
 
-        /*
-         * Atari
-         */
+    /* Atari */
 
-        a26: "atari2600",
+    a26:
+        "atari2600",
 
-        a52: "a5200",
+    a52:
+        "a5200",
 
-        a78: "atari7800",
+    a78:
+        "atari7800",
 
-        lnx: "lynx",
+    lnx:
+        "lynx",
 
 
-        /*
-         * Coleco
-         */
+    /* Coleco */
 
-        col: "coleco",
+    col:
+        "coleco",
 
 
-        /*
-         * Commodore
-         */
+    /* Commodore */
 
-        d64: "vice_x64"
+    d64:
+        "vice_x64",
 
-    };
 
+    /* PlayStation */
 
-    function setStatus(
-        text,
-        type = ""
+    iso:
+        "psx",
+
+    cue:
+        "psx",
+
+    chd:
+        "psx"
+
+};
+
+
+/* ============================================================
+   DISPLAY NAMES
+   ============================================================ */
+
+const displayNames = {
+
+    gb:
+        "Nintendo Game Boy",
+
+    gba:
+        "Nintendo Game Boy Advance",
+
+    nes:
+        "Nintendo Entertainment System",
+
+    snes:
+        "Super Nintendo Entertainment System",
+
+    n64:
+        "Nintendo 64",
+
+    nds:
+        "Nintendo DS",
+
+    psx:
+        "Sony PlayStation",
+
+    segaMD:
+        "Sega Genesis / Mega Drive",
+
+    segaMS:
+        "Sega Master System",
+
+    segaGG:
+        "Sega Game Gear",
+
+    sega32x:
+        "Sega 32X",
+
+    pce:
+        "PC Engine",
+
+    ngp:
+        "Neo Geo Pocket",
+
+    ws:
+        "WonderSwan",
+
+    atari2600:
+        "Atari 2600",
+
+    a5200:
+        "Atari 5200",
+
+    atari7800:
+        "Atari 7800",
+
+    lynx:
+        "Atari Lynx",
+
+    coleco:
+        "ColecoVision",
+
+    vice_x64:
+        "Commodore 64",
+
+    arcade:
+        "Arcade"
+
+};
+
+
+/* ============================================================
+   UTILITIES
+   ============================================================ */
+
+function setStatus(
+    message,
+    type = ""
+) {
+
+    status.textContent =
+        message;
+
+    status.className =
+        "status " + type;
+
+}
+
+
+function getExtension(
+    filename
+) {
+
+    const parts =
+        filename
+            .toLowerCase()
+            .split(".");
+
+
+    if (
+        parts.length < 2
     ) {
 
-        status.textContent =
-            text;
-
-        status.className =
-            "status " + type;
+        return "";
 
     }
 
 
-    function getExtension(
-        filename
-    ) {
+    return parts.pop();
 
-        const parts =
+}
+
+
+function detectCore(
+    filename
+) {
+
+    const extension =
+        getExtension(
             filename
-                .toLowerCase()
-                .split(".");
+        );
 
 
-        if (
-            parts.length < 2
-        ) {
+    return (
+        extensionMap[
+            extension
+        ] || null
+    );
 
-            return "";
+}
+
+
+function getSystemName(
+    core
+) {
+
+    return (
+        displayNames[
+            core
+        ] || core
+    );
+
+}
+
+
+function escapeHTML(
+    value
+) {
+
+    return String(value)
+        .replaceAll(
+            "&",
+            "&amp;"
+        )
+        .replaceAll(
+            "<",
+            "&lt;"
+        )
+        .replaceAll(
+            ">",
+            "&gt;"
+        )
+        .replaceAll(
+            '"',
+            "&quot;"
+        )
+        .replaceAll(
+            "'",
+            "&#039;"
+        );
+
+}
+
+
+/* ============================================================
+   INDEXEDDB
+   ============================================================ */
+
+function openDatabase() {
+
+    return new Promise(
+        (
+            resolve,
+            reject
+        ) => {
+
+            const request =
+                indexedDB.open(
+                    DATABASE_NAME,
+                    DATABASE_VERSION
+                );
+
+
+            request.onupgradeneeded =
+                function(event) {
+
+                    const db =
+                        event.target.result;
+
+
+                    if (
+                        !db.objectStoreNames
+                            .contains(
+                                STORE_NAME
+                            )
+                    ) {
+
+                        db.createObjectStore(
+                            STORE_NAME
+                        );
+
+                    }
+
+                };
+
+
+            request.onsuccess =
+                function() {
+
+                    resolve(
+                        request.result
+                    );
+
+                };
+
+
+            request.onerror =
+                function() {
+
+                    reject(
+                        request.error
+                    );
+
+                };
 
         }
+    );
+
+}
 
 
-        return parts.pop();
+async function saveLocalROM(
+    file,
+    core
+) {
 
-    }
+    const db =
+        await openDatabase();
 
 
-    function detectSystem(
-        filename
-    ) {
+    const buffer =
+        await file.arrayBuffer();
 
-        const extension =
-            getExtension(
-                filename
+
+    return new Promise(
+        (
+            resolve,
+            reject
+        ) => {
+
+            const transaction =
+                db.transaction(
+                    STORE_NAME,
+                    "readwrite"
+                );
+
+
+            const store =
+                transaction.objectStore(
+                    STORE_NAME
+                );
+
+
+            store.put(
+                {
+                    name:
+                        file.name,
+
+                    core:
+                        core,
+
+                    buffer:
+                        buffer
+                },
+                "current"
             );
 
 
-        return (
-            extensionMap[
-                extension
-            ] || null
+            transaction.oncomplete =
+                function() {
+
+                    db.close();
+
+                    resolve();
+
+                };
+
+
+            transaction.onerror =
+                function() {
+
+                    db.close();
+
+                    reject(
+                        transaction.error
+                    );
+
+                };
+
+        }
+    );
+
+}
+
+
+async function getLocalROM() {
+
+    const db =
+        await openDatabase();
+
+
+    return new Promise(
+        (
+            resolve,
+            reject
+        ) => {
+
+            const transaction =
+                db.transaction(
+                    STORE_NAME,
+                    "readonly"
+                );
+
+
+            const store =
+                transaction.objectStore(
+                    STORE_NAME
+                );
+
+
+            const request =
+                store.get(
+                    "current"
+                );
+
+
+            request.onsuccess =
+                function() {
+
+                    db.close();
+
+                    resolve(
+                        request.result ||
+                        null
+                    );
+
+                };
+
+
+            request.onerror =
+                function() {
+
+                    db.close();
+
+                    reject(
+                        request.error
+                    );
+
+                };
+
+        }
+    );
+
+}
+
+
+async function clearLocalROM() {
+
+    const db =
+        await openDatabase();
+
+
+    return new Promise(
+        (
+            resolve,
+            reject
+        ) => {
+
+            const transaction =
+                db.transaction(
+                    STORE_NAME,
+                    "readwrite"
+                );
+
+
+            const store =
+                transaction.objectStore(
+                    STORE_NAME
+                );
+
+
+            store.delete(
+                "current"
+            );
+
+
+            transaction.oncomplete =
+                function() {
+
+                    db.close();
+
+                    resolve();
+
+                };
+
+
+            transaction.onerror =
+                function() {
+
+                    db.close();
+
+                    reject(
+                        transaction.error
+                    );
+
+                };
+
+        }
+    );
+
+}
+
+
+/* ============================================================
+   EMULATOR STARTUP
+   ============================================================ */
+
+let emulatorActive =
+    false;
+
+
+function showEmulator() {
+
+    welcome.style.display =
+        "none";
+
+    game.style.display =
+        "block";
+
+}
+
+
+function configureEmulator(
+    romURL,
+    core,
+    gameName
+) {
+
+    window.EJS_player =
+        "#game";
+
+
+    window.EJS_core =
+        core;
+
+
+    window.EJS_gameUrl =
+        romURL;
+
+
+    window.EJS_gameName =
+        gameName;
+
+
+    window.EJS_pathtodata =
+        DATA_PATH;
+
+
+    /*
+     * Disable the cheat button because the
+     * previous EmulatorJS build crashed while
+     * initializing its cheat manager.
+     */
+
+    window.EJS_Buttons = {
+
+        playPause:
+            true,
+
+        restart:
+            true,
+
+        mute:
+            true,
+
+        settings:
+            true,
+
+        fullscreen:
+            true,
+
+        saveState:
+            true,
+
+        loadState:
+            true,
+
+        screenRecord:
+            false,
+
+        gamepad:
+            true,
+
+        cheat:
+            false,
+
+        volume:
+            true,
+
+        saveSavFiles:
+            true,
+
+        loadSavFiles:
+            true,
+
+        quickSave:
+            true,
+
+        quickLoad:
+            true,
+
+        screenshot:
+            true,
+
+        cacheManager:
+            true,
+
+        exitEmulation:
+            true
+
+    };
+
+}
+
+
+function startEmulator(
+    romURL,
+    core,
+    gameName
+) {
+
+    if (
+        emulatorActive
+    ) {
+
+        setStatus(
+            "Emulator is already running.",
+            "error"
         );
+
+        return;
 
     }
 
 
-    function getDisplayName(
-        core
-    ) {
+    emulatorActive =
+        true;
 
-        const names = {
 
-            gb:
-                "Nintendo Game Boy",
+    showEmulator();
 
-            gba:
-                "Nintendo Game Boy Advance",
 
-            nes:
-                "Nintendo Entertainment System",
+    configureEmulator(
+        romURL,
+        core,
+        gameName
+    );
 
-            snes:
-                "Super Nintendo Entertainment System",
 
-            n64:
-                "Nintendo 64",
+    subtitle.textContent =
+        "Loading " +
+        gameName +
+        "...";
 
-            nds:
-                "Nintendo DS",
 
-            psx:
-                "PlayStation",
+    systemBadge.innerHTML = `
+        <span class="system-badge">
+            ${escapeHTML(
+                getSystemName(core)
+            )}
+        </span>
+    `;
 
-            segaMD:
-                "Sega Mega Drive",
 
-            segaMS:
-                "Sega Master System",
+    setStatus(
+        "Starting " +
+        getSystemName(core) +
+        "..."
+    );
 
-            segaGG:
-                "Sega Game Gear",
 
-            sega32x:
-                "Sega 32X",
+    const loader =
+        document.createElement(
+            "script"
+        );
 
-            segaCD:
-                "Sega CD",
 
-            pce:
-                "PC Engine",
+    loader.id =
+        "emulatorjs-loader";
 
-            ngp:
-                "Neo Geo Pocket",
 
-            ws:
-                "WonderSwan",
+    loader.src =
+        DATA_PATH +
+        "loader.js";
 
-            atari2600:
-                "Atari 2600",
 
-            a5200:
-                "Atari 5200",
+    loader.onload =
+        function() {
 
-            atari7800:
-                "Atari 7800",
-
-            lynx:
-                "Atari Lynx",
-
-            coleco:
-                "ColecoVision",
-
-            vice_x64:
-                "Commodore 64",
-
-            arcade:
-                "Arcade",
-
-            psp:
-                "PlayStation Portable",
-
-            "3ds":
-                "Nintendo 3DS"
+            setStatus(
+                getSystemName(core) +
+                " emulator started.",
+                "success"
+            );
 
         };
 
 
-        return (
-            names[core] ||
-            core
-        );
+    loader.onerror =
+        function() {
 
-    }
+            emulatorActive =
+                false;
 
-
-    function stopEmulator() {
-
-        /*
-         * Reload the clean page.
-         *
-         * This prevents multiple EmulatorJS
-         * instances from being stacked on top
-         * of each other.
-         */
-
-        if (emulatorRunning) {
-
-            window.location.href =
-                "emulator.html";
-
-            return;
-
-        }
-
-
-        game.innerHTML =
-            "";
-
-
-        game.style.display =
-            "none";
-
-
-        welcome.style.display =
-            "grid";
-
-
-        systemLabel.innerHTML =
-            "";
-
-
-        setStatus(
-            "No ROM selected."
-        );
-
-    }
-
-
-    function startEmulator(
-        url,
-        core,
-        title
-    ) {
-
-        if (!url || !core) {
 
             setStatus(
-                "A ROM URL and emulator core are required.",
+                "EmulatorJS could not be downloaded.",
                 "error"
             );
 
-            return;
-
-        }
+        };
 
 
-        /*
-         * Show game area.
-         */
+    document.head.appendChild(
+        loader
+    );
 
-        welcome.style.display =
-            "none";
-
-
-        game.style.display =
-            "block";
+}
 
 
-        systemLabel.innerHTML = `
-            <div class="system">
-                ${escapeHTML(
-                    getDisplayName(core)
-                )}
-            </div>
-        `;
+/* ============================================================
+   LOCAL ROM
+   ============================================================ */
 
+async function loadSelectedLocalROM() {
+
+    const file =
+        romInput.files[0];
+
+
+    if (!file) {
 
         setStatus(
-            "Starting " +
-            getDisplayName(core) +
+            "Choose a ROM first.",
+            "error"
+        );
+
+        return;
+
+    }
+
+
+    const core =
+        detectCore(
+            file.name
+        );
+
+
+    if (!core) {
+
+        setStatus(
+            "Unsupported or unknown ROM extension.",
+            "error"
+        );
+
+        return;
+
+    }
+
+
+    try {
+
+        setStatus(
+            "Preparing " +
+            file.name +
             "..."
         );
 
 
-        /*
-         * EmulatorJS settings MUST exist before
-         * loader.js is loaded.
-         */
-
-        window.EJS_player =
-            "#game";
-
-
-        window.EJS_core =
-            core;
-
-
-        window.EJS_gameUrl =
-            url;
-
-
-        window.EJS_gameName =
-            title;
-
-
-        window.EJS_pathtodata =
-            emulatorDataPath;
+        await saveLocalROM(
+            file,
+            core
+        );
 
 
         /*
-         * Do not enable the cheat button.
+         * IMPORTANT:
          *
-         * This also avoids the exact cheat
-         * initialization path that caused your
-         * previous GBA crash.
+         * Reload to a completely fresh page.
+         *
+         * The ROM itself stays safely in IndexedDB.
+         * This avoids the broken blob: URL problem.
          */
 
-        window.EJS_Buttons = {
-
-            playPause: true,
-
-            restart: true,
-
-            mute: true,
-
-            settings: true,
-
-            fullscreen: true,
-
-            saveState: true,
-
-            loadState: true,
-
-            screenRecord: false,
-
-            gamepad: true,
-
-            cheat: false,
-
-            volume: true,
-
-            saveSavFiles: true,
-
-            loadSavFiles: true,
-
-            quickSave: true,
-
-            quickLoad: true,
-
-            screenshot: true,
-
-            cacheManager: true,
-
-            exitEmulation: true
-
-        };
+        window.location.href =
+            "emulator.html?local=1";
 
 
-        /*
-         * Load loader.js exactly once.
-         */
+    } catch (error) {
 
-        if (
-            document.getElementById(
-                "emulatorjs-loader"
-            )
-        ) {
-
-            setStatus(
-                "EmulatorJS is already loading..."
-            );
-
-            return;
-
-        }
+        console.error(
+            error
+        );
 
 
-        loader =
-            document.createElement(
-                "script"
-            );
-
-
-        loader.id =
-            "emulatorjs-loader";
-
-
-        loader.src =
-            emulatorDataPath +
-            "loader.js";
-
-
-        loader.onload =
-            function() {
-
-                emulatorRunning =
-                    true;
-
-
-                setStatus(
-                    getDisplayName(core) +
-                    " emulator started.",
-                    "success"
-                );
-
-            };
-
-
-        loader.onerror =
-            function() {
-
-                emulatorRunning =
-                    false;
-
-
-                setStatus(
-                    "EmulatorJS failed to load.",
-                    "error"
-                );
-
-            };
-
-
-        document.head.appendChild(
-            loader
+        setStatus(
+            "Could not prepare the ROM: " +
+            error.message,
+            "error"
         );
 
     }
 
-
-    function loadSelectedROM() {
-
-        const file =
-            romInput.files[0];
+}
 
 
-        if (!file) {
+/* ============================================================
+   START LOCAL ROM FROM INDEXEDDB
+   ============================================================ */
+
+async function startStoredLocalROM() {
+
+    try {
+
+        const stored =
+            await getLocalROM();
+
+
+        if (!stored) {
 
             setStatus(
-                "Choose a ROM file first.",
+                "The saved ROM could not be found.",
                 "error"
             );
 
@@ -949,136 +1494,98 @@
         }
 
 
-        const core =
-            detectSystem(
-                file.name
+        await clearLocalROM();
+
+
+        const blob =
+            new Blob(
+                [
+                    stored.buffer
+                ],
+                {
+                    type:
+                        "application/octet-stream"
+                }
             );
 
 
-        if (!core) {
-
-            setStatus(
-                "I couldn't identify this ROM type from its file extension.",
-                "error"
-            );
-
-            return;
-
-        }
-
-
-        /*
-         * A Blob URL is safe here because we keep it
-         * on the SAME page.
-         *
-         * We do not put the Blob URL into another page,
-         * sessionStorage, or localStorage.
-         */
-
-        const romURL =
+        const objectURL =
             URL.createObjectURL(
-                file
+                blob
             );
 
 
         startEmulator(
-            romURL,
-            core,
-            file.name
+            objectURL,
+            stored.core,
+            stored.name
+        );
+
+
+    } catch (error) {
+
+        console.error(
+            error
+        );
+
+
+        setStatus(
+            "Could not restore the ROM: " +
+            error.message,
+            "error"
         );
 
     }
 
-
-    /*
-     * Repository ROM support.
-     *
-     * Example:
-     *
-     * emulator.html?rom=games/gameboys/test.gba
-     */
-
-    function loadRepositoryROM() {
-
-        const query =
-            new URLSearchParams(
-                window.location.search
-            );
+}
 
 
-        const rom =
-            query.get(
-                "rom"
-            );
+/* ============================================================
+   REPOSITORY ROM
+   ============================================================ */
+
+function startRepositoryROM() {
+
+    const urlParams =
+        new URLSearchParams(
+            window.location.search
+        );
 
 
-        const explicitCore =
-            query.get(
-                "core"
-            );
+    const rom =
+        urlParams.get(
+            "rom"
+        );
 
 
-        if (!rom) {
+    if (!rom) {
 
-            return false;
+        return false;
 
-        }
-
-
-        const filename =
-            decodeURIComponent(
-                rom
-                    .split("/")
-                    .pop()
-            );
+    }
 
 
-        const detectedCore =
-            explicitCore ||
-            detectSystem(
-                filename
-            );
+    let absoluteURL;
 
 
-        if (!detectedCore) {
+    try {
 
-            setStatus(
-                "I couldn't identify the ROM system.",
-                "error"
-            );
+        absoluteURL =
+            new URL(
+                rom,
+                window.location.href
+            ).href;
 
-            return true;
+    } catch (error) {
 
-        }
-
-
-        let absoluteURL;
-
-
-        try {
-
-            absoluteURL =
-                new URL(
-                    rom,
-                    window.location.href
-                ).href;
-
-        } catch {
-
-            setStatus(
-                "The ROM URL is invalid.",
-                "error"
-            );
-
-            return true;
-
-        }
+        console.error(
+            error
+        );
 
 
-        startEmulator(
-            absoluteURL,
-            detectedCore,
-            filename
+        setStatus(
+            "Invalid repository ROM URL.",
+            "error"
         );
 
 
@@ -1087,67 +1594,160 @@
     }
 
 
-    function escapeHTML(
-        value
-    ) {
+    const explicitCore =
+        urlParams.get(
+            "core"
+        );
 
-        return String(value)
-            .replaceAll(
-                "&",
-                "&amp;"
-            )
-            .replaceAll(
-                "<",
-                "&lt;"
-            )
-            .replaceAll(
-                ">",
-                "&gt;"
-            )
-            .replaceAll(
-                '"',
-                "&quot;"
-            )
-            .replaceAll(
-                "'",
-                "&#039;"
-            );
+
+    const filename =
+        decodeURIComponent(
+            rom
+                .split("/")
+                .pop()
+        );
+
+
+    const detectedCore =
+        explicitCore ||
+        detectCore(
+            filename
+        );
+
+
+    if (!detectedCore) {
+
+        setStatus(
+            "Could not determine the emulator core.",
+            "error"
+        );
+
+        return true;
 
     }
 
 
-    loadButton.addEventListener(
-        "click",
-        loadSelectedROM
+    startEmulator(
+        absoluteURL,
+        detectedCore,
+        filename
     );
 
 
-    stopButton.addEventListener(
-        "click",
-        stopEmulator
-    );
+    return true;
+
+}
 
 
-    /*
-     * Only start automatically when a ROM
-     * was actually supplied in the URL.
-     */
+/* ============================================================
+   STOP
+   ============================================================ */
 
-    const loadedFromRepository =
-        loadRepositoryROM();
+stopButton.addEventListener(
+    "click",
+    async function() {
+
+        try {
+
+            await clearLocalROM();
+
+        } catch {
+
+            /* Ignore cleanup errors. */
+
+        }
+
+
+        window.location.href =
+            "emulator.html";
+
+    }
+);
+
+
+/* ============================================================
+   LOAD BUTTON
+   ============================================================ */
+
+loadButton.addEventListener(
+    "click",
+    loadSelectedLocalROM
+);
+
+
+/* ============================================================
+   INITIALIZATION
+   ============================================================ */
+
+async function initializePage() {
+
+    const params =
+        new URLSearchParams(
+            window.location.search
+        );
+
+
+    const isLocal =
+        params.get(
+            "local"
+        ) === "1";
+
+
+    if (isLocal) {
+
+        subtitle.textContent =
+            "Restoring your selected ROM...";
+
+
+        setStatus(
+            "Preparing emulator..."
+        );
+
+
+        await startStoredLocalROM();
+
+
+        return;
+
+    }
+
+
+    const repositoryLoaded =
+        startRepositoryROM();
 
 
     if (
-        !loadedFromRepository
+        repositoryLoaded
     ) {
 
-        setStatus(
-            "No ROM selected. Emulator is idle."
-        );
+        return;
 
     }
+
+
+    /*
+     * NO ROM:
+     *
+     * Do not load EmulatorJS.
+     * Do not create a loader.
+     * Do not try to start a game.
+     */
+
+    subtitle.textContent =
+        "Choose a ROM to begin.";
+
+
+    setStatus(
+        "No game selected. Emulator is idle."
+    );
+
+}
+
+
+initializePage();
 
 </script>
 
 </body>
+
 </html>
