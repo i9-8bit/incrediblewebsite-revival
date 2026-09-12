@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0">
+
+    <title>INCRWD Test Game</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            height: 100vh;
+
+            display: grid;
+            place-items: center;
+
+            background:
+                radial-gradient(
+                    circle at top,
+                    #182b3d,
+                    #080a10 65%
+                );
+
+            color: white;
+            font-family: Arial, sans-serif;
+            text-align: center;
+        }
+
+        .game {
+            width: min(500px, 90%);
+            padding: 35px;
+
+            background: #111620;
+            border: 1px solid #2b3545;
+            border-radius: 18px;
+
+            box-shadow:
+                0 20px 60px
+                rgba(0, 0, 0, 0.4);
+        }
+
+        h1 {
+            margin-top: 0;
+        }
+
+        #score {
+            font-size: 32px;
+            margin: 25px 0;
+        }
+
+        button {
+            padding: 14px 24px;
+
+            border: 0;
+            border-radius: 10px;
+
+            background: #00acd6;
+            color: white;
+
+            font-size: 18px;
+            font-weight: bold;
+
+            cursor: pointer;
+        }
+
+        button:hover {
+            background: #00c2ed;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="game">
+
+    <h1>🎮 INCRWD Test Game</h1>
+
+    <p>
+        Click the button as many times as you can.
+    </p>
+
+    <div id="score">
+        Score: 0
+    </div>
+
+    <button id="button">
+        Click Me!
+    </button>
+
+</div>
+
+<script>
+
+let score = 0;
+
+const scoreElement =
+    document.getElementById("score");
+
+const button =
+    document.getElementById("button");
+
+
+button.addEventListener(
+    "click",
+    () => {
+
+        score++;
+
+        scoreElement.textContent =
+            "Score: " + score;
+
+    }
+);
+
+</script>
+
+</body>
+
+</html>
