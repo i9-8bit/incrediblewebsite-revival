@@ -1,1 +1,1158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+    <title>Add Game | Incredible Website Revival</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            min-height: 100vh;
+
+            font-family:
+                Arial,
+                Helvetica,
+                sans-serif;
+
+            background: #080a10;
+            color: #ffffff;
+        }
+
+        header {
+            min-height: 68px;
+
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+
+            gap: 20px;
+            padding: 14px 25px;
+
+            background: #090b12;
+            border-bottom: 1px solid #252b38;
+        }
+
+        .logo {
+            font-size: 23px;
+            font-weight: 900;
+            letter-spacing: 2px;
+        }
+
+        nav {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 18px;
+        }
+
+        nav a {
+            color: #c2c9d4;
+            text-decoration: none;
+        }
+
+        nav a:hover {
+            color: #ffffff;
+        }
+
+        main {
+            width: min(1100px, 94%);
+            margin: auto;
+            padding: 40px 0 70px;
+        }
+
+        h1 {
+            margin: 0;
+            font-size: clamp(38px, 7vw, 70px);
+        }
+
+        .subtitle {
+            color: #aeb7c5;
+            line-height: 1.6;
+        }
+
+        .panel {
+            margin-top: 25px;
+            padding: 25px;
+
+            background: #111620;
+            border: 1px solid #283142;
+            border-radius: 15px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+
+            font-weight: bold;
+        }
+
+        input,
+        select,
+        textarea {
+            width: 100%;
+
+            padding: 13px;
+
+            border-radius: 9px;
+            border: 1px solid #303847;
+
+            background: #080b11;
+            color: white;
+
+            font: inherit;
+        }
+
+        textarea {
+            min-height: 110px;
+            resize: vertical;
+        }
+
+        .field {
+            margin-bottom: 20px;
+        }
+
+        .dropzone {
+            padding: 35px 20px;
+
+            text-align: center;
+
+            border: 2px dashed #374256;
+            border-radius: 14px;
+
+            background: #0d1118;
+
+            cursor: pointer;
+
+            transition: 0.2s;
+        }
+
+        .dropzone:hover,
+        .dropzone.dragging {
+            border-color: #00c8ee;
+            background: #101923;
+        }
+
+        .dropzone strong {
+            display: block;
+            font-size: 20px;
+            margin-bottom: 8px;
+        }
+
+        .muted {
+            color: #8f99a8;
+            font-size: 14px;
+        }
+
+        .button-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        button {
+            padding: 12px 18px;
+
+            border-radius: 9px;
+            border: 1px solid #303847;
+
+            background: #171d28;
+            color: white;
+
+            cursor: pointer;
+
+            font: inherit;
+            font-weight: bold;
+        }
+
+        button:hover {
+            background: #202838;
+        }
+
+        .primary {
+            background: #00acd6;
+            border-color: #00acd6;
+        }
+
+        .primary:hover {
+            background: #00c2ed;
+        }
+
+        .danger {
+            background: #5b2028;
+            border-color: #7f2935;
+        }
+
+        .result {
+            display: none;
+        }
+
+        pre {
+            margin: 0;
+
+            padding: 18px;
+
+            overflow-x: auto;
+
+            background: #07090d;
+
+            border: 1px solid #242c39;
+            border-radius: 10px;
+
+            color: #dbe3ee;
+        }
+
+        .preview {
+            display: none;
+
+            margin-top: 20px;
+            padding: 18px;
+
+            background: #07090d;
+
+            border-radius: 10px;
+            border: 1px solid #242c39;
+        }
+
+        .preview iframe {
+            width: 100%;
+            height: 500px;
+
+            border: 0;
+            border-radius: 8px;
+
+            background: white;
+        }
+
+        .badge {
+            display: inline-block;
+
+            padding: 6px 9px;
+            margin-bottom: 10px;
+
+            border-radius: 999px;
+
+            background: #172432;
+            color: #7fddf5;
+
+            font-size: 12px;
+            font-weight: bold;
+        }
+
+        .notice {
+            padding: 14px;
+
+            border-radius: 9px;
+
+            background: #171d28;
+            color: #aeb7c5;
+
+            line-height: 1.5;
+        }
+
+        footer {
+            padding: 40px 20px;
+
+            text-align: center;
+
+            border-top: 1px solid #252b38;
+
+            color: #717b8a;
+        }
+
+        @media (max-width: 700px) {
+            header {
+                flex-direction: column;
+            }
+
+            nav {
+                justify-content: center;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<header>
+
+    <div class="logo">
+        INCRWD
+    </div>
+
+    <nav>
+        <a href="index.html">Home</a>
+        <a href="games.html">Games</a>
+        <a href="gameboys.html">Gameboys</a>
+        <a href="web.html">Web Viewer</a>
+        <a href="add-game.html">Add Game</a>
+    </nav>
+
+</header>
+
+
+<main>
+
+    <h1>📦 Add a Game</h1>
+
+    <p class="subtitle">
+        Prepare a game for the Incredible Website Revival library.
+    </p>
+
+
+    <!-- FILE -->
+
+    <div class="panel">
+
+        <h2>1. Choose your game</h2>
+
+        <div
+            id="dropzone"
+            class="dropzone">
+
+            <strong>
+                Drop a game file here
+            </strong>
+
+            <span class="muted">
+                or click to choose a file
+            </span>
+
+            <br><br>
+
+            <span class="muted">
+                HTML • ZIP • GB • GBC • GBA
+            </span>
+
+        </div>
+
+        <input
+            id="file"
+            type="file"
+            accept=".html,.htm,.zip,.gb,.gbc,.gba"
+            hidden
+        >
+
+        <div
+            id="fileInfo"
+            class="notice"
+            style="display:none;margin-top:15px;">
+        </div>
+
+    </div>
+
+
+    <!-- INFORMATION -->
+
+    <div class="panel">
+
+        <h2>2. Game information</h2>
+
+        <div class="field">
+
+            <label for="title">
+                Game title
+            </label>
+
+            <input
+                id="title"
+                type="text"
+                placeholder="Example Game">
+
+        </div>
+
+
+        <div class="field">
+
+            <label for="description">
+                Description
+            </label>
+
+            <textarea
+                id="description"
+                placeholder="Describe the game..."></textarea>
+
+        </div>
+
+
+        <div class="field">
+
+            <label for="category">
+                Category
+            </label>
+
+            <select id="category">
+
+                <option>Arcade</option>
+                <option>Action</option>
+                <option>Adventure</option>
+                <option>Racing</option>
+                <option>Platformer</option>
+                <option>Puzzle</option>
+                <option>Strategy</option>
+                <option>Sports</option>
+                <option>Multiplayer</option>
+                <option>Indie</option>
+                <option>Educational</option>
+                <option>Creative</option>
+                <option>Gameboys</option>
+                <option>Other</option>
+
+            </select>
+
+        </div>
+
+
+        <div class="field">
+
+            <label for="platform">
+                Platform
+            </label>
+
+            <select id="platform">
+
+                <option>Web</option>
+                <option>PC</option>
+                <option>Game Boy</option>
+                <option>Game Boy Color</option>
+                <option>Game Boy Advance</option>
+                <option>Other</option>
+
+            </select>
+
+        </div>
+
+
+        <div class="field">
+
+            <label for="url">
+                Game URL
+            </label>
+
+            <input
+                id="url"
+                type="url"
+                placeholder="https://example.com/game">
+
+            <div class="muted" style="margin-top:8px;">
+                Leave blank for uploaded/local game files.
+            </div>
+
+        </div>
+
+
+        <div class="field">
+
+            <label for="tags">
+                Tags
+            </label>
+
+            <input
+                id="tags"
+                type="text"
+                placeholder="3D, Racing, Driving">
+
+            <div class="muted" style="margin-top:8px;">
+                Separate tags with commas.
+            </div>
+
+        </div>
+
+
+        <div class="button-row">
+
+            <button
+                id="generate"
+                class="primary">
+                Generate Game Entry
+            </button>
+
+            <button
+                id="clear"
+                class="danger">
+                Clear
+            </button>
+
+        </div>
+
+    </div>
+
+
+    <!-- PREVIEW -->
+
+    <div
+        id="previewPanel"
+        class="panel"
+        style="display:none;">
+
+        <h2>3. Preview</h2>
+
+        <div
+            id="previewText"
+            class="notice">
+        </div>
+
+        <div
+            id="browserPreview"
+            class="preview">
+
+            <h3>
+                Browser preview
+            </h3>
+
+            <iframe
+                id="previewFrame"
+                sandbox="allow-scripts allow-forms">
+            </iframe>
+
+        </div>
+
+    </div>
+
+
+    <!-- JSON -->
+
+    <div
+        id="resultPanel"
+        class="panel result">
+
+        <h2>4. Generated `games.json` entry</h2>
+
+        <p class="muted">
+            Copy this object into your repository's
+            <code>games.json</code>.
+        </p>
+
+        <pre id="result"></pre>
+
+        <div class="button-row" style="margin-top:15px;">
+
+            <button
+                id="copy"
+                class="primary">
+                Copy JSON
+            </button>
+
+        </div>
+
+        <div
+            class="notice"
+            style="margin-top:20px;">
+
+            <strong>Important:</strong>
+            GitHub Pages cannot directly write this generated
+            entry into your repository. The game file itself
+            must still be added to your repository through
+            GitHub/Codespaces.
+
+        </div>
+
+    </div>
+
+</main>
+
+
+<footer>
+
+    <p>
+        Only add content you have permission to publish.
+    </p>
+
+</footer>
+
+
+<script>
+
+const fileInput =
+    document.getElementById("file");
+
+const dropzone =
+    document.getElementById("dropzone");
+
+const fileInfo =
+    document.getElementById("fileInfo");
+
+const titleInput =
+    document.getElementById("title");
+
+const descriptionInput =
+    document.getElementById("description");
+
+const categoryInput =
+    document.getElementById("category");
+
+const platformInput =
+    document.getElementById("platform");
+
+const urlInput =
+    document.getElementById("url");
+
+const tagsInput =
+    document.getElementById("tags");
+
+const result =
+    document.getElementById("result");
+
+const resultPanel =
+    document.getElementById("resultPanel");
+
+const previewPanel =
+    document.getElementById("previewPanel");
+
+const previewText =
+    document.getElementById("previewText");
+
+const browserPreview =
+    document.getElementById("browserPreview");
+
+const previewFrame =
+    document.getElementById("previewFrame");
+
+
+let selectedFile = null;
+
+
+dropzone.addEventListener(
+    "click",
+    () => fileInput.click()
+);
+
+
+fileInput.addEventListener(
+    "change",
+    () => {
+
+        if (fileInput.files.length > 0) {
+
+            setFile(
+                fileInput.files[0]
+            );
+
+        }
+
+    }
+);
+
+
+dropzone.addEventListener(
+    "dragover",
+    event => {
+
+        event.preventDefault();
+
+        dropzone.classList.add(
+            "dragging"
+        );
+
+    }
+);
+
+
+dropzone.addEventListener(
+    "dragleave",
+    () => {
+
+        dropzone.classList.remove(
+            "dragging"
+        );
+
+    }
+);
+
+
+dropzone.addEventListener(
+    "drop",
+    event => {
+
+        event.preventDefault();
+
+        dropzone.classList.remove(
+            "dragging"
+        );
+
+        const files =
+            event.dataTransfer.files;
+
+        if (files.length > 0) {
+
+            setFile(files[0]);
+
+        }
+
+    }
+);
+
+
+function setFile(file) {
+
+    selectedFile = file;
+
+    const extension =
+        getExtension(file.name);
+
+    fileInfo.style.display =
+        "block";
+
+    fileInfo.innerHTML = `
+        <strong>${escapeHTML(file.name)}</strong>
+        <br>
+        ${formatBytes(file.size)}
+        <br>
+        Detected type: ${escapeHTML(extension || "unknown")}
+    `;
+
+
+    if (!titleInput.value.trim()) {
+
+        titleInput.value =
+            file.name.replace(
+                /\.[^/.]+$/,
+                ""
+            );
+
+    }
+
+
+    if (
+        extension === "gba" ||
+        extension === "gbc" ||
+        extension === "gb"
+    ) {
+
+        categoryInput.value =
+            "Gameboys";
+
+        if (extension === "gba") {
+            platformInput.value =
+                "Game Boy Advance";
+        }
+
+        if (extension === "gbc") {
+            platformInput.value =
+                "Game Boy Color";
+        }
+
+        if (extension === "gb") {
+            platformInput.value =
+                "Game Boy";
+        }
+
+    }
+
+}
+
+
+function getExtension(name) {
+
+    const parts =
+        name.toLowerCase().split(".");
+
+    return parts.length > 1
+        ? parts.pop()
+        : "";
+
+}
+
+
+function getGameType(file) {
+
+    const extension =
+        getExtension(file.name);
+
+
+    if (
+        extension === "html" ||
+        extension === "htm"
+    ) {
+        return "html";
+    }
+
+
+    if (extension === "zip") {
+        return "zip";
+    }
+
+
+    if (
+        extension === "gb" ||
+        extension === "gbc" ||
+        extension === "gba"
+    ) {
+        return "emulator";
+    }
+
+
+    return "file";
+
+}
+
+
+function getCore(file) {
+
+    const extension =
+        getExtension(file.name);
+
+
+    if (extension === "gb") {
+        return "gb";
+    }
+
+    if (extension === "gbc") {
+        return "gbc";
+    }
+
+    if (extension === "gba") {
+        return "gba";
+    }
+
+    return null;
+}
+
+
+document
+    .getElementById("generate")
+    .addEventListener(
+        "click",
+        generateEntry
+    );
+
+
+function generateEntry() {
+
+    const title =
+        titleInput.value.trim();
+
+    const description =
+        descriptionInput.value.trim();
+
+    const category =
+        categoryInput.value;
+
+    const platform =
+        platformInput.value;
+
+    const url =
+        urlInput.value.trim();
+
+    const tags =
+        tagsInput.value
+            .split(",")
+            .map(tag => tag.trim())
+            .filter(Boolean);
+
+
+    if (!title) {
+
+        alert(
+            "Please enter a game title."
+        );
+
+        return;
+
+    }
+
+
+    let type =
+        selectedFile
+            ? getGameType(selectedFile)
+            : "web";
+
+
+    const entry = {
+
+        title:
+            title,
+
+        description:
+            description ||
+            "No description provided.",
+
+        category:
+            category,
+
+        platform:
+            platform,
+
+        type:
+            type,
+
+        featured:
+            false,
+
+        tags:
+            tags
+
+    };
+
+
+    if (url) {
+
+        entry.url =
+            url;
+
+        if (type === "web") {
+            entry.external =
+                true;
+        }
+
+    }
+
+
+    if (selectedFile) {
+
+        const extension =
+            getExtension(
+                selectedFile.name
+            );
+
+
+        if (type === "emulator") {
+
+            entry.file =
+                `games/gameboys/${selectedFile.name}`;
+
+            entry.core =
+                getCore(selectedFile);
+
+        } else if (type === "html") {
+
+            entry.url =
+                `games/browser/${title
+                    .toLowerCase()
+                    .replace(/[^a-z0-9]+/g, "-")
+                    .replace(/^-|-$/g, "")
+                }/index.html`;
+
+        } else if (type === "zip") {
+
+            entry.path =
+                `games/browser/${title
+                    .toLowerCase()
+                    .replace(/[^a-z0-9]+/g, "-")
+                    .replace(/^-|-$/g, "")
+                }/`;
+
+        }
+
+    }
+
+
+    result.textContent =
+        JSON.stringify(
+            entry,
+            null,
+            4
+        );
+
+
+    resultPanel.style.display =
+        "block";
+
+
+    previewPanel.style.display =
+        "block";
+
+
+    previewText.innerHTML = `
+        <span class="badge">
+            ${escapeHTML(type.toUpperCase())}
+        </span>
+
+        <br>
+
+        <strong>
+            ${escapeHTML(title)}
+        </strong>
+
+        <br>
+
+        ${escapeHTML(
+            description ||
+            "No description provided."
+        )}
+    `;
+
+
+    /*
+     * Browser HTML preview.
+     */
+
+    browserPreview.style.display =
+        "none";
+
+
+    if (
+        selectedFile &&
+        (
+            type === "html"
+        )
+    ) {
+
+        const objectURL =
+            URL.createObjectURL(
+                selectedFile
+            );
+
+        browserPreview.style.display =
+            "block";
+
+        previewFrame.src =
+            objectURL;
+
+    }
+
+}
+
+
+document
+    .getElementById("copy")
+    .addEventListener(
+        "click",
+        async () => {
+
+            try {
+
+                await navigator
+                    .clipboard
+                    .writeText(
+                        result.textContent
+                    );
+
+                document
+                    .getElementById("copy")
+                    .textContent =
+                    "Copied!";
+
+                setTimeout(
+                    () => {
+
+                        document
+                            .getElementById("copy")
+                            .textContent =
+                            "Copy JSON";
+
+                    },
+                    1500
+                );
+
+            } catch {
+
+                alert(
+                    "Copy failed. Select and copy the JSON manually."
+                );
+
+            }
+
+        }
+    );
+
+
+document
+    .getElementById("clear")
+    .addEventListener(
+        "click",
+        () => {
+
+            selectedFile = null;
+
+            fileInput.value = "";
+
+            titleInput.value = "";
+
+            descriptionInput.value = "";
+
+            categoryInput.value =
+                "Arcade";
+
+            platformInput.value =
+                "Web";
+
+            urlInput.value = "";
+
+            tagsInput.value = "";
+
+            fileInfo.style.display =
+                "none";
+
+            resultPanel.style.display =
+                "none";
+
+            previewPanel.style.display =
+                "none";
+
+            previewFrame.src =
+                "";
+
+        }
+    );
+
+
+function formatBytes(bytes) {
+
+    if (bytes === 0) {
+        return "0 Bytes";
+    }
+
+    const units = [
+        "Bytes",
+        "KB",
+        "MB",
+        "GB"
+    ];
+
+    const index =
+        Math.floor(
+            Math.log(bytes) /
+            Math.log(1024)
+        );
+
+    return (
+        parseFloat(
+            (
+                bytes /
+                Math.pow(
+                    1024,
+                    index
+                )
+            ).toFixed(2)
+        )
+        + " "
+        + units[index]
+    );
+}
+
+
+function escapeHTML(value) {
+
+    return String(value)
+        .replaceAll(
+            "&",
+            "&amp;"
+        )
+        .replaceAll(
+            "<",
+            "&lt;"
+        )
+        .replaceAll(
+            ">",
+            "&gt;"
+        )
+        .replaceAll(
+            '"',
+            "&quot;"
+        )
+        .replaceAll(
+            "'",
+            "&#039;"
+        );
+
+}
+
+</script>
+
+</body>
+</html>
