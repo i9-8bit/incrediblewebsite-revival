@@ -1,5 +1,20 @@
 [
     {
+        "title": "Acceleration City",
+        "description": "A 3D city driving game.",
+        "category": "Racing",
+        "platform": "Web",
+        "type": "web",
+        "url": "https://games.cs2n.org/games/acceleration-city",
+        "featured": true,
+        "tags": [
+            "Racing",
+            "3D",
+            "Driving",
+            "City"
+        ]
+    },
+    {
         "title": "Gbacraft Archive",
         "description": "Game Boy Advance game.",
         "category": "Gameboys",
@@ -11,6 +26,20 @@
         "tags": [
             "Retro",
             "Game Boy Advance"
+        ]
+    },
+    {
+        "title": "Test Game",
+        "description": "A simple browser game used to test the game system.",
+        "category": "Arcade",
+        "platform": "Web",
+        "type": "html",
+        "url": "games/browser/test-game/index.html",
+        "featured": false,
+        "tags": [
+            "Arcade",
+            "Browser",
+            "Test"
         ]
     }
 ]
