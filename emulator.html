@@ -1,31 +1,41 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Game Boy Emulator | INCRWD</title>
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0">
+
+    <title>Emulator | INCRWD</title>
 
     <style>
+
         * {
             box-sizing: border-box;
         }
 
-        html, body {
+        html,
+        body {
             margin: 0;
             min-height: 100%;
             background: #080a10;
             color: white;
-            font-family: Arial, Helvetica, sans-serif;
+            font-family: Arial, sans-serif;
         }
 
         header {
             min-height: 68px;
+            padding: 14px 25px;
+
             display: flex;
             align-items: center;
             justify-content: space-between;
+
             gap: 20px;
-            padding: 14px 25px;
+
             background: #090b12;
             border-bottom: 1px solid #252b38;
         }
@@ -52,14 +62,14 @@
         }
 
         main {
-            width: min(1300px, 94%);
+            width: min(1350px, 94%);
             margin: auto;
             padding: 35px 0 60px;
         }
 
         h1 {
-            font-size: clamp(35px, 6vw, 65px);
             margin: 0;
+            font-size: clamp(35px, 6vw, 65px);
         }
 
         .subtitle {
@@ -70,19 +80,19 @@
         .controls {
             display: flex;
             flex-wrap: wrap;
-            gap: 12px;
+            gap: 10px;
             margin: 25px 0;
         }
 
-        select,
         input,
+        select,
         button {
             padding: 12px 15px;
             border-radius: 9px;
             border: 1px solid #303847;
             background: #111620;
             color: white;
-            font-size: 15px;
+            font: inherit;
         }
 
         button {
@@ -90,159 +100,262 @@
         }
 
         button:hover {
-            background: #1b2432;
+            background: #1c2534;
         }
 
-        .emulator-shell {
-            width: 100%;
+        .primary {
+            background: #00acd6;
+            border-color: #00acd6;
+        }
+
+        .primary:hover {
+            background: #00c2ed;
+        }
+
+        .screen {
             min-height: 550px;
-            padding: 20px;
-            border-radius: 16px;
-            background: #05070b;
+            padding: 15px;
+
+            background: #030508;
+
             border: 1px solid #283142;
+            border-radius: 16px;
         }
 
         #game {
             width: 100%;
-            height: 500px;
-            min-height: 400px;
+            min-height: 510px;
         }
 
         .status {
-            margin-top: 18px;
+            margin-top: 15px;
             padding: 14px;
+
             border-radius: 9px;
+
             background: #111620;
             color: #aab4c2;
+        }
+
+        .notice {
+            margin-top: 15px;
+            padding: 14px;
+
+            background: #111620;
+            border-radius: 9px;
+
+            color: #929dac;
         }
 
         footer {
             padding: 40px 20px;
             text-align: center;
-            color: #717b8a;
             border-top: 1px solid #252b38;
+            color: #717b8a;
         }
 
         @media (max-width: 700px) {
+
             header {
                 flex-direction: column;
             }
 
-            #game {
-                height: 400px;
+            nav {
+                justify-content: center;
             }
+
         }
+
     </style>
+
 </head>
 
 <body>
 
 <header>
-    <div class="logo">INCRWD</div>
+
+    <div class="logo">
+        INCRWD
+    </div>
 
     <nav>
-        <a href="index.html">Home</a>
-        <a href="games.html">Games</a>
-        <a href="gameboys.html">Gameboys</a>
-        <a href="add-game.html">Add Game</a>
+
+        <a href="index.html">
+            Home
+        </a>
+
+        <a href="games.html">
+            Games
+        </a>
+
+        <a href="gameboys.html">
+            Gameboys
+        </a>
+
     </nav>
+
 </header>
+
 
 <main>
 
-    <h1>🕹️ Game Boy Emulator</h1>
+    <h1>🕹️ Emulator</h1>
 
-    <p class="subtitle">
-        Load a GB, GBC, or GBA game that you have the right to use.
+    <p
+        id="subtitle"
+        class="subtitle">
+        Load a Game Boy ROM.
     </p>
+
 
     <div class="controls">
 
         <select id="system">
-            <option value="gb">Game Boy</option>
-            <option value="gbc">Game Boy Color</option>
-            <option value="gba" selected>Game Boy Advance</option>
+
+            <option value="gb">
+                Game Boy
+            </option>
+
+            <option value="gbc">
+                Game Boy Color
+            </option>
+
+            <option value="gba">
+                Game Boy Advance
+            </option>
+
         </select>
+
 
         <input
             id="rom"
             type="file"
             accept=".gb,.gbc,.gba"
-        >
+        />
 
-        <button id="loadButton">
-            Load Game
+
+        <button
+            id="loadFile"
+            class="primary">
+
+            Load Local ROM
+
         </button>
 
     </div>
 
-    <div class="emulator-shell">
+
+    <div class="screen">
+
         <div id="game"></div>
+
     </div>
+
 
     <div
         id="status"
         class="status">
-        Choose a ROM and press Load Game.
+
+        Ready.
+
+    </div>
+
+
+    <div class="notice">
+
+        ROM files are loaded in your browser.
+        Only use games you have permission to use.
+
     </div>
 
 </main>
 
+
 <footer>
+
     EmulatorJS retains its applicable license.
+
 </footer>
 
 
 <script>
-const CDN =
-    "https://cdn.emulatorjs.org/stable/data/";
 
-const system =
-    document.getElementById("system");
+const params =
+    new URLSearchParams(
+        window.location.search
+    );
+
+
+const systemSelect =
+    document.getElementById(
+        "system"
+    );
+
 
 const romInput =
-    document.getElementById("rom");
+    document.getElementById(
+        "rom"
+    );
 
-const loadButton =
-    document.getElementById("loadButton");
+
+const loadFileButton =
+    document.getElementById(
+        "loadFile"
+    );
+
 
 const status =
-    document.getElementById("status");
+    document.getElementById(
+        "status"
+    );
 
 
-function setStatus(message) {
-    status.textContent = message;
+const subtitle =
+    document.getElementById(
+        "subtitle"
+    );
+
+
+const game =
+    document.getElementById(
+        "game"
+    );
+
+
+const DATA_PATH =
+    "https://cdn.emulatorjs.org/stable/data/";
+
+
+function setStatus(
+    message
+) {
+
+    status.textContent =
+        message;
+
 }
 
 
-function getCore(systemName) {
+function coreFromSystem(
+    system
+) {
 
-    switch (systemName) {
-
-        case "gb":
-            return "gb";
-
-        case "gbc":
-            return "gbc";
-
-        case "gba":
-            return "gba";
-
-        default:
-            return "gba";
+    if (system === "gb") {
+        return "gb";
     }
+
+    if (system === "gbc") {
+        return "gbc";
+    }
+
+    return "gba";
+
 }
 
 
-function clearOldEmulator() {
+function clearEmulator() {
 
-    document.getElementById("game").innerHTML = "";
-
-    delete window.EJS_player;
-    delete window.EJS_core;
-    delete window.EJS_gameUrl;
-    delete window.EJS_pathtodata;
-    delete window.EJS_biosUrl;
+    game.innerHTML = "";
 
     const oldLoader =
         document.getElementById(
@@ -252,34 +365,23 @@ function clearOldEmulator() {
     if (oldLoader) {
         oldLoader.remove();
     }
+
+    delete window.EJS_player;
+    delete window.EJS_core;
+    delete window.EJS_gameUrl;
+    delete window.EJS_pathtodata;
+
 }
 
 
-function startEmulator(file) {
+function startEmulator(
+    romURL,
+    core,
+    title
+) {
 
-    if (!file) {
+    clearEmulator();
 
-        setStatus(
-            "Please choose a .gb, .gbc, or .gba file."
-        );
-
-        return;
-    }
-
-
-    clearOldEmulator();
-
-
-    const romURL =
-        URL.createObjectURL(file);
-
-    const core =
-        getCore(system.value);
-
-
-    /*
-     * EmulatorJS documented configuration.
-     */
 
     window.EJS_player =
         "#game";
@@ -291,67 +393,170 @@ function startEmulator(file) {
         romURL;
 
     window.EJS_pathtodata =
-        CDN;
+        DATA_PATH;
 
-    window.EJS_biosUrl =
-        "";
+
+    subtitle.textContent =
+        title
+            ? "Playing " + title
+            : "Game Boy emulator";
 
 
     setStatus(
-        "Starting " +
-        file.name +
-        " using the " +
-        core +
-        " core..."
+        "Starting emulator..."
     );
 
 
     const loader =
-        document.createElement("script");
+        document.createElement(
+            "script"
+        );
+
 
     loader.id =
         "emulatorjs-loader";
 
+
     loader.src =
-        CDN + "loader.js";
+        DATA_PATH +
+        "loader.js";
 
 
     loader.onload =
-        function() {
+        () => {
 
             setStatus(
-                "Emulator started. " +
-                "If the screen stays black, open the browser console " +
-                "for the emulator error."
+                "Emulator started."
             );
 
         };
 
 
     loader.onerror =
-        function() {
+        () => {
 
             setStatus(
-                "EmulatorJS loader failed to download."
+                "EmulatorJS failed to load."
             );
 
         };
 
 
-    document.body.appendChild(loader);
+    document.body.appendChild(
+        loader
+    );
+
 }
 
 
-loadButton.addEventListener(
-    "click",
-    function() {
+function loadLocalFile() {
 
-        startEmulator(
-            romInput.files[0]
+    const file =
+        romInput.files[0];
+
+
+    if (!file) {
+
+        setStatus(
+            "Choose a ROM first."
         );
 
+        return;
+
     }
+
+
+    const core =
+        coreFromSystem(
+            systemSelect.value
+        );
+
+
+    const objectURL =
+        URL.createObjectURL(
+            file
+        );
+
+
+    startEmulator(
+        objectURL,
+        core,
+        file.name
+    );
+
+}
+
+
+function loadRepositoryROM() {
+
+    const rom =
+        params.get("rom");
+
+    const coreParam =
+        params.get("core");
+
+
+    if (!rom) {
+        return false;
+    }
+
+
+    const core =
+        coreParam ||
+        "gba";
+
+
+    const title =
+        rom
+            .split("/")
+            .pop();
+
+
+    systemSelect.value =
+        core === "gb"
+            ? "gb"
+            : core === "gbc"
+                ? "gbc"
+                : "gba";
+
+
+    setStatus(
+        "Loading " +
+        title +
+        "..."
+    );
+
+
+    startEmulator(
+        rom,
+        core,
+        title
+    );
+
+
+    return true;
+
+}
+
+
+loadFileButton.addEventListener(
+    "click",
+    loadLocalFile
 );
+
+
+const loadedFromLibrary =
+    loadRepositoryROM();
+
+
+if (!loadedFromLibrary) {
+
+    setStatus(
+        "Choose a local ROM to play."
+    );
+
+}
+
 </script>
 
 </body>

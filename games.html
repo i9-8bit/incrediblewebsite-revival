@@ -3,186 +3,632 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Games - Incredible Website Revival</title>
-    <link rel="stylesheet" href="style.css">
+
+    <title>Games | INCRWD</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            min-height: 100vh;
+            font-family: Arial, sans-serif;
+            background: #080a10;
+            color: white;
+        }
+
+        header {
+            min-height: 68px;
+            padding: 14px 25px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 20px;
+            background: #090b12;
+            border-bottom: 1px solid #252b38;
+        }
+
+        .logo {
+            font-size: 23px;
+            font-weight: 900;
+            letter-spacing: 2px;
+        }
+
+        nav {
+            display: flex;
+            gap: 18px;
+            flex-wrap: wrap;
+        }
+
+        nav a {
+            color: #c2c9d4;
+            text-decoration: none;
+        }
+
+        nav a:hover {
+            color: white;
+        }
+
+        main {
+            width: min(1250px, 94%);
+            margin: auto;
+            padding: 40px 0 70px;
+        }
+
+        h1 {
+            font-size: clamp(38px, 6vw, 65px);
+            margin: 0;
+        }
+
+        .subtitle {
+            color: #aeb7c5;
+        }
+
+        .toolbar {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin: 25px 0;
+        }
+
+        input,
+        select {
+            padding: 13px;
+            border-radius: 9px;
+            border: 1px solid #303847;
+            background: #111620;
+            color: white;
+            font: inherit;
+        }
+
+        #search {
+            flex: 1;
+            min-width: 220px;
+        }
+
+        .game-grid {
+            display: grid;
+            grid-template-columns:
+                repeat(auto-fill, minmax(230px, 1fr));
+            gap: 20px;
+        }
+
+        .game-card {
+            overflow: hidden;
+            border-radius: 14px;
+            background: #111620;
+            border: 1px solid #283142;
+            transition: transform .2s, border-color .2s;
+        }
+
+        .game-card:hover {
+            transform: translateY(-4px);
+            border-color: #00acd6;
+        }
+
+        .game-card-content {
+            padding: 18px;
+        }
+
+        .game-card h2 {
+            margin-top: 0;
+            font-size: 21px;
+        }
+
+        .game-card p {
+            color: #98a3b3;
+            line-height: 1.5;
+        }
+
+        .meta {
+            font-size: 13px;
+            color: #758091;
+        }
+
+        .play {
+            display: inline-block;
+            margin-top: 10px;
+            padding: 10px 15px;
+            border-radius: 9px;
+            background: #00acd6;
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .play:hover {
+            background: #00c2ed;
+        }
+
+        .empty {
+            padding: 40px;
+            text-align: center;
+            color: #7e8999;
+        }
+
+        footer {
+            padding: 40px 20px;
+            text-align: center;
+            border-top: 1px solid #252b38;
+            color: #717b8a;
+        }
+
+        @media (max-width: 700px) {
+            header {
+                flex-direction: column;
+            }
+
+            nav {
+                justify-content: center;
+            }
+        }
+    </style>
 </head>
 
 <body>
 
-<header class="site-header">
+<header>
     <div class="logo">INCRWD</div>
 
     <nav>
         <a href="index.html">Home</a>
         <a href="games.html">Games</a>
         <a href="gameboys.html">Gameboys</a>
-        <a href="web.html">Web Viewer</a>
+        <a href="emulator.html">Emulator</a>
         <a href="add-game.html">Add Game</a>
+        <a href="web.html">Web Viewer</a>
     </nav>
 </header>
 
 <main>
 
-<section>
     <h1>🎮 Games</h1>
 
-    <p>
-        Browse the game library.
+    <p class="subtitle">
+        Browser games, racing, retro, Game Boy and more.
     </p>
 
-    <input
-        id="search"
-        type="search"
-        placeholder="Search games..."
-        style="
-            width:100%;
-            max-width:600px;
-            padding:14px;
-            margin-top:20px;
-            border-radius:10px;
-            border:1px solid #303747;
-            background:#11151e;
-            color:white;
-            font-size:16px;
-        "
-    >
-</section>
+    <div class="toolbar">
 
-<section>
+        <input
+            id="search"
+            type="search"
+            placeholder="Search games..."
+        >
 
-    <div id="gameList" class="game-grid"></div>
+        <select id="category">
+            <option value="all">
+                All Categories
+            </option>
+        </select>
 
-</section>
+        <select id="platform">
+            <option value="all">
+                All Platforms
+            </option>
+        </select>
+
+    </div>
+
+    <div
+        id="gameList"
+        class="game-grid">
+    </div>
+
+    <div
+        id="empty"
+        class="empty"
+        style="display:none;">
+        No games found.
+    </div>
 
 </main>
 
 <footer>
-    <p>Incredible Website Revival</p>
+    Incredible Website Revival
 </footer>
 
 <script>
+
 let games = [];
 
+
+const search =
+    document.getElementById("search");
+
+const category =
+    document.getElementById("category");
+
+const platform =
+    document.getElementById("platform");
+
+const gameList =
+    document.getElementById("gameList");
+
+const empty =
+    document.getElementById("empty");
+
+
 async function loadGames() {
+
     try {
-        const response = await fetch("games.json");
+
+        const response =
+            await fetch(
+                "games.json",
+                {
+                    cache: "no-store"
+                }
+            );
 
         if (!response.ok) {
-            throw new Error("games.json could not be loaded");
+            throw new Error(
+                "Could not load games.json"
+            );
         }
 
-        games = await response.json();
+        games =
+            await response.json();
+
+        buildFilters();
+
         renderGames();
 
     } catch (error) {
+
         console.error(error);
 
-        document.getElementById("gameList").innerHTML = `
-            <article class="game-card">
+        gameList.innerHTML = `
+            <div class="game-card">
                 <div class="game-card-content">
-                    <h3>Game library couldn't load</h3>
-                    <p>Check that games.json exists in the repository.</p>
+                    <h2>Game library error</h2>
+                    <p>
+                        Could not load games.json.
+                    </p>
                 </div>
-            </article>
+            </div>
         `;
+
     }
+
 }
+
+
+function buildFilters() {
+
+    const categories =
+        [
+            ...new Set(
+                games
+                    .map(game => game.category)
+                    .filter(Boolean)
+            )
+        ].sort();
+
+
+    const platforms =
+        [
+            ...new Set(
+                games
+                    .map(game => game.platform)
+                    .filter(Boolean)
+            )
+        ].sort();
+
+
+    category.innerHTML = `
+        <option value="all">
+            All Categories
+        </option>
+    `;
+
+    platform.innerHTML = `
+        <option value="all">
+            All Platforms
+        </option>
+    `;
+
+
+    for (const item of categories) {
+
+        const option =
+            document.createElement("option");
+
+        option.value = item;
+        option.textContent = item;
+
+        category.appendChild(option);
+
+    }
+
+
+    for (const item of platforms) {
+
+        const option =
+            document.createElement("option");
+
+        option.value = item;
+        option.textContent = item;
+
+        platform.appendChild(option);
+
+    }
+
+}
+
+
+function getPlayURL(game) {
+
+    /*
+     * Browser game:
+     * use its normal URL.
+     */
+
+    if (
+        game.type !== "emulator"
+    ) {
+
+        return game.url || "#";
+
+    }
+
+
+    /*
+     * Emulator game:
+     * send the ROM path and emulator
+     * core to emulator.html.
+     */
+
+    if (
+        !game.file ||
+        !game.core
+    ) {
+
+        return "#";
+
+    }
+
+
+    return (
+        "emulator.html" +
+        "?rom=" +
+        encodeURIComponent(
+            game.file
+        ) +
+        "&core=" +
+        encodeURIComponent(
+            game.core
+        )
+    );
+
+}
+
 
 function renderGames() {
+
     const query =
-        document.getElementById("search")
-        .value
-        .trim()
-        .toLowerCase();
+        search.value
+            .trim()
+            .toLowerCase();
 
-    const filtered = games.filter(game => {
-        const text = [
-            game.title || "",
-            game.description || "",
-            game.category || "",
-            game.platform || "",
-            ...(game.tags || [])
-        ].join(" ").toLowerCase();
 
-        return text.includes(query);
-    });
+    const selectedCategory =
+        category.value;
 
-    const container =
-        document.getElementById("gameList");
 
-    if (filtered.length === 0) {
-        container.innerHTML = `
-            <article class="game-card">
-                <div class="game-card-content">
-                    <h3>No games found</h3>
-                    <p>Try a different search.</p>
-                </div>
-            </article>
-        `;
-        return;
+    const selectedPlatform =
+        platform.value;
+
+
+    const filtered =
+        games.filter(game => {
+
+            const searchable = [
+                game.title || "",
+                game.description || "",
+                game.category || "",
+                game.platform || "",
+                ...(game.tags || [])
+            ]
+            .join(" ")
+            .toLowerCase();
+
+
+            const matchesSearch =
+                !query ||
+                searchable.includes(query);
+
+
+            const matchesCategory =
+                selectedCategory === "all" ||
+                game.category ===
+                    selectedCategory;
+
+
+            const matchesPlatform =
+                selectedPlatform === "all" ||
+                game.platform ===
+                    selectedPlatform;
+
+
+            return (
+                matchesSearch &&
+                matchesCategory &&
+                matchesPlatform
+            );
+
+        });
+
+
+    gameList.innerHTML = "";
+
+    empty.style.display =
+        filtered.length
+            ? "none"
+            : "block";
+
+
+    for (const game of filtered) {
+
+        const card =
+            document.createElement(
+                "article"
+            );
+
+        card.className =
+            "game-card";
+
+
+        const content =
+            document.createElement(
+                "div"
+            );
+
+        content.className =
+            "game-card-content";
+
+
+        const title =
+            document.createElement(
+                "h2"
+            );
+
+        title.textContent =
+            game.title ||
+            "Untitled";
+
+
+        const description =
+            document.createElement(
+                "p"
+            );
+
+        description.textContent =
+            game.description ||
+            "No description available.";
+
+
+        const meta =
+            document.createElement(
+                "div"
+            );
+
+        meta.className =
+            "meta";
+
+        meta.textContent =
+            [
+                game.category,
+                game.platform
+            ]
+            .filter(Boolean)
+            .join(" • ");
+
+
+        const play =
+            document.createElement(
+                "a"
+            );
+
+        play.className =
+            "play";
+
+
+        if (
+            game.type ===
+            "emulator"
+        ) {
+
+            play.textContent =
+                "▶ Play in Emulator";
+
+            play.href =
+                getPlayURL(game);
+
+        } else {
+
+            play.textContent =
+                "▶ Play";
+
+            play.href =
+                getPlayURL(game);
+
+            if (
+                /^https?:\/\//i.test(
+                    play.href
+                )
+            ) {
+
+                play.target =
+                    "_blank";
+
+                play.rel =
+                    "noopener noreferrer";
+
+            }
+
+        }
+
+
+        if (
+            play.href === "#"
+        ) {
+
+            play.textContent =
+                "Unavailable";
+
+        }
+
+
+        content.appendChild(
+            title
+        );
+
+        content.appendChild(
+            description
+        );
+
+        content.appendChild(
+            meta
+        );
+
+        content.appendChild(
+            play
+        );
+
+        card.appendChild(
+            content
+        );
+
+        gameList.appendChild(
+            card
+        );
+
     }
 
-    container.innerHTML = filtered.map(game => {
-
-        const link =
-            game.url || "#";
-
-        return `
-            <article class="game-card">
-
-                <div class="game-card-content">
-
-                    <h3>
-                        ${escapeHTML(game.title || "Untitled")}
-                    </h3>
-
-                    <p>
-                        ${escapeHTML(
-                            game.description || ""
-                        )}
-                    </p>
-
-                    <p>
-                        ${escapeHTML(
-                            game.category || "Other"
-                        )}
-                        •
-                        ${escapeHTML(
-                            game.platform || "Web"
-                        )}
-                    </p>
-
-                    <a
-                        class="play-button"
-                        href="${escapeHTML(link)}"
-                        ${game.type === "web"
-                            ? 'target="_blank" rel="noopener noreferrer"'
-                            : ""}
-                    >
-                        Play
-                    </a>
-
-                </div>
-
-            </article>
-        `;
-    }).join("");
 }
 
-function escapeHTML(value) {
-    return String(value)
-        .replaceAll("&", "&amp;")
-        .replaceAll("<", "&lt;")
-        .replaceAll(">", "&gt;")
-        .replaceAll('"', "&quot;")
-        .replaceAll("'", "&#039;");
-}
 
-document
-    .getElementById("search")
-    .addEventListener("input", renderGames);
+search.addEventListener(
+    "input",
+    renderGames
+);
+
+category.addEventListener(
+    "change",
+    renderGames
+);
+
+platform.addEventListener(
+    "change",
+    renderGames
+);
+
 
 loadGames();
+
 </script>
 
 </body>
