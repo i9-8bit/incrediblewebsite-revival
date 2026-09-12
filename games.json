@@ -41,5 +41,19 @@
             "Browser",
             "Test"
         ]
+    },
+    {
+        "title": "Gbacraft",
+        "description": "Game Boy Advance game.",
+        "category": "Gameboys",
+        "platform": "Game Boy Advance",
+        "type": "emulator",
+        "file": "games/gameboys/GBACRAFT.gba",
+        "core": "gba",
+        "featured": false,
+        "tags": [
+            "Retro",
+            "Game Boy Advance"
+        ]
     }
 ]
