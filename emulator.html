@@ -1,8 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0">
 
     <title>Emulator | INCRWD</title>
 
@@ -16,7 +19,7 @@
             margin: 0;
             min-height: 100%;
             background: #080a10;
-            color: #fff;
+            color: #ffffff;
             font-family: Arial, Helvetica, sans-serif;
         }
 
@@ -51,7 +54,7 @@
         }
 
         nav a:hover {
-            color: #fff;
+            color: #ffffff;
         }
 
         main {
@@ -84,7 +87,7 @@
             border-radius: 9px;
             border: 1px solid #303847;
             background: #111620;
-            color: #fff;
+            color: white;
             font: inherit;
         }
 
@@ -239,9 +242,7 @@
                 Game Boy Color
             </option>
 
-            <option
-                value="gba"
-                selected>
+            <option value="gba" selected>
                 Game Boy Advance
             </option>
 
@@ -258,7 +259,9 @@
         <button
             id="loadLocal"
             class="primary">
+
             Load Local ROM
+
         </button>
 
     </div>
@@ -281,8 +284,8 @@
                 </h2>
 
                 <p>
-                    Select a GB, GBC, or GBA file above,
-                    or launch a game from the Games page.
+                    Choose a game from the Games page,
+                    or load a local ROM.
                 </p>
 
             </div>
@@ -309,9 +312,9 @@
 
     <div class="notice">
 
-        Use ROM files that you are legally entitled
-        to use. EmulatorJS and third-party components
-        retain their respective licenses.
+        Repository games use normal GitHub Pages URLs.
+        Local ROMs stay on your device and are only used
+        for the current browser session.
 
     </div>
 
@@ -361,15 +364,15 @@ const loadLocalButton =
     );
 
 
-const gameContainer =
-    document.getElementById(
-        "game"
-    );
-
-
 const welcome =
     document.getElementById(
         "welcome"
+    );
+
+
+const gameContainer =
+    document.getElementById(
+        "game"
     );
 
 
@@ -385,7 +388,7 @@ const status =
     );
 
 
-let emulatorLoading =
+let emulatorStarted =
     false;
 
 
@@ -420,7 +423,7 @@ function getCore(
 }
 
 
-function showEmulatorArea() {
+function showGameArea() {
 
     welcome.style.display =
         "none";
@@ -431,35 +434,14 @@ function showEmulatorArea() {
 }
 
 
-function createEmulator(
+function configureEmulator(
     romUrl,
     core,
     gameName
 ) {
 
-    if (emulatorLoading) {
-        return;
-    }
-
-    emulatorLoading =
-        true;
-
-
-    showEmulatorArea();
-
-
-    /*
-     * Clear the container before initialization.
-     */
-
-    gameContainer.innerHTML =
-        "";
-
-
     /*
      * EmulatorJS configuration.
-     * These are created ONLY when a game
-     * actually exists.
      */
 
     window.EJS_player =
@@ -475,7 +457,7 @@ function createEmulator(
 
 
     window.EJS_gameName =
-        gameName || "INCRWD Game";
+        gameName;
 
 
     window.EJS_pathtodata =
@@ -487,8 +469,8 @@ function createEmulator(
 
 
     /*
-     * Disable the cheat UI that previously
-     * caused the startup crash.
+     * Disable the cheat UI that caused
+     * the previous WebAssembly startup crash.
      */
 
     window.EJS_Buttons = {
@@ -531,21 +513,44 @@ function createEmulator(
 
     };
 
+}
+
+
+function loadEmulator(
+    romUrl,
+    core,
+    gameName
+) {
+
+    if (emulatorStarted) {
+
+        setStatus(
+            "Emulator is already running."
+        );
+
+        return;
+
+    }
+
+
+    showGameArea();
+
+
+    configureEmulator(
+        romUrl,
+        core,
+        gameName
+    );
+
 
     subtitle.textContent =
         "Loading " + gameName + "...";
 
 
     setStatus(
-        "Starting " +
-        core.toUpperCase() +
-        " emulator..."
+        "Downloading emulator core..."
     );
 
-
-    /*
-     * Load the EmulatorJS loader exactly once.
-     */
 
     const loader =
         document.createElement(
@@ -553,20 +558,25 @@ function createEmulator(
         );
 
 
-    loader.id =
-        "emulatorjs-loader";
-
-
     loader.src =
         DATA_PATH +
         "loader.js";
 
 
+    loader.id =
+        "emulatorjs-loader";
+
+
     loader.onload =
         function() {
 
+            emulatorStarted =
+                true;
+
             setStatus(
-                "EmulatorJS loaded. Starting game...",
+                "EmulatorJS loaded. Starting " +
+                gameName +
+                "...",
                 "success"
             );
 
@@ -576,11 +586,8 @@ function createEmulator(
     loader.onerror =
         function() {
 
-            emulatorLoading =
-                false;
-
             setStatus(
-                "EmulatorJS could not be loaded.",
+                "Could not download EmulatorJS.",
                 "error"
             );
 
@@ -599,14 +606,14 @@ function startRepositoryGame() {
     if (!repositoryRom) {
 
         /*
-         * THIS IS IMPORTANT:
-         *
-         * No ROM parameter means:
-         * DO NOT start EmulatorJS.
+         * No ROM = absolutely no emulator startup.
          */
 
+        subtitle.textContent =
+            "Choose a ROM to begin.";
+
         setStatus(
-            "No game selected. Choose a ROM to begin."
+            "No game selected."
         );
 
         return;
@@ -614,12 +621,25 @@ function startRepositoryGame() {
     }
 
 
-    let absoluteRom;
+    const core =
+        getCore(
+            repositoryCore
+        );
+
+
+    let absoluteURL;
 
 
     try {
 
-        absoluteRom =
+        /*
+         * Make a normal HTTP(S) GitHub Pages URL.
+         *
+         * We deliberately DO NOT use blob:
+         * URLs here.
+         */
+
+        absoluteURL =
             new URL(
                 repositoryRom,
                 window.location.href
@@ -632,19 +652,13 @@ function startRepositoryGame() {
         );
 
         setStatus(
-            "The ROM URL is invalid.",
+            "Invalid game URL.",
             "error"
         );
 
         return;
 
     }
-
-
-    const core =
-        getCore(
-            repositoryCore
-        );
 
 
     const gameName =
@@ -659,8 +673,8 @@ function startRepositoryGame() {
         core;
 
 
-    createEmulator(
-        absoluteRom,
+    loadEmulator(
+        absoluteURL,
         core,
         gameName
     );
@@ -668,227 +682,139 @@ function startRepositoryGame() {
 }
 
 
-loadLocalButton.addEventListener(
-    "click",
-    function() {
+function loadLocalROM() {
 
-        const file =
-            localRomInput.files[0];
+    const file =
+        localRomInput.files[0];
 
 
-        if (!file) {
+    if (!file) {
 
-            setStatus(
-                "Choose a ROM first.",
-                "error"
-            );
-
-            return;
-
-        }
-
-
-        const extension =
-            file.name
-                .split(".")
-                .pop()
-                .toLowerCase();
-
-
-        const selectedCore =
-            getCore(
-                systemSelect.value
-            );
-
-
-        if (
-            selectedCore === "gb" &&
-            extension !== "gb"
-        ) {
-
-            setStatus(
-                "Game Boy requires a .gb file.",
-                "error"
-            );
-
-            return;
-
-        }
-
-
-        if (
-            selectedCore === "gbc" &&
-            extension !== "gbc"
-        ) {
-
-            setStatus(
-                "Game Boy Color requires a .gbc file.",
-                "error"
-            );
-
-            return;
-
-        }
-
-
-        if (
-            selectedCore === "gba" &&
-            extension !== "gba"
-        ) {
-
-            setStatus(
-                "Game Boy Advance requires a .gba file.",
-                "error"
-            );
-
-            return;
-
-        }
-
-
-        const localUrl =
-            URL.createObjectURL(
-                file
-            );
-
-
-        /*
-         * Reload a clean page so that EmulatorJS
-         * has not already initialized.
-         *
-         * NOTE:
-         * Browser Blob URLs are temporary, so this
-         * is only for the current browser session.
-         */
-
-        sessionStorage.setItem(
-            "incrwdLocalRom",
-            localUrl
+        setStatus(
+            "Choose a ROM first.",
+            "error"
         );
 
-
-        sessionStorage.setItem(
-            "incrwdLocalCore",
-            selectedCore
-        );
-
-
-        sessionStorage.setItem(
-            "incrwdLocalName",
-            file.name
-        );
-
-
-        window.location.href =
-            "emulator.html?local=1";
+        return;
 
     }
-);
 
 
-function startLocalGame() {
+    const extension =
+        file.name
+            .split(".")
+            .pop()
+            .toLowerCase();
 
-    const localUrl =
-        sessionStorage.getItem(
-            "incrwdLocalRom"
+
+    const selectedCore =
+        getCore(
+            systemSelect.value
         );
 
 
-    const localCore =
-        sessionStorage.getItem(
-            "incrwdLocalCore"
+    /*
+     * Validate file type.
+     */
+
+    if (
+        selectedCore === "gb" &&
+        extension !== "gb"
+    ) {
+
+        setStatus(
+            "Game Boy requires a .gb file.",
+            "error"
         );
 
+        return;
 
-    const localName =
-        sessionStorage.getItem(
-            "incrwdLocalName"
-        );
+    }
 
 
     if (
-        !localUrl ||
-        !localCore
+        selectedCore === "gbc" &&
+        extension !== "gbc"
     ) {
 
-        return false;
+        setStatus(
+            "Game Boy Color requires a .gbc file.",
+            "error"
+        );
+
+        return;
+
+    }
+
+
+    if (
+        selectedCore === "gba" &&
+        extension !== "gba"
+    ) {
+
+        setStatus(
+            "Game Boy Advance requires a .gba file.",
+            "error"
+        );
+
+        return;
 
     }
 
 
     /*
-     * Remove the temporary information so
-     * refreshing the page doesn't automatically
-     * start it again.
+     * IMPORTANT:
+     *
+     * Do NOT store the Blob URL in sessionStorage
+     * and navigate to another page.
+     *
+     * Keep the local ROM on THIS page.
+     *
+     * EmulatorJS receives the Blob URL directly.
      */
 
-    sessionStorage.removeItem(
-        "incrwdLocalRom"
+    const blobURL =
+        URL.createObjectURL(
+            file
+        );
+
+
+    emulatorStarted =
+        false;
+
+
+    loadEmulator(
+        blobURL,
+        selectedCore,
+        file.name
     );
-
-    sessionStorage.removeItem(
-        "incrwdLocalCore"
-    );
-
-    sessionStorage.removeItem(
-        "incrwdLocalName"
-    );
-
-
-    systemSelect.value =
-        localCore;
-
-
-    createEmulator(
-        localUrl,
-        localCore,
-        localName || "Local Game"
-    );
-
-
-    return true;
 
 }
 
 
+loadLocalButton.addEventListener(
+    "click",
+    loadLocalROM
+);
+
+
 /*
- * STARTUP LOGIC
+ * Repository-hosted ROMs automatically start.
  *
- * Priority:
- *
- * 1. Explicit local ROM session
- * 2. Repository ROM from URL
- * 3. Nothing selected
- *
- * There is NO automatic emulator startup
- * when neither exists.
+ * No query string = no emulator initialization.
  */
 
-if (
-    query.get("local") === "1"
-) {
-
-    if (!startLocalGame()) {
-
-        setStatus(
-            "The local ROM session expired. Choose it again."
-        );
-
-    }
-
-} else if (
-    repositoryRom
-) {
+if (repositoryRom) {
 
     startRepositoryGame();
 
 } else {
 
     subtitle.textContent =
-        "Choose a ROM to begin.";
+        "Choose a game to begin.";
 
     setStatus(
-        "No game selected. The emulator is idle."
+        "No game selected. Emulator is idle."
     );
 
 }
