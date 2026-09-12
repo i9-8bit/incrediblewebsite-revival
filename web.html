@@ -1,1 +1,297 @@
+<!DOCTYPE html>
+<html lang="en">
 
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Web Viewer | INCRWD</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            min-height: 100vh;
+            font-family: Arial, Helvetica, sans-serif;
+            background: #080a10;
+            color: white;
+        }
+
+        header {
+            min-height: 68px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 20px;
+            padding: 14px 25px;
+            background: #090b12;
+            border-bottom: 1px solid #252b38;
+        }
+
+        .logo {
+            font-size: 23px;
+            font-weight: 900;
+            letter-spacing: 2px;
+        }
+
+        nav {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 18px;
+        }
+
+        nav a {
+            color: #c2c9d4;
+            text-decoration: none;
+        }
+
+        nav a:hover {
+            color: white;
+        }
+
+        main {
+            width: min(1400px, 94%);
+            margin: auto;
+            padding: 35px 0 60px;
+        }
+
+        h1 {
+            font-size: clamp(35px, 6vw, 65px);
+            margin: 0;
+        }
+
+        .subtitle {
+            color: #aeb7c5;
+            line-height: 1.6;
+        }
+
+        .toolbar {
+            display: flex;
+            gap: 10px;
+            margin-top: 25px;
+        }
+
+        #url {
+            flex: 1;
+            padding: 14px;
+            border-radius: 9px;
+            border: 1px solid #303847;
+            background: #111620;
+            color: white;
+            font-size: 16px;
+        }
+
+        button {
+            padding: 14px 20px;
+            border-radius: 9px;
+            border: 1px solid #00acd6;
+            background: #00acd6;
+            color: white;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        button:hover {
+            background: #00c2ed;
+        }
+
+        .viewer-wrap {
+            margin-top: 20px;
+            background: #05070b;
+            border: 1px solid #283142;
+            border-radius: 15px;
+            padding: 10px;
+        }
+
+        #viewer {
+            width: 100%;
+            height: 70vh;
+            min-height: 450px;
+            border: 0;
+            border-radius: 10px;
+            background: white;
+        }
+
+        .notice {
+            margin-top: 15px;
+            padding: 14px;
+            border-radius: 10px;
+            background: #111620;
+            color: #9fa9b8;
+            line-height: 1.5;
+        }
+
+        @media (max-width: 700px) {
+            header {
+                flex-direction: column;
+            }
+
+            nav {
+                justify-content: center;
+            }
+
+            .toolbar {
+                flex-direction: column;
+            }
+
+            #viewer {
+                min-height: 400px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<header>
+
+    <div class="logo">INCRWD</div>
+
+    <nav>
+        <a href="index.html">Home</a>
+        <a href="games.html">Games</a>
+        <a href="gameboys.html">Gameboys</a>
+        <a href="add-game.html">Add Game</a>
+    </nav>
+
+</header>
+
+<main>
+
+    <h1>🌐 Web Viewer</h1>
+
+    <p class="subtitle">
+        View websites that allow themselves to be embedded.
+    </p>
+
+    <div class="toolbar">
+
+        <input
+            id="url"
+            type="text"
+            placeholder="https://example.com"
+            autocomplete="off"
+        >
+
+        <button id="go">
+            Go
+        </button>
+
+        <button id="newTab">
+            Open
+        </button>
+
+    </div>
+
+    <div class="viewer-wrap">
+
+        <iframe
+            id="viewer"
+            title="Web Viewer"
+            sandbox="
+                allow-forms
+                allow-scripts
+                allow-same-origin
+                allow-popups
+                allow-presentation
+            "
+            allow="fullscreen; autoplay; gamepad">
+        </iframe>
+
+    </div>
+
+    <div class="notice">
+        Some websites intentionally block iframe embedding.
+        Those sites can still be opened with the Open button.
+    </div>
+
+</main>
+
+<script>
+
+const urlInput =
+    document.getElementById("url");
+
+const viewer =
+    document.getElementById("viewer");
+
+function normalizeURL(value) {
+
+    let url =
+        value.trim();
+
+    if (!url) {
+        return "";
+    }
+
+    if (
+        !/^https?:\/\//i.test(url)
+    ) {
+        url =
+            "https://" + url;
+    }
+
+    return url;
+}
+
+function openViewer() {
+
+    const url =
+        normalizeURL(
+            urlInput.value
+        );
+
+    if (!url) {
+        return;
+    }
+
+    viewer.src = url;
+}
+
+document
+    .getElementById("go")
+    .addEventListener(
+        "click",
+        openViewer
+    );
+
+document
+    .getElementById("newTab")
+    .addEventListener(
+        "click",
+        () => {
+
+            const url =
+                normalizeURL(
+                    urlInput.value
+                );
+
+            if (url) {
+                window.open(
+                    url,
+                    "_blank",
+                    "noopener,noreferrer"
+                );
+            }
+
+        }
+    );
+
+urlInput.addEventListener(
+    "keydown",
+    event => {
+
+        if (event.key === "Enter") {
+            openViewer();
+        }
+
+    }
+);
+
+</script>
+
+</body>
+</html>
