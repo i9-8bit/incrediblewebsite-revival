@@ -1,32 +1,16 @@
 [
     {
-        "title": "Acceleration City",
-        "description": "3D city driving game",
-        "category": "Racing",
-        "platform": "Web",
-        "type": "web",
-        "url": "https://games.cs2n.org/games/acceleration-city",
-        "featured": true,
-        "tags": [
-            "Racing",
-            "3D",
-            "Driving",
-            "City"
-        ]
-    },
-
-    {
-        "title": "Game Boy Emulator",
-        "description": "Browser-based Game Boy emulator.",
+        "title": "Gbacraft Archive",
+        "description": "Game Boy Advance game.",
         "category": "Gameboys",
-        "platform": "Game Boy",
+        "platform": "Game Boy Advance",
         "type": "emulator",
-        "url": "emulator.html",
-        "featured": true,
+        "file": "games/gameboys/gbacraft_archive.gba",
+        "core": "gba",
+        "featured": false,
         "tags": [
             "Retro",
-            "Game Boy",
-            "Emulator"
+            "Game Boy Advance"
         ]
     }
 ]
