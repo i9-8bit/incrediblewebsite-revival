@@ -1,1 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Games - Incredible Website Revival</title>
+    <link rel="stylesheet" href="style.css">
+</head>
 
+<body>
+
+<header class="site-header">
+    <div class="logo">INCRWD</div>
+
+    <nav>
+        <a href="index.html">Home</a>
+        <a href="games.html">Games</a>
+        <a href="gameboys.html">Gameboys</a>
+        <a href="web.html">Web Viewer</a>
+        <a href="add-game.html">Add Game</a>
+    </nav>
+</header>
+
+<main>
+
+<section>
+    <h1>🎮 Games</h1>
+
+    <p>
+        Browse the game library.
+    </p>
+
+    <input
+        id="search"
+        type="search"
+        placeholder="Search games..."
+        style="
+            width:100%;
+            max-width:600px;
+            padding:14px;
+            margin-top:20px;
+            border-radius:10px;
+            border:1px solid #303747;
+            background:#11151e;
+            color:white;
+            font-size:16px;
+        "
+    >
+</section>
+
+<section>
+
+    <div id="gameList" class="game-grid"></div>
+
+</section>
+
+</main>
+
+<footer>
+    <p>Incredible Website Revival</p>
+</footer>
+
+<script>
+let games = [];
+
+async function loadGames() {
+    try {
+        const response = await fetch("games.json");
+
+        if (!response.ok) {
+            throw new Error("games.json could not be loaded");
+        }
+
+        games = await response.json();
+        renderGames();
+
+    } catch (error) {
+        console.error(error);
+
+        document.getElementById("gameList").innerHTML = `
+            <article class="game-card">
+                <div class="game-card-content">
+                    <h3>Game library couldn't load</h3>
+                    <p>Check that games.json exists in the repository.</p>
+                </div>
+            </article>
+        `;
+    }
+}
+
+function renderGames() {
+    const query =
+        document.getElementById("search")
+        .value
+        .trim()
+        .toLowerCase();
+
+    const filtered = games.filter(game => {
+        const text = [
+            game.title || "",
+            game.description || "",
+            game.category || "",
+            game.platform || "",
+            ...(game.tags || [])
+        ].join(" ").toLowerCase();
+
+        return text.includes(query);
+    });
+
+    const container =
+        document.getElementById("gameList");
+
+    if (filtered.length === 0) {
+        container.innerHTML = `
+            <article class="game-card">
+                <div class="game-card-content">
+                    <h3>No games found</h3>
+                    <p>Try a different search.</p>
+                </div>
+            </article>
+        `;
+        return;
+    }
+
+    container.innerHTML = filtered.map(game => {
+
+        const link =
+            game.url || "#";
+
+        return `
+            <article class="game-card">
+
+                <div class="game-card-content">
+
+                    <h3>
+                        ${escapeHTML(game.title || "Untitled")}
+                    </h3>
+
+                    <p>
+                        ${escapeHTML(
+                            game.description || ""
+                        )}
+                    </p>
+
+                    <p>
+                        ${escapeHTML(
+                            game.category || "Other"
+                        )}
+                        •
+                        ${escapeHTML(
+                            game.platform || "Web"
+                        )}
+                    </p>
+
+                    <a
+                        class="play-button"
+                        href="${escapeHTML(link)}"
+                        ${game.type === "web"
+                            ? 'target="_blank" rel="noopener noreferrer"'
+                            : ""}
+                    >
+                        Play
+                    </a>
+
+                </div>
+
+            </article>
+        `;
+    }).join("");
+}
+
+function escapeHTML(value) {
+    return String(value)
+        .replaceAll("&", "&amp;")
+        .replaceAll("<", "&lt;")
+        .replaceAll(">", "&gt;")
+        .replaceAll('"', "&quot;")
+        .replaceAll("'", "&#039;");
+}
+
+document
+    .getElementById("search")
+    .addEventListener("input", renderGames);
+
+loadGames();
+</script>
+
+</body>
+</html>
