@@ -1,170 +1,185 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Games | INCRWD</title>
 
-    <title>Games | INCRWD</title>
+<style>
+*{box-sizing:border-box}
+body{
+    margin:0;
+    background:#080a10;
+    color:#fff;
+    font-family:Arial,Helvetica,sans-serif
+}
+header{
+    min-height:68px;
+    padding:14px 25px;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:20px;
+    background:#090b12;
+    border-bottom:1px solid #252b38
+}
+.logo{
+    font-size:23px;
+    font-weight:900;
+    letter-spacing:2px
+}
+nav{
+    display:flex;
+    flex-wrap:wrap;
+    gap:18px
+}
+nav a{
+    color:#c2c9d4;
+    text-decoration:none
+}
+nav a:hover{color:#fff}
 
-    <style>
-        * {
-            box-sizing: border-box;
-        }
+main{
+    width:min(1400px,94%);
+    margin:auto;
+    padding:35px 0 70px
+}
 
-        body {
-            margin: 0;
-            min-height: 100vh;
-            font-family: Arial, sans-serif;
-            background: #080a10;
-            color: white;
-        }
+h1{
+    margin:0;
+    font-size:clamp(38px,6vw,70px)
+}
+.subtitle{
+    color:#aeb7c5;
+    line-height:1.6
+}
 
-        header {
-            min-height: 68px;
-            padding: 14px 25px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            gap: 20px;
-            background: #090b12;
-            border-bottom: 1px solid #252b38;
-        }
+.toolbar{
+    display:grid;
+    grid-template-columns:2fr 1fr 1fr 1fr;
+    gap:10px;
+    margin:25px 0
+}
 
-        .logo {
-            font-size: 23px;
-            font-weight: 900;
-            letter-spacing: 2px;
-        }
+input,select{
+    width:100%;
+    padding:13px;
+    border-radius:9px;
+    border:1px solid #303847;
+    background:#111620;
+    color:#fff;
+    font:inherit
+}
 
-        nav {
-            display: flex;
-            gap: 18px;
-            flex-wrap: wrap;
-        }
+.tabs{
+    display:flex;
+    flex-wrap:wrap;
+    gap:8px;
+    margin-bottom:25px
+}
 
-        nav a {
-            color: #c2c9d4;
-            text-decoration: none;
-        }
+.tab{
+    padding:10px 14px;
+    border-radius:999px;
+    border:1px solid #303847;
+    background:#111620;
+    color:#c2c9d4;
+    cursor:pointer
+}
+.tab.active{
+    background:#00acd6;
+    border-color:#00acd6;
+    color:#fff
+}
 
-        nav a:hover {
-            color: white;
-        }
+.game-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fill,minmax(230px,1fr));
+    gap:20px
+}
 
-        main {
-            width: min(1250px, 94%);
-            margin: auto;
-            padding: 40px 0 70px;
-        }
+.game-card{
+    background:#111620;
+    border:1px solid #283142;
+    border-radius:14px;
+    overflow:hidden;
+    transition:.2s;
+    position:relative
+}
+.game-card:hover{
+    transform:translateY(-4px);
+    border-color:#00acd6
+}
 
-        h1 {
-            font-size: clamp(38px, 6vw, 65px);
-            margin: 0;
-        }
+.card-top{
+    padding:18px 18px 0;
+    display:flex;
+    justify-content:space-between;
+    gap:10px
+}
 
-        .subtitle {
-            color: #aeb7c5;
-        }
+.star{
+    border:0;
+    background:none;
+    color:#687386;
+    font-size:22px;
+    cursor:pointer
+}
+.star.favorite{color:#ffd45c}
 
-        .toolbar {
-            display: flex;
-            gap: 10px;
-            flex-wrap: wrap;
-            margin: 25px 0;
-        }
+.game-card-content{padding:18px}
+.game-card h2{
+    margin:0 0 10px;
+    font-size:21px
+}
+.game-card p{
+    color:#98a3b3;
+    line-height:1.5
+}
 
-        input,
-        select {
-            padding: 13px;
-            border-radius: 9px;
-            border: 1px solid #303847;
-            background: #111620;
-            color: white;
-            font: inherit;
-        }
+.meta{
+    margin:12px 0;
+    font-size:13px;
+    color:#748092
+}
 
-        #search {
-            flex: 1;
-            min-width: 220px;
-        }
+.play{
+    display:inline-block;
+    margin-top:8px;
+    padding:10px 15px;
+    border-radius:9px;
+    background:#00acd6;
+    color:#fff;
+    text-decoration:none;
+    font-weight:bold
+}
 
-        .game-grid {
-            display: grid;
-            grid-template-columns:
-                repeat(auto-fill, minmax(230px, 1fr));
-            gap: 20px;
-        }
+.play:hover{background:#00c2ed}
 
-        .game-card {
-            overflow: hidden;
-            border-radius: 14px;
-            background: #111620;
-            border: 1px solid #283142;
-            transition: transform .2s, border-color .2s;
-        }
+.empty{
+    padding:50px;
+    text-align:center;
+    color:#7f8a9a
+}
 
-        .game-card:hover {
-            transform: translateY(-4px);
-            border-color: #00acd6;
-        }
+.count{
+    color:#7f8a9a;
+    margin-bottom:15px
+}
 
-        .game-card-content {
-            padding: 18px;
-        }
+footer{
+    padding:40px 20px;
+    text-align:center;
+    color:#717b8a;
+    border-top:1px solid #252b38
+}
 
-        .game-card h2 {
-            margin-top: 0;
-            font-size: 21px;
-        }
-
-        .game-card p {
-            color: #98a3b3;
-            line-height: 1.5;
-        }
-
-        .meta {
-            font-size: 13px;
-            color: #758091;
-        }
-
-        .play {
-            display: inline-block;
-            margin-top: 10px;
-            padding: 10px 15px;
-            border-radius: 9px;
-            background: #00acd6;
-            color: white;
-            text-decoration: none;
-            font-weight: bold;
-        }
-
-        .play:hover {
-            background: #00c2ed;
-        }
-
-        .empty {
-            padding: 40px;
-            text-align: center;
-            color: #7e8999;
-        }
-
-        footer {
-            padding: 40px 20px;
-            text-align: center;
-            border-top: 1px solid #252b38;
-            color: #717b8a;
-        }
-
-        @media (max-width: 700px) {
-            header {
-                flex-direction: column;
-            }
-
-            nav {
-                justify-content: center;
-            }
-        }
-    </style>
+@media(max-width:800px){
+    header{flex-direction:column}
+    nav{justify-content:center}
+    .toolbar{grid-template-columns:1fr}
+}
+</style>
 </head>
 
 <body>
@@ -184,45 +199,44 @@
 
 <main>
 
-    <h1>🎮 Games</h1>
+<h1>🎮 Games</h1>
 
-    <p class="subtitle">
-        Browser games, racing, retro, Game Boy and more.
-    </p>
+<p class="subtitle">
+    Browse games by category, platform, or favorite.
+</p>
 
-    <div class="toolbar">
+<div class="toolbar">
+    <input id="search" placeholder="Search games...">
 
-        <input
-            id="search"
-            type="search"
-            placeholder="Search games..."
-        >
+    <select id="category">
+        <option value="all">All Categories</option>
+    </select>
 
-        <select id="category">
-            <option value="all">
-                All Categories
-            </option>
-        </select>
+    <select id="platform">
+        <option value="all">All Platforms</option>
+    </select>
 
-        <select id="platform">
-            <option value="all">
-                All Platforms
-            </option>
-        </select>
+    <select id="sort">
+        <option value="title">Name</option>
+        <option value="category">Category</option>
+        <option value="platform">Platform</option>
+        <option value="favorites">Favorites</option>
+    </select>
+</div>
 
-    </div>
+<div class="tabs">
+    <button class="tab active" data-mode="all">All</button>
+    <button class="tab" data-mode="featured">⭐ Featured</button>
+    <button class="tab" data-mode="favorites">❤️ Favorites</button>
+</div>
 
-    <div
-        id="gameList"
-        class="game-grid">
-    </div>
+<div id="count" class="count"></div>
 
-    <div
-        id="empty"
-        class="empty"
-        style="display:none;">
-        No games found.
-    </div>
+<div id="gameList" class="game-grid"></div>
+
+<div id="empty" class="empty" style="display:none">
+    No games matched your filters.
+</div>
 
 </main>
 
@@ -231,52 +245,272 @@
 </footer>
 
 <script>
-
 let games = [];
+let mode = "all";
 
+const search = document.getElementById("search");
+const category = document.getElementById("category");
+const platform = document.getElementById("platform");
+const sort = document.getElementById("sort");
+const gameList = document.getElementById("gameList");
+const empty = document.getElementById("empty");
+const count = document.getElementById("count");
 
-const search =
-    document.getElementById("search");
+const favorites =
+    JSON.parse(
+        localStorage.getItem("incrwd-favorites") || "[]"
+    );
 
-const category =
-    document.getElementById("category");
+function saveFavorites(){
+    localStorage.setItem(
+        "incrwd-favorites",
+        JSON.stringify(favorites)
+    );
+}
 
-const platform =
-    document.getElementById("platform");
+function isFavorite(game){
+    return favorites.includes(game.title);
+}
 
-const gameList =
-    document.getElementById("gameList");
+function toggleFavorite(title){
+    const index = favorites.indexOf(title);
 
-const empty =
-    document.getElementById("empty");
+    if(index >= 0){
+        favorites.splice(index,1);
+    }else{
+        favorites.push(title);
+    }
 
+    saveFavorites();
+    render();
+}
 
-async function loadGames() {
+function escapeHTML(value){
+    return String(value)
+        .replaceAll("&","&amp;")
+        .replaceAll("<","&lt;")
+        .replaceAll(">","&gt;")
+        .replaceAll('"',"&quot;")
+        .replaceAll("'","&#039;");
+}
 
-    try {
+function buildFilters(){
+
+    const categories = [
+        ...new Set(
+            games
+                .map(g => g.category)
+                .filter(Boolean)
+        )
+    ].sort();
+
+    const platforms = [
+        ...new Set(
+            games
+                .map(g => g.platform)
+                .filter(Boolean)
+        )
+    ].sort();
+
+    for(const item of categories){
+        category.innerHTML +=
+            `<option value="${escapeHTML(item)}">${escapeHTML(item)}</option>`;
+    }
+
+    for(const item of platforms){
+        platform.innerHTML +=
+            `<option value="${escapeHTML(item)}">${escapeHTML(item)}</option>`;
+    }
+}
+
+function getPlayURL(game){
+
+    if(game.type === "emulator" && game.file){
+
+        return "emulator.html?rom=" +
+            encodeURIComponent(game.file) +
+            "&core=" +
+            encodeURIComponent(game.core || "");
+
+    }
+
+    return game.url || "#";
+}
+
+function render(){
+
+    const query =
+        search.value.trim().toLowerCase();
+
+    let filtered = games.filter(game => {
+
+        const text = [
+            game.title || "",
+            game.description || "",
+            game.category || "",
+            game.platform || "",
+            ...(game.tags || [])
+        ].join(" ").toLowerCase();
+
+        const matchesSearch =
+            !query || text.includes(query);
+
+        const matchesCategory =
+            category.value === "all" ||
+            game.category === category.value;
+
+        const matchesPlatform =
+            platform.value === "all" ||
+            game.platform === platform.value;
+
+        const matchesMode =
+            mode === "all" ||
+            (mode === "featured" && game.featured) ||
+            (mode === "favorites" && isFavorite(game));
+
+        return (
+            matchesSearch &&
+            matchesCategory &&
+            matchesPlatform &&
+            matchesMode
+        );
+    });
+
+    filtered.sort((a,b) => {
+
+        if(sort.value === "category"){
+            return (a.category || "")
+                .localeCompare(b.category || "");
+        }
+
+        if(sort.value === "platform"){
+            return (a.platform || "")
+                .localeCompare(b.platform || "");
+        }
+
+        if(sort.value === "favorites"){
+            return Number(isFavorite(b)) -
+                   Number(isFavorite(a)) ||
+                   (a.title || "").localeCompare(b.title || "");
+        }
+
+        return (a.title || "")
+            .localeCompare(b.title || "");
+    });
+
+    count.textContent =
+        `${filtered.length} game${filtered.length === 1 ? "" : "s"}`;
+
+    gameList.innerHTML = "";
+
+    empty.style.display =
+        filtered.length ? "none" : "block";
+
+    for(const game of filtered){
+
+        const card =
+            document.createElement("article");
+
+        card.className = "game-card";
+
+        const favorite =
+            isFavorite(game);
+
+        const playURL =
+            getPlayURL(game);
+
+        const external =
+            game.type === "web" &&
+            /^https?:\/\//i.test(playURL);
+
+        card.innerHTML = `
+            <div class="card-top">
+
+                <div></div>
+
+                <button
+                    class="star ${favorite ? "favorite" : ""}"
+                    title="Favorite"
+                >
+                    ${favorite ? "★" : "☆"}
+                </button>
+
+            </div>
+
+            <div class="game-card-content">
+
+                <h2>
+                    ${escapeHTML(
+                        game.title || "Untitled"
+                    )}
+                </h2>
+
+                <p>
+                    ${escapeHTML(
+                        game.description ||
+                        "No description available."
+                    )}
+                </p>
+
+                <div class="meta">
+                    ${escapeHTML(
+                        game.category || "Other"
+                    )}
+                    •
+                    ${escapeHTML(
+                        game.platform || "Web"
+                    )}
+                </div>
+
+                <a
+                    class="play"
+                    href="${escapeHTML(playURL)}"
+                    ${external
+                        ? 'target="_blank" rel="noopener noreferrer"'
+                        : ""}
+                >
+                    ${
+                        game.type === "emulator"
+                        ? "▶ Play in Emulator"
+                        : "▶ Play"
+                    }
+                </a>
+
+            </div>
+        `;
+
+        card
+            .querySelector(".star")
+            .addEventListener(
+                "click",
+                () => toggleFavorite(game.title)
+            );
+
+        gameList.appendChild(card);
+    }
+}
+
+async function loadGames(){
+
+    try{
 
         const response =
             await fetch(
                 "games.json",
-                {
-                    cache: "no-store"
-                }
+                {cache:"no-store"}
             );
 
-        if (!response.ok) {
-            throw new Error(
-                "Could not load games.json"
-            );
+        if(!response.ok){
+            throw new Error("games.json failed");
         }
 
         games =
             await response.json();
 
         buildFilters();
+        render();
 
-        renderGames();
-
-    } catch (error) {
+    }catch(error){
 
         console.error(error);
 
@@ -290,345 +524,39 @@ async function loadGames() {
                 </div>
             </div>
         `;
-
     }
-
 }
 
-
-function buildFilters() {
-
-    const categories =
-        [
-            ...new Set(
-                games
-                    .map(game => game.category)
-                    .filter(Boolean)
-            )
-        ].sort();
-
-
-    const platforms =
-        [
-            ...new Set(
-                games
-                    .map(game => game.platform)
-                    .filter(Boolean)
-            )
-        ].sort();
-
-
-    category.innerHTML = `
-        <option value="all">
-            All Categories
-        </option>
-    `;
-
-    platform.innerHTML = `
-        <option value="all">
-            All Platforms
-        </option>
-    `;
-
-
-    for (const item of categories) {
-
-        const option =
-            document.createElement("option");
-
-        option.value = item;
-        option.textContent = item;
-
-        category.appendChild(option);
-
-    }
-
-
-    for (const item of platforms) {
-
-        const option =
-            document.createElement("option");
-
-        option.value = item;
-        option.textContent = item;
-
-        platform.appendChild(option);
-
-    }
-
-}
-
-
-function getPlayURL(game) {
-
-    /*
-     * Browser game:
-     * use its normal URL.
-     */
-
-    if (
-        game.type !== "emulator"
-    ) {
-
-        return game.url || "#";
-
-    }
-
-
-    /*
-     * Emulator game:
-     * send the ROM path and emulator
-     * core to emulator.html.
-     */
-
-    if (
-        !game.file ||
-        !game.core
-    ) {
-
-        return "#";
-
-    }
-
-
-    return (
-        "emulator.html" +
-        "?rom=" +
-        encodeURIComponent(
-            game.file
-        ) +
-        "&core=" +
-        encodeURIComponent(
-            game.core
-        )
-    );
-
-}
-
-
-function renderGames() {
-
-    const query =
-        search.value
-            .trim()
-            .toLowerCase();
-
-
-    const selectedCategory =
-        category.value;
-
-
-    const selectedPlatform =
-        platform.value;
-
-
-    const filtered =
-        games.filter(game => {
-
-            const searchable = [
-                game.title || "",
-                game.description || "",
-                game.category || "",
-                game.platform || "",
-                ...(game.tags || [])
-            ]
-            .join(" ")
-            .toLowerCase();
-
-
-            const matchesSearch =
-                !query ||
-                searchable.includes(query);
-
-
-            const matchesCategory =
-                selectedCategory === "all" ||
-                game.category ===
-                    selectedCategory;
-
-
-            const matchesPlatform =
-                selectedPlatform === "all" ||
-                game.platform ===
-                    selectedPlatform;
-
-
-            return (
-                matchesSearch &&
-                matchesCategory &&
-                matchesPlatform
-            );
-
-        });
-
-
-    gameList.innerHTML = "";
-
-    empty.style.display =
-        filtered.length
-            ? "none"
-            : "block";
-
-
-    for (const game of filtered) {
-
-        const card =
-            document.createElement(
-                "article"
-            );
-
-        card.className =
-            "game-card";
-
-
-        const content =
-            document.createElement(
-                "div"
-            );
-
-        content.className =
-            "game-card-content";
-
-
-        const title =
-            document.createElement(
-                "h2"
-            );
-
-        title.textContent =
-            game.title ||
-            "Untitled";
-
-
-        const description =
-            document.createElement(
-                "p"
-            );
-
-        description.textContent =
-            game.description ||
-            "No description available.";
-
-
-        const meta =
-            document.createElement(
-                "div"
-            );
-
-        meta.className =
-            "meta";
-
-        meta.textContent =
-            [
-                game.category,
-                game.platform
-            ]
-            .filter(Boolean)
-            .join(" • ");
-
-
-        const play =
-            document.createElement(
-                "a"
-            );
-
-        play.className =
-            "play";
-
-
-        if (
-            game.type ===
-            "emulator"
-        ) {
-
-            play.textContent =
-                "▶ Play in Emulator";
-
-            play.href =
-                getPlayURL(game);
-
-        } else {
-
-            play.textContent =
-                "▶ Play";
-
-            play.href =
-                getPlayURL(game);
-
-            if (
-                /^https?:\/\//i.test(
-                    play.href
-                )
-            ) {
-
-                play.target =
-                    "_blank";
-
-                play.rel =
-                    "noopener noreferrer";
-
+search.addEventListener("input",render);
+category.addEventListener("change",render);
+platform.addEventListener("change",render);
+sort.addEventListener("change",render);
+
+document
+    .querySelectorAll(".tab")
+    .forEach(tab => {
+
+        tab.addEventListener(
+            "click",
+            () => {
+
+                document
+                    .querySelectorAll(".tab")
+                    .forEach(
+                        x => x.classList.remove("active")
+                    );
+
+                tab.classList.add("active");
+
+                mode =
+                    tab.dataset.mode;
+
+                render();
             }
-
-        }
-
-
-        if (
-            play.href === "#"
-        ) {
-
-            play.textContent =
-                "Unavailable";
-
-        }
-
-
-        content.appendChild(
-            title
         );
-
-        content.appendChild(
-            description
-        );
-
-        content.appendChild(
-            meta
-        );
-
-        content.appendChild(
-            play
-        );
-
-        card.appendChild(
-            content
-        );
-
-        gameList.appendChild(
-            card
-        );
-
-    }
-
-}
-
-
-search.addEventListener(
-    "input",
-    renderGames
-);
-
-category.addEventListener(
-    "change",
-    renderGames
-);
-
-platform.addEventListener(
-    "change",
-    renderGames
-);
-
+    });
 
 loadGames();
-
 </script>
 
 </body>
