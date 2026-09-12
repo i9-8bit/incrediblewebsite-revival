@@ -9,6 +9,7 @@ from pathlib import Path
 
 
 ROOT = Path(__file__).resolve().parent.parent
+
 INCOMING = ROOT / "incoming"
 GAMES_DIR = ROOT / "games"
 GAMES_JSON = ROOT / "games.json"
@@ -19,6 +20,7 @@ BROWSER_EXTENSIONS = {
     ".htm",
     ".zip",
 }
+
 
 EMULATOR_EXTENSIONS = {
     ".gb": ("Game Boy", "gb"),
@@ -45,10 +47,19 @@ def load_games() -> list[dict]:
         return []
 
     try:
-        data = json.loads(GAMES_JSON.read_text(encoding="utf-8"))
+        data = json.loads(
+            GAMES_JSON.read_text(
+                encoding="utf-8"
+            )
+        )
+
         if not isinstance(data, list):
-            raise ValueError("games.json must contain a JSON array.")
+            raise ValueError(
+                "games.json must contain a JSON array."
+            )
+
         return data
+
     except json.JSONDecodeError as exc:
         raise SystemExit(
             f"ERROR: games.json is not valid JSON: {exc}"
@@ -57,12 +68,20 @@ def load_games() -> list[dict]:
 
 def save_games(games: list[dict]) -> None:
     GAMES_JSON.write_text(
-        json.dumps(games, indent=4, ensure_ascii=False) + "\n",
-        encoding="utf-8",
+        json.dumps(
+            games,
+            indent=4,
+            ensure_ascii=False
+        ) + "\n",
+        encoding="utf-8"
     )
 
 
-def unique_title(games: list[dict], title: str) -> str:
+def unique_title(
+    games: list[dict],
+    title: str
+) -> str:
+
     existing = {
         str(game.get("title", "")).strip().lower()
         for game in games
@@ -73,20 +92,35 @@ def unique_title(games: list[dict], title: str) -> str:
 
     number = 2
 
-    while f"{title} {number}".lower() in existing:
+    while (
+        f"{title} {number}".lower()
+        in existing
+    ):
         number += 1
 
     return f"{title} {number}"
 
 
-def extract_zip(source: Path, destination: Path) -> Path:
-    destination.mkdir(parents=True, exist_ok=True)
+def extract_zip(
+    source: Path,
+    destination: Path
+) -> None:
 
-    with zipfile.ZipFile(source, "r") as archive:
+    destination.mkdir(
+        parents=True,
+        exist_ok=True
+    )
+
+    with zipfile.ZipFile(
+        source,
+        "r"
+    ) as archive:
 
         for member in archive.infolist():
 
-            member_path = Path(member.filename)
+            member_path = Path(
+                member.filename
+            )
 
             if member.filename.startswith("/"):
                 raise ValueError(
@@ -104,18 +138,23 @@ def extract_zip(source: Path, destination: Path) -> Path:
                 destination.resolve()
             )
 
-        archive.extractall(destination)
+        archive.extractall(
+            destination
+        )
 
-    return destination
 
+def find_html_root(
+    folder: Path
+) -> Path | None:
 
-def find_html_root(folder: Path) -> Path | None:
     direct_index = folder / "index.html"
 
     if direct_index.exists():
         return folder
 
-    candidates = list(folder.rglob("index.html"))
+    candidates = list(
+        folder.rglob("index.html")
+    )
 
     if len(candidates) == 1:
         return candidates[0].parent
@@ -125,12 +164,12 @@ def find_html_root(folder: Path) -> Path | None:
 
 def import_browser_file(
     source: Path,
-    games: list[dict],
+    games: list[dict]
 ) -> dict:
 
     title = unique_title(
         games,
-        pretty_title(source.name),
+        pretty_title(source.name)
     )
 
     slug = slugify(title)
@@ -148,23 +187,26 @@ def import_browser_file(
 
     destination.mkdir(
         parents=True,
-        exist_ok=True,
+        exist_ok=True
     )
 
     extension = source.suffix.lower()
 
-    if extension in {".html", ".htm"}:
+    if extension in {
+        ".html",
+        ".htm"
+    }:
 
         shutil.copy2(
             source,
-            destination / "index.html",
+            destination / "index.html"
         )
 
     elif extension == ".zip":
 
         extract_zip(
             source,
-            destination,
+            destination
         )
 
         html_root = find_html_root(
@@ -180,21 +222,26 @@ def import_browser_file(
 
         if html_root != destination:
 
-            temp = destination.parent / (
-                f".{slug}-normalized"
+            temp = (
+                destination.parent
+                / f".{slug}-normalized"
             )
 
             if temp.exists():
                 shutil.rmtree(temp)
 
-            shutil.move(
-                str(html_root),
-                str(temp),
+            shutil.copytree(
+                html_root,
+                temp
             )
 
-            shutil.rmtree(destination)
+            shutil.rmtree(
+                destination
+            )
 
-            temp.rename(destination)
+            temp.rename(
+                destination
+            )
 
     else:
 
@@ -208,15 +255,19 @@ def import_browser_file(
         "category": "Other",
         "platform": "Web",
         "type": "html",
-        "url": f"games/browser/{slug}/index.html",
+        "url": (
+            f"games/browser/{slug}/index.html"
+        ),
         "featured": False,
-        "tags": ["Browser"],
+        "tags": [
+            "Browser"
+        ]
     }
 
 
 def import_emulator_file(
     source: Path,
-    games: list[dict],
+    games: list[dict]
 ) -> dict:
 
     extension = source.suffix.lower()
@@ -226,21 +277,24 @@ def import_emulator_file(
             f"Unsupported emulator file: {extension}"
         )
 
-    platform, core = EMULATOR_EXTENSIONS[
-        extension
-    ]
+    platform, core = (
+        EMULATOR_EXTENSIONS[extension]
+    )
 
     title = unique_title(
         games,
-        pretty_title(source.name),
+        pretty_title(source.name)
     )
 
-    destination =
-        GAMES_DIR / "gameboys" / source.name
+    destination = (
+        GAMES_DIR
+        / "gameboys"
+        / source.name
+    )
 
     destination.parent.mkdir(
         parents=True,
-        exist_ok=True,
+        exist_ok=True
     )
 
     if destination.exists():
@@ -250,14 +304,12 @@ def import_emulator_file(
 
     shutil.copy2(
         source,
-        destination,
+        destination
     )
 
     return {
         "title": title,
-        "description": (
-            f"{platform} game."
-        ),
+        "description": f"{platform} game.",
         "category": "Gameboys",
         "platform": platform,
         "type": "emulator",
@@ -268,14 +320,14 @@ def import_emulator_file(
         "featured": False,
         "tags": [
             "Retro",
-            platform,
-        ],
+            platform
+        ]
     }
 
 
 def import_file(
     source: Path,
-    games: list[dict],
+    games: list[dict]
 ) -> dict:
 
     extension = source.suffix.lower()
@@ -283,19 +335,23 @@ def import_file(
     if extension in BROWSER_EXTENSIONS:
         return import_browser_file(
             source,
-            games,
+            games
         )
 
     if extension in EMULATOR_EXTENSIONS:
         return import_emulator_file(
             source,
-            games,
+            games
         )
+
+    supported = sorted(
+        BROWSER_EXTENSIONS
+        | set(EMULATOR_EXTENSIONS)
+    )
 
     raise ValueError(
         f"Unsupported file type: {extension}\n"
-        f"Supported: "
-        f"{', '.join(sorted(BROWSER_EXTENSIONS | set(EMULATOR_EXTENSIONS)))}"
+        f"Supported: {', '.join(supported)}"
     )
 
 
@@ -303,19 +359,19 @@ def main() -> None:
 
     if len(sys.argv) > 1:
 
-        source = Path(sys.argv[1])
+        source = Path(
+            sys.argv[1]
+        )
 
         if not source.is_absolute():
             source = ROOT / source
 
     else:
 
-        if not INCOMING.exists():
-
-            INCOMING.mkdir(
-                parents=True,
-                exist_ok=True,
-            )
+        INCOMING.mkdir(
+            parents=True,
+            exist_ok=True
+        )
 
         files = [
             path
@@ -377,10 +433,18 @@ def main() -> None:
         f"Importing: {source.name}"
     )
 
-    entry = import_file(
-        source,
-        games,
-    )
+    try:
+
+        entry = import_file(
+            source,
+            games
+        )
+
+    except Exception as exc:
+
+        raise SystemExit(
+            f"ERROR: {exc}"
+        )
 
     games.append(entry)
 
@@ -394,21 +458,34 @@ def main() -> None:
 
     if "url" in entry:
         print(
-            f"URL:   {entry['url']}"
+            f"URL:  {entry['url']}"
         )
 
     if "file" in entry:
         print(
-            f"File:  {entry['file']}"
+            f"File: {entry['file']}"
         )
 
     print()
     print(
-        "Run: git status"
+        "The game files and games.json "
+        "have been updated."
     )
 
     print(
-        "Then commit and push your changes."
+        "Now run:"
+    )
+
+    print(
+        "git add ."
+    )
+
+    print(
+        'git commit -m "Add game"'
+    )
+
+    print(
+        "git push"
     )
 
 
