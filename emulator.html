@@ -1,1274 +1,234 @@
 <!DOCTYPE html>
-<html lang="en">
-
+<html>
 <head>
-
-    <meta charset="UTF-8">
-
-    <meta
-        name="viewport"
-        content="width=device-width, initial-scale=1.0">
-
-    <title>INCRWD Universal Emulator</title>
-
-    <style>
-
-        * {
-            box-sizing: border-box;
-        }
-
-        html,
-        body {
-            margin: 0;
-            min-height: 100%;
-
-            background: #080a10;
-            color: #ffffff;
-
-            font-family:
-                Arial,
-                Helvetica,
-                sans-serif;
-        }
-
-        header {
-            min-height: 68px;
-
-            padding: 14px 25px;
-
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-
-            gap: 20px;
-
-            background: #090b12;
-
-            border-bottom:
-                1px solid #252b38;
-        }
-
-        .logo {
-            font-size: 23px;
-            font-weight: 900;
-            letter-spacing: 2px;
-        }
-
-        nav {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 18px;
-        }
-
-        nav a {
-            color: #c2c9d4;
-            text-decoration: none;
-        }
-
-        nav a:hover {
-            color: white;
-        }
-
-        main {
-            width: min(1400px, 94%);
-            margin: auto;
-
-            padding:
-                35px
-                0
-                60px;
-        }
-
-        h1 {
-            margin: 0;
-
-            font-size:
-                clamp(
-                    35px,
-                    6vw,
-                    65px
-                );
-        }
-
-        .subtitle {
-            color: #aeb7c5;
-            line-height: 1.6;
-        }
-
-        .toolbar {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 10px;
-
-            margin:
-                25px
-                0;
-        }
-
-        input,
-        select,
-        button {
-            padding:
-                12px 15px;
-
-            border-radius: 9px;
-
-            border:
-                1px solid
-                #303847;
-
-            background:
-                #111620;
-
-            color:
-                white;
-
-            font:
-                inherit;
-        }
-
-        input[type="file"] {
-            max-width: 100%;
-        }
-
-        button {
-            cursor: pointer;
-            font-weight: bold;
-        }
-
-        button:hover {
-            background: #1d2635;
-        }
-
-        .primary {
-            background: #00acd6;
-            border-color: #00acd6;
-        }
-
-        .primary:hover {
-            background: #00c2ed;
-        }
-
-        .danger {
-            background: #5a2028;
-            border-color: #78333d;
-        }
-
-        .emulator-shell {
-            width: 100%;
-
-            min-height: 620px;
-
-            padding: 10px;
-
-            background: #020305;
-
-            border:
-                1px solid
-                #283142;
-
-            border-radius: 16px;
-
-            overflow: hidden;
-        }
-
-        #game {
-            width: 100%;
-            min-height: 590px;
-        }
-
-        .welcome {
-            min-height: 570px;
-
-            display: grid;
-            place-items: center;
-
-            text-align: center;
-
-            color: #8994a4;
-        }
-
-        .welcome-box {
-            max-width: 700px;
-            padding: 40px;
-        }
-
-        .welcome-icon {
-            font-size: 75px;
-            margin-bottom: 15px;
-        }
-
-        .system-badge {
-            display: inline-block;
-
-            margin-top: 12px;
-
-            padding:
-                7px 11px;
-
-            border-radius: 999px;
-
-            background: #192333;
-
-            color: #8ee5fa;
-
-            font-size: 13px;
-            font-weight: bold;
-        }
-
-        .status {
-            margin-top: 15px;
-
-            padding: 14px;
-
-            background: #111620;
-
-            border-radius: 9px;
-
-            color: #aab4c2;
-
-            line-height: 1.5;
-        }
-
-        .success {
-            color: #79e09b;
-        }
-
-        .error {
-            color: #ff7b8c;
-        }
-
-        .notice {
-            margin-top: 15px;
-
-            padding: 14px;
-
-            background: #111620;
-
-            border-radius: 9px;
-
-            color: #929dac;
-
-            line-height: 1.5;
-        }
-
-        footer {
-            padding:
-                40px 20px;
-
-            text-align: center;
-
-            border-top:
-                1px solid #252b38;
-
-            color: #717b8a;
-        }
-
-        @media (max-width: 700px) {
-
-            header {
-                flex-direction: column;
-            }
-
-            nav {
-                justify-content: center;
-            }
-
-            .emulator-shell {
-                padding: 4px;
-            }
-
-        }
-
-    </style>
-
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>INCRWD Emulator</title>
+
+<style>
+body{
+  margin:0;
+  background:#090b12;
+  color:#fff;
+  font-family:Arial,sans-serif
+}
+header{
+  padding:16px 22px;
+  border-bottom:1px solid #252b38;
+  display:flex;
+  justify-content:space-between;
+  align-items:center
+}
+nav{
+  display:flex;
+  gap:15px;
+  flex-wrap:wrap
+}
+nav a{
+  color:#8ee5fa;
+  text-decoration:none
+}
+main{
+  max-width:1100px;
+  margin:auto;
+  padding:25px
+}
+h1{
+  margin-top:0
+}
+.toolbar{
+  display:flex;
+  gap:10px;
+  flex-wrap:wrap;
+  margin:20px 0
+}
+button,input{
+  padding:10px;
+  border-radius:8px;
+  border:1px solid #303847;
+  background:#151b26;
+  color:#fff
+}
+button{
+  cursor:pointer
+}
+#game{
+  min-height:590px;
+  background:#000
+}
+#status{
+  margin:15px 0;
+  color:#8994a4
+}
+#badge{
+  color:#8ee5fa;
+  font-weight:bold;
+  margin-bottom:12px
+}
+</style>
 </head>
-
 
 <body>
 
 <header>
-
-    <div class="logo">
-        INCRWD
-    </div>
-
-    <nav>
-
-        <a href="index.html">
-            Home
-        </a>
-
-        <a href="games.html">
-            Games
-        </a>
-
-        <a href="gameboys.html">
-            Gameboys
-        </a>
-
-        <a href="add-game.html">
-            Add Game
-        </a>
-
-        <a href="web.html">
-            Web Viewer
-        </a>
-
-    </nav>
-
+  <b>INCRWD</b>
+  <nav>
+    <a href="index.html">Home</a>
+    <a href="games.html">Games</a>
+    <a href="gameboys.html">Gameboys</a>
+    <a href="add-game.html">Add Game</a>
+    <a href="web.html">Web Viewer</a>
+  </nav>
 </header>
 
-
 <main>
+  <h1>🕹️ Universal Emulator</h1>
 
-    <h1>
-        🕹️ Universal Emulator
-    </h1>
+  <div class="toolbar">
+    <input id="rom" type="file">
+    <button id="load">Load ROM</button>
+    <button id="stop">Stop</button>
+  </div>
 
-
-    <p
-        id="subtitle"
-        class="subtitle">
-
-        Choose a ROM to begin.
-
-    </p>
-
-
-    <div class="toolbar">
-
-        <input
-            id="romInput"
-            type="file"
-            accept="
-                .gb,
-                .gbc,
-                .gba,
-                .nes,
-                .fds,
-                .unif,
-                .unf,
-                .sfc,
-                .smc,
-                .fig,
-                .swc,
-                .gd3,
-                .gd7,
-                .dx2,
-                .bsx,
-                .n64,
-                .z64,
-                .v64,
-                .nds,
-                .md,
-                .sg,
-                .smd,
-                .gen,
-                .sms,
-                .gg,
-                .32x,
-                .pce,
-                .ngp,
-                .ngc,
-                .ws,
-                .wsc,
-                .col,
-                .d64,
-                .iso,
-                .cue,
-                .img,
-                .mdf,
-                .pbp,
-                .toc,
-                .cbn,
-                .m3u,
-                .ccd,
-                .chd,
-                .a26,
-                .a52,
-                .a78,
-                .lnx
-            ">
-
-
-        <button
-            id="loadButton"
-            class="primary">
-
-            Load ROM
-
-        </button>
-
-
-        <button
-            id="stopButton"
-            class="danger">
-
-            Stop
-
-        </button>
-
-    </div>
-
-
-    <div id="systemBadge"></div>
-
-
-    <div class="emulator-shell">
-
-        <div
-            id="welcome"
-            class="welcome">
-
-            <div class="welcome-box">
-
-                <div class="welcome-icon">
-                    🕹️
-                </div>
-
-                <h2>
-                    Emulator Ready
-                </h2>
-
-                <p>
-                    Choose a ROM file and click
-                    <strong>Load ROM</strong>.
-                </p>
-
-                <p>
-                    The emulator will detect the
-                    system from the filename.
-                </p>
-
-            </div>
-
-        </div>
-
-
-        <div
-            id="game"
-            style="display:none;">
-        </div>
-
-    </div>
-
-
-    <div
-        id="status"
-        class="status">
-
-        No game selected.
-
-    </div>
-
-
-    <div class="notice">
-
-        This emulator supports many classic systems.
-        Some systems require BIOS files, specific
-        disc-image layouts, or particular ROM formats.
-
-    </div>
-
+  <div id="badge"></div>
+  <div id="game"></div>
+  <div id="status">Choose a ROM to begin.</div>
 </main>
 
-
-<footer>
-
-    <p>
-        EmulatorJS is distributed under its applicable
-        open-source license.
-    </p>
-
-</footer>
-
-
 <script>
-
-/* ============================================================
-   CONFIG
-   ============================================================ */
-
-const DATA_PATH =
-    "https://cdn.emulatorjs.org/stable/data/";
-
-
-/* ============================================================
-   PAGE ELEMENTS
-   ============================================================ */
-
-const romInput =
-    document.getElementById(
-        "romInput"
-    );
-
-
-const loadButton =
-    document.getElementById(
-        "loadButton"
-    );
-
-
-const stopButton =
-    document.getElementById(
-        "stopButton"
-    );
-
-
-const welcome =
-    document.getElementById(
-        "welcome"
-    );
-
-
-const game =
-    document.getElementById(
-        "game"
-    );
-
-
-const subtitle =
-    document.getElementById(
-        "subtitle"
-    );
-
-
-const status =
-    document.getElementById(
-        "status"
-    );
-
-
-const systemBadge =
-    document.getElementById(
-        "systemBadge"
-    );
-
-
-/* ============================================================
-   EXTENSION → EMULATOR CORE
-   ============================================================ */
-
-/*
- * These mappings follow the current EmulatorJS
- * frontend/core conventions. :contentReference[oaicite:1]{index=1}
- */
-
-const CORE_MAP = {
-
-    /* Nintendo */
-
-    gb: "gb",
-
-    gbc: "gb",
-
-    gba: "gba",
-
-    nes: "nes",
-
-    fds: "nes",
-
-    unif: "nes",
-
-    unf: "nes",
-
-    sfc: "snes",
-
-    smc: "snes",
-
-    fig: "snes",
-
-    swc: "snes",
-
-    gd3: "snes",
-
-    gd7: "snes",
-
-    dx2: "snes",
-
-    bsx: "snes",
-
-    n64: "n64",
-
-    z64: "n64",
-
-    v64: "n64",
-
-    nds: "nds",
-
-
-    /* Sega */
-
-    md: "segaMD",
-
-    sg: "segaMS",
-
-    smd: "segaMD",
-
-    gen: "segaMD",
-
-    sms: "segaMS",
-
-    gg: "segaGG",
-
-    "32x": "sega32x",
-
-
-    /* NEC */
-
-    pce: "pce",
-
-
-    /* Neo Geo Pocket */
-
-    ngp: "ngp",
-
-    ngc: "ngp",
-
-
-    /* WonderSwan */
-
-    ws: "ws",
-
-    wsc: "ws",
-
-
-    /* Atari */
-
-    a26: "atari2600",
-
-    a52: "a5200",
-
-    a78: "atari7800",
-
-    lnx: "lynx",
-
-
-    /* Coleco */
-
-    col: "coleco",
-
-
-    /* Commodore */
-
-    d64: "vice_x64sc",
-
-
-    /* PlayStation */
-
-    iso: "psx",
-
-    cue: "psx",
-
-    img: "psx",
-
-    mdf: "psx",
-
-    pbp: "psx",
-
-    toc: "psx",
-
-    cbn: "psx",
-
-    m3u: "psx",
-
-    ccd: "psx",
-
-    chd: "psx"
-
+const DATA="https://cdn.emulatorjs.org/stable/data/";
+
+const CORE={
+  gb:"gb", gbc:"gb", gba:"gba",
+  nes:"nes", fds:"nes",
+  sfc:"snes", smc:"snes",
+  n64:"n64", z64:"n64", v64:"n64",
+  nds:"nds",
+  md:"segaMD", gen:"segaMD", smd:"segaMD",
+  sms:"segaMS", sg:"segaMS",
+  gg:"segaGG",
+  "32x":"sega32x",
+  pce:"pce",
+  ngp:"ngp", ngc:"ngp",
+  ws:"ws", wsc:"ws",
+  a26:"atari2600",
+  a52:"a5200",
+  a78:"atari7800",
+  lnx:"lynx",
+  col:"coleco",
+  d64:"vice_x64sc",
+  iso:"psx", cue:"psx", chd:"psx", pbp:"psx"
 };
 
-
-/* ============================================================
-   DISPLAY NAMES
-   ============================================================ */
-
-const CORE_NAMES = {
-
-    gb:
-        "Nintendo Game Boy",
-
-    gba:
-        "Nintendo Game Boy Advance",
-
-    nes:
-        "Nintendo Entertainment System",
-
-    snes:
-        "Super Nintendo Entertainment System",
-
-    n64:
-        "Nintendo 64",
-
-    nds:
-        "Nintendo DS",
-
-    segaMD:
-        "Sega Genesis / Mega Drive",
-
-    segaMS:
-        "Sega Master System",
-
-    segaGG:
-        "Sega Game Gear",
-
-    sega32x:
-        "Sega 32X",
-
-    pce:
-        "PC Engine",
-
-    ngp:
-        "Neo Geo Pocket",
-
-    ws:
-        "WonderSwan",
-
-    coleco:
-        "ColecoVision",
-
-    vice_x64sc:
-        "Commodore 64",
-
-    psx:
-        "Sony PlayStation",
-
-    atari2600:
-        "Atari 2600",
-
-    a5200:
-        "Atari 5200",
-
-    atari7800:
-        "Atari 7800",
-
-    lynx:
-        "Atari Lynx"
-
+const NAME={
+  gb:"Nintendo Game Boy",
+  gbc:"Nintendo Game Boy Color",
+  gba:"Nintendo Game Boy Advance",
+  nes:"Nintendo Entertainment System",
+  snes:"Super Nintendo",
+  n64:"Nintendo 64",
+  nds:"Nintendo DS",
+  segaMD:"Sega Genesis / Mega Drive",
+  segaMS:"Sega Master System",
+  segaGG:"Sega Game Gear",
+  sega32x:"Sega 32X",
+  pce:"PC Engine",
+  ngp:"Neo Geo Pocket",
+  ws:"WonderSwan",
+  atari2600:"Atari 2600",
+  a5200:"Atari 5200",
+  atari7800:"Atari 7800",
+  lynx:"Atari Lynx",
+  coleco:"ColecoVision",
+  vice_x64sc:"Commodore 64",
+  psx:"Sony PlayStation"
 };
 
+const file=document.getElementById("rom");
+const load=document.getElementById("load");
+const stop=document.getElementById("stop");
+const game=document.getElementById("game");
+const status=document.getElementById("status");
+const badge=document.getElementById("badge");
 
-/* ============================================================
-   HELPERS
-   ============================================================ */
+let started=false;
 
-function setStatus(
-    message,
-    type = ""
-) {
-
-    status.textContent =
-        message;
-
-    status.className =
-        "status " + type;
-
+function ext(name){
+  const p=name.toLowerCase().split(".");
+  return p.length>1?p.pop():"";
 }
 
+function start(source,core,name){
+  if(started)return;
 
-function getExtension(
-    filename
-) {
+  started=true;
 
-    const parts =
-        filename
-            .toLowerCase()
-            .split(".");
+  window.EJS_player="#game";
+  window.EJS_gameName=name;
+  window.EJS_gameUrl=source;
+  window.EJS_core=core;
+  window.EJS_pathtodata=DATA;
+  window.EJS_biosUrl="";
+  window.EJS_startOnLoaded=true;
+  window.EJS_disableDatabases=true;
 
+  badge.textContent=NAME[core]||core;
+  status.textContent="Loading "+name+"...";
 
-    if (
-        parts.length < 2
-    ) {
+  const s=document.createElement("script");
+  s.src=DATA+"loader.js";
 
-        return "";
+  s.onload=()=>{
+    status.textContent=(NAME[core]||core)+" emulator started.";
+  };
 
-    }
+  s.onerror=()=>{
+    started=false;
+    status.textContent="EmulatorJS failed to load.";
+  };
 
-
-    return parts.pop();
-
+  document.body.appendChild(s);
 }
 
+function loadFile(f){
+  if(!f){
+    status.textContent="Choose a ROM first.";
+    return;
+  }
 
-function detectCore(
-    filename
-) {
+  const core=CORE[ext(f.name)];
 
-    const extension =
-        getExtension(
-            filename
-        );
+  if(!core){
+    status.textContent="Unsupported ROM: "+ext(f.name);
+    return;
+  }
 
-
-    return (
-        CORE_MAP[
-            extension
-        ] || null
-    );
-
+  start(f,core,f.name);
 }
 
+load.onclick=()=>{
+  loadFile(file.files[0]);
+};
 
-function getCoreName(
-    core
-) {
+stop.onclick=()=>{
+  location.href="emulator.html";
+};
 
-    return (
-        CORE_NAMES[
-            core
-        ] || core
-    );
+const q=new URLSearchParams(location.search);
+const rom=q.get("rom");
+const core=q.get("core");
 
+if(rom){
+  const name=decodeURIComponent(rom.split("/").pop());
+  const detected=core||CORE[ext(name)];
+
+  if(detected){
+    start(new URL(rom,location.href).href,detected,name);
+  }else{
+    status.textContent="Could not detect emulator core.";
+  }
 }
-
-
-function escapeHTML(
-    value
-) {
-
-    return String(value)
-        .replaceAll(
-            "&",
-            "&amp;"
-        )
-        .replaceAll(
-            "<",
-            "&lt;"
-        )
-        .replaceAll(
-            ">",
-            "&gt;"
-        )
-        .replaceAll(
-            '"',
-            "&quot;"
-        )
-        .replaceAll(
-            "'",
-            "&#039;"
-        );
-
-}
-
-
-/* ============================================================
-   EMULATOR START
-   ============================================================ */
-
-function startEmulator(
-    gameSource,
-    core,
-    gameName
-) {
-
-    /*
-     * Build a completely fresh emulator
-     * container.
-     */
-
-    game.innerHTML =
-        "";
-
-    welcome.style.display =
-        "none";
-
-    game.style.display =
-        "block";
-
-
-    systemBadge.innerHTML = `
-        <span class="system-badge">
-            ${escapeHTML(
-                getCoreName(core)
-            )}
-        </span>
-    `;
-
-
-    subtitle.textContent =
-        "Loading " +
-        gameName +
-        "...";
-
-
-    setStatus(
-        "Starting " +
-        getCoreName(core) +
-        "..."
-    );
-
-
-    /*
-     * EmulatorJS configuration.
-     *
-     * IMPORTANT:
-     *
-     * gameSource may be:
-     *
-     * 1. A normal HTTPS URL
-     * 2. A File object from <input type=file>
-     *
-     * The official EmulatorJS demo uses the File
-     * object directly for uploaded games. :contentReference[oaicite:2]{index=2}
-     */
-
-    window.EJS_player =
-        "#game";
-
-
-    window.EJS_gameName =
-        gameName;
-
-
-    window.EJS_biosUrl =
-        "";
-
-
-    window.EJS_gameUrl =
-        gameSource;
-
-
-    window.EJS_core =
-        core;
-
-
-    window.EJS_pathtodata =
-        DATA_PATH;
-
-
-    window.EJS_startOnLoaded =
-        true;
-
-
-    /*
-     * Do not use the old sessionStorage/blob
-     * technique.
-     */
-
-
-    /*
-     * The cheat button is hidden from the UI.
-     */
-
-    window.EJS_Buttons = {
-
-        playPause: true,
-
-        restart: true,
-
-        mute: true,
-
-        settings: true,
-
-        fullscreen: true,
-
-        saveState: true,
-
-        loadState: true,
-
-        screenRecord: false,
-
-        gamepad: true,
-
-        cheat: false,
-
-        volume: true,
-
-        saveSavFiles: true,
-
-        loadSavFiles: true,
-
-        quickSave: true,
-
-        quickLoad: true,
-
-        screenshot: true,
-
-        cacheManager: true,
-
-        exitEmulation: true
-
-    };
-
-
-    /*
-     * Disable the database lookup.
-     *
-     * This keeps ROM launching from depending on
-     * an external game database.
-     */
-
-    window.EJS_disableDatabases =
-        true;
-
-
-    /*
-     * Load the EmulatorJS loader exactly once
-     * for this fresh page instance.
-     */
-
-    const existingLoader =
-        document.getElementById(
-            "incrwd-emulator-loader"
-        );
-
-
-    if (existingLoader) {
-
-        existingLoader.remove();
-
-    }
-
-
-    const loader =
-        document.createElement(
-            "script"
-        );
-
-
-    loader.id =
-        "incrwd-emulator-loader";
-
-
-    loader.src =
-        DATA_PATH +
-        "loader.js";
-
-
-    loader.onload =
-        function() {
-
-            setStatus(
-                getCoreName(core) +
-                " emulator started.",
-                "success"
-            );
-
-        };
-
-
-    loader.onerror =
-        function() {
-
-            setStatus(
-                "EmulatorJS could not be loaded.",
-                "error"
-            );
-
-        };
-
-
-    document.body.appendChild(
-        loader
-    );
-
-}
-
-
-/* ============================================================
-   LOCAL ROM
-   ============================================================ */
-
-function loadLocalROM() {
-
-    const file =
-        romInput.files[0];
-
-
-    if (!file) {
-
-        setStatus(
-            "Choose a ROM first.",
-            "error"
-        );
-
-        return;
-
-    }
-
-
-    const core =
-        detectCore(
-            file.name
-        );
-
-
-    if (!core) {
-
-        setStatus(
-            "Unsupported ROM extension: " +
-            getExtension(file.name),
-            "error"
-        );
-
-        return;
-
-    }
-
-
-    /*
-     * THIS IS THE IMPORTANT FIX:
-     *
-     * Pass the File object directly to
-     * EmulatorJS.
-     *
-     * No blob URL.
-     * No sessionStorage.
-     * No second page.
-     */
-
-    startEmulator(
-        file,
-        core,
-        file.name
-    );
-
-}
-
-
-loadButton.addEventListener(
-    "click",
-    loadLocalROM
-);
-
-
-/* ============================================================
-   REPOSITORY ROM
-   ============================================================ */
-
-function loadRepositoryROM() {
-
-    const params =
-        new URLSearchParams(
-            window.location.search
-        );
-
-
-    const rom =
-        params.get(
-            "rom"
-        );
-
-
-    if (!rom) {
-
-        return false;
-
-    }
-
-
-    const explicitCore =
-        params.get(
-            "core"
-        );
-
-
-    const gameName =
-        decodeURIComponent(
-            rom
-                .split("/")
-                .pop()
-        );
-
-
-    const core =
-        explicitCore ||
-        detectCore(
-            gameName
-        );
-
-
-    if (!core) {
-
-        setStatus(
-            "Could not determine the emulator core.",
-            "error"
-        );
-
-        return true;
-
-    }
-
-
-    let absoluteURL;
-
-
-    try {
-
-        absoluteURL =
-            new URL(
-                rom,
-                window.location.href
-            ).href;
-
-    } catch {
-
-        setStatus(
-            "Invalid ROM URL.",
-            "error"
-        );
-
-        return true;
-
-    }
-
-
-    /*
-     * Repository games use normal HTTPS URLs.
-     */
-
-    startEmulator(
-        absoluteURL,
-        core,
-        gameName
-    );
-
-
-    return true;
-
-}
-
-
-/* ============================================================
-   STOP
-   ============================================================ */
-
-stopButton.addEventListener(
-    "click",
-    function() {
-
-        /*
-         * The easiest safe way to completely stop
-         * EmulatorJS is to return to the clean
-         * emulator page.
-         */
-
-        window.location.href =
-            "emulator.html";
-
-    }
-);
-
-
-/* ============================================================
-   INITIALIZATION
-   ============================================================ */
-
-const repositoryGameLoaded =
-    loadRepositoryROM();
-
-
-if (!repositoryGameLoaded) {
-
-    setStatus(
-        "No game selected. Emulator is idle."
-    );
-
-}
-
 </script>
 
 </body>
-
 </html>
