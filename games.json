@@ -15,17 +15,19 @@
         ]
     },
     {
-        "title": "Gbacraft Archive",
-        "description": "Game Boy Advance game.",
+        "title": "GBACRAFT",
+        "description": "GBA homebrew game.",
         "category": "Gameboys",
         "platform": "Game Boy Advance",
         "type": "emulator",
-        "file": "games/gameboys/gbacraft_archive.gba",
+        "file": "games/gameboys/GBACRAFT.gba",
         "core": "gba",
-        "featured": false,
+        "featured": true,
         "tags": [
+            "GBA",
+            "Game Boy Advance",
             "Retro",
-            "Game Boy Advance"
+            "Homebrew"
         ]
     },
     {
@@ -40,20 +42,6 @@
             "Arcade",
             "Browser",
             "Test"
-        ]
-    },
-    {
-        "title": "Gbacraft",
-        "description": "Game Boy Advance game.",
-        "category": "Gameboys",
-        "platform": "Game Boy Advance",
-        "type": "emulator",
-        "file": "games/gameboys/GBACRAFT.gba",
-        "core": "gba",
-        "featured": false,
-        "tags": [
-            "Retro",
-            "Game Boy Advance"
         ]
     }
 ]
