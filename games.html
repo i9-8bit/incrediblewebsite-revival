@@ -7,12 +7,14 @@
 
 <style>
 *{box-sizing:border-box}
+
 body{
     margin:0;
     background:#080a10;
     color:#fff;
     font-family:Arial,Helvetica,sans-serif
 }
+
 header{
     min-height:68px;
     padding:14px 25px;
@@ -23,21 +25,27 @@ header{
     background:#090b12;
     border-bottom:1px solid #252b38
 }
+
 .logo{
     font-size:23px;
     font-weight:900;
     letter-spacing:2px
 }
+
 nav{
     display:flex;
     flex-wrap:wrap;
     gap:18px
 }
+
 nav a{
     color:#c2c9d4;
     text-decoration:none
 }
-nav a:hover{color:#fff}
+
+nav a:hover{
+    color:#fff
+}
 
 main{
     width:min(1400px,94%);
@@ -49,6 +57,7 @@ h1{
     margin:0;
     font-size:clamp(38px,6vw,70px)
 }
+
 .subtitle{
     color:#aeb7c5;
     line-height:1.6
@@ -86,6 +95,7 @@ input,select{
     color:#c2c9d4;
     cursor:pointer
 }
+
 .tab.active{
     background:#00acd6;
     border-color:#00acd6;
@@ -106,16 +116,33 @@ input,select{
     transition:.2s;
     position:relative
 }
+
 .game-card:hover{
     transform:translateY(-4px);
     border-color:#00acd6
 }
 
+.card-image{
+    width:100%;
+    height:150px;
+    object-fit:cover;
+    display:block;
+    background:#192333
+}
+
+.card-placeholder{
+    height:150px;
+    display:grid;
+    place-items:center;
+    background:#192333;
+    color:#687386;
+    font-size:50px
+}
+
 .card-top{
-    padding:18px 18px 0;
+    padding:12px 16px 0;
     display:flex;
-    justify-content:space-between;
-    gap:10px
+    justify-content:flex-end
 }
 
 .star{
@@ -125,16 +152,24 @@ input,select{
     font-size:22px;
     cursor:pointer
 }
-.star.favorite{color:#ffd45c}
 
-.game-card-content{padding:18px}
+.star.favorite{
+    color:#ffd45c
+}
+
+.game-card-content{
+    padding:14px 18px 18px
+}
+
 .game-card h2{
     margin:0 0 10px;
     font-size:21px
 }
+
 .game-card p{
     color:#98a3b3;
-    line-height:1.5
+    line-height:1.5;
+    min-height:48px
 }
 
 .meta{
@@ -154,7 +189,9 @@ input,select{
     font-weight:bold
 }
 
-.play:hover{background:#00c2ed}
+.play:hover{
+    background:#00c2ed
+}
 
 .empty{
     padding:50px;
@@ -175,9 +212,17 @@ footer{
 }
 
 @media(max-width:800px){
-    header{flex-direction:column}
-    nav{justify-content:center}
-    .toolbar{grid-template-columns:1fr}
+    header{
+        flex-direction:column
+    }
+
+    nav{
+        justify-content:center
+    }
+
+    .toolbar{
+        grid-template-columns:1fr
+    }
 }
 </style>
 </head>
@@ -185,6 +230,7 @@ footer{
 <body>
 
 <header>
+
     <div class="logo">INCRWD</div>
 
     <nav>
@@ -195,6 +241,7 @@ footer{
         <a href="add-game.html">Add Game</a>
         <a href="web.html">Web Viewer</a>
     </nav>
+
 </header>
 
 <main>
@@ -206,7 +253,11 @@ footer{
 </p>
 
 <div class="toolbar">
-    <input id="search" placeholder="Search games...">
+
+    <input
+        id="search"
+        placeholder="Search games..."
+    >
 
     <select id="category">
         <option value="all">All Categories</option>
@@ -222,19 +273,34 @@ footer{
         <option value="platform">Platform</option>
         <option value="favorites">Favorites</option>
     </select>
+
 </div>
 
 <div class="tabs">
-    <button class="tab active" data-mode="all">All</button>
-    <button class="tab" data-mode="featured">⭐ Featured</button>
-    <button class="tab" data-mode="favorites">❤️ Favorites</button>
+
+    <button class="tab active" data-mode="all">
+        All
+    </button>
+
+    <button class="tab" data-mode="featured">
+        ⭐ Featured
+    </button>
+
+    <button class="tab" data-mode="favorites">
+        ❤️ Favorites
+    </button>
+
 </div>
 
 <div id="count" class="count"></div>
 
 <div id="gameList" class="game-grid"></div>
 
-<div id="empty" class="empty" style="display:none">
+<div
+    id="empty"
+    class="empty"
+    style="display:none"
+>
     No games matched your filters.
 </div>
 
@@ -245,35 +311,58 @@ footer{
 </footer>
 
 <script>
+
 let games = [];
 let mode = "all";
 
-const search = document.getElementById("search");
-const category = document.getElementById("category");
-const platform = document.getElementById("platform");
-const sort = document.getElementById("sort");
-const gameList = document.getElementById("gameList");
-const empty = document.getElementById("empty");
-const count = document.getElementById("count");
+const search =
+    document.getElementById("search");
+
+const category =
+    document.getElementById("category");
+
+const platform =
+    document.getElementById("platform");
+
+const sort =
+    document.getElementById("sort");
+
+const gameList =
+    document.getElementById("gameList");
+
+const empty =
+    document.getElementById("empty");
+
+const count =
+    document.getElementById("count");
 
 const favorites =
     JSON.parse(
         localStorage.getItem("incrwd-favorites") || "[]"
     );
 
+
 function saveFavorites(){
+
     localStorage.setItem(
         "incrwd-favorites",
         JSON.stringify(favorites)
     );
+
 }
+
 
 function isFavorite(game){
+
     return favorites.includes(game.title);
+
 }
 
+
 function toggleFavorite(title){
-    const index = favorites.indexOf(title);
+
+    const index =
+        favorites.indexOf(title);
 
     if(index >= 0){
         favorites.splice(index,1);
@@ -283,16 +372,21 @@ function toggleFavorite(title){
 
     saveFavorites();
     render();
+
 }
 
+
 function escapeHTML(value){
+
     return String(value)
         .replaceAll("&","&amp;")
         .replaceAll("<","&lt;")
         .replaceAll(">","&gt;")
         .replaceAll('"',"&quot;")
         .replaceAll("'","&#039;");
+
 }
+
 
 function buildFilters(){
 
@@ -312,106 +406,173 @@ function buildFilters(){
         )
     ].sort();
 
+    category.innerHTML =
+        '<option value="all">All Categories</option>';
+
+    platform.innerHTML =
+        '<option value="all">All Platforms</option>';
+
     for(const item of categories){
+
         category.innerHTML +=
             `<option value="${escapeHTML(item)}">${escapeHTML(item)}</option>`;
+
     }
 
     for(const item of platforms){
+
         platform.innerHTML +=
             `<option value="${escapeHTML(item)}">${escapeHTML(item)}</option>`;
+
     }
+
 }
+
 
 function getPlayURL(game){
 
-    if(game.type === "emulator" && game.file){
+    if(
+        game.type === "emulator" &&
+        game.file
+    ){
 
-        return "emulator.html?rom=" +
+        return (
+            "emulator.html?rom=" +
             encodeURIComponent(game.file) +
             "&core=" +
-            encodeURIComponent(game.core || "");
+            encodeURIComponent(game.core || "")
+        );
 
     }
 
     return game.url || "#";
+
 }
+
 
 function render(){
 
     const query =
-        search.value.trim().toLowerCase();
+        search.value
+            .trim()
+            .toLowerCase();
 
-    let filtered = games.filter(game => {
+    let filtered =
+        games.filter(game => {
 
-        const text = [
-            game.title || "",
-            game.description || "",
-            game.category || "",
-            game.platform || "",
-            ...(game.tags || [])
-        ].join(" ").toLowerCase();
+            const text = [
+                game.title || "",
+                game.description || "",
+                game.category || "",
+                game.platform || "",
+                ...(game.tags || [])
+            ]
+            .join(" ")
+            .toLowerCase();
 
-        const matchesSearch =
-            !query || text.includes(query);
+            const matchesSearch =
+                !query ||
+                text.includes(query);
 
-        const matchesCategory =
-            category.value === "all" ||
-            game.category === category.value;
+            const matchesCategory =
+                category.value === "all" ||
+                game.category === category.value;
 
-        const matchesPlatform =
-            platform.value === "all" ||
-            game.platform === platform.value;
+            const matchesPlatform =
+                platform.value === "all" ||
+                game.platform === platform.value;
 
-        const matchesMode =
-            mode === "all" ||
-            (mode === "featured" && game.featured) ||
-            (mode === "favorites" && isFavorite(game));
+            const matchesMode =
+                mode === "all" ||
+                (
+                    mode === "featured" &&
+                    game.featured
+                ) ||
+                (
+                    mode === "favorites" &&
+                    isFavorite(game)
+                );
 
-        return (
-            matchesSearch &&
-            matchesCategory &&
-            matchesPlatform &&
-            matchesMode
-        );
-    });
+            return (
+                matchesSearch &&
+                matchesCategory &&
+                matchesPlatform &&
+                matchesMode
+            );
+
+        });
+
 
     filtered.sort((a,b) => {
 
         if(sort.value === "category"){
-            return (a.category || "")
-                .localeCompare(b.category || "");
+
+            return (
+                (a.category || "")
+                .localeCompare(
+                    b.category || ""
+                )
+            );
+
         }
 
         if(sort.value === "platform"){
-            return (a.platform || "")
-                .localeCompare(b.platform || "");
+
+            return (
+                (a.platform || "")
+                .localeCompare(
+                    b.platform || ""
+                )
+            );
+
         }
 
         if(sort.value === "favorites"){
-            return Number(isFavorite(b)) -
-                   Number(isFavorite(a)) ||
-                   (a.title || "").localeCompare(b.title || "");
+
+            return (
+                Number(isFavorite(b)) -
+                Number(isFavorite(a)) ||
+                (a.title || "")
+                .localeCompare(
+                    b.title || ""
+                )
+            );
+
         }
 
-        return (a.title || "")
-            .localeCompare(b.title || "");
+        return (
+            (a.title || "")
+            .localeCompare(
+                b.title || ""
+            )
+        );
+
     });
 
+
     count.textContent =
-        `${filtered.length} game${filtered.length === 1 ? "" : "s"}`;
+        `${filtered.length} game${
+            filtered.length === 1
+            ? ""
+            : "s"
+        }`;
 
     gameList.innerHTML = "";
 
     empty.style.display =
-        filtered.length ? "none" : "block";
+        filtered.length
+        ? "none"
+        : "block";
+
 
     for(const game of filtered){
 
         const card =
             document.createElement("article");
 
-        card.className = "game-card";
+        card.className =
+            "game-card";
+
 
         const favorite =
             isFavorite(game);
@@ -423,10 +584,29 @@ function render(){
             game.type === "web" &&
             /^https?:\/\//i.test(playURL);
 
-        card.innerHTML = `
-            <div class="card-top">
 
-                <div></div>
+        const image =
+            game.image
+            ? `
+                <img
+                    class="card-image"
+                    src="${escapeHTML(game.image)}"
+                    alt="${escapeHTML(game.title || "Game")}"
+                    onerror="this.outerHTML='<div class=&quot;card-placeholder&quot;>🎮</div>'"
+                >
+            `
+            : `
+                <div class="card-placeholder">
+                    🎮
+                </div>
+            `;
+
+
+        card.innerHTML = `
+
+            ${image}
+
+            <div class="card-top">
 
                 <button
                     class="star ${favorite ? "favorite" : ""}"
@@ -453,21 +633,27 @@ function render(){
                 </p>
 
                 <div class="meta">
+
                     ${escapeHTML(
                         game.category || "Other"
                     )}
+
                     •
+
                     ${escapeHTML(
                         game.platform || "Web"
                     )}
+
                 </div>
 
                 <a
                     class="play"
                     href="${escapeHTML(playURL)}"
-                    ${external
+                    ${
+                        external
                         ? 'target="_blank" rel="noopener noreferrer"'
-                        : ""}
+                        : ""
+                    }
                 >
                     ${
                         game.type === "emulator"
@@ -479,6 +665,7 @@ function render(){
             </div>
         `;
 
+
         card
             .querySelector(".star")
             .addEventListener(
@@ -486,9 +673,13 @@ function render(){
                 () => toggleFavorite(game.title)
             );
 
+
         gameList.appendChild(card);
+
     }
+
 }
+
 
 async function loadGames(){
 
@@ -501,7 +692,11 @@ async function loadGames(){
             );
 
         if(!response.ok){
-            throw new Error("games.json failed");
+
+            throw new Error(
+                "games.json failed"
+            );
+
         }
 
         games =
@@ -515,22 +710,50 @@ async function loadGames(){
         console.error(error);
 
         gameList.innerHTML = `
+
             <div class="game-card">
+
                 <div class="game-card-content">
-                    <h2>Game library error</h2>
+
+                    <h2>
+                        Game library error
+                    </h2>
+
                     <p>
                         Could not load games.json.
                     </p>
+
                 </div>
+
             </div>
+
         `;
+
     }
+
 }
 
-search.addEventListener("input",render);
-category.addEventListener("change",render);
-platform.addEventListener("change",render);
-sort.addEventListener("change",render);
+
+search.addEventListener(
+    "input",
+    render
+);
+
+category.addEventListener(
+    "change",
+    render
+);
+
+platform.addEventListener(
+    "change",
+    render
+);
+
+sort.addEventListener(
+    "change",
+    render
+);
+
 
 document
     .querySelectorAll(".tab")
@@ -543,20 +766,29 @@ document
                 document
                     .querySelectorAll(".tab")
                     .forEach(
-                        x => x.classList.remove("active")
+                        x =>
+                            x.classList.remove(
+                                "active"
+                            )
                     );
 
-                tab.classList.add("active");
+                tab.classList.add(
+                    "active"
+                );
 
                 mode =
                     tab.dataset.mode;
 
                 render();
+
             }
         );
+
     });
 
+
 loadGames();
+
 </script>
 
 </body>
